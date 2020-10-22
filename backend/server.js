@@ -9,7 +9,6 @@ const app = express()
 
 // configurations
 const port = 8080         // port
-const name = 'Klassez' // name 
 
 // enable
 app.use(bodyParser.urlencoded({extended: true})) // url-encoded body parsing
