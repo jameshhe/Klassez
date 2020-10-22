@@ -1,0 +1,54 @@
+version: "3.3"
+
+services:
+  foogle-db:
+    build: ./backend/mysql
+    restart: always
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - foogle-vol:/var/lib/mysql
+    networks:
+      - foogle-net
+
+  backend-api:
+    build: ./backend
+    restart: always
+    volumes:
+      - ./backend:/usr/src/app
+    working_dir: /usr/src/app
+    depends_on:
+      - foogle-db
+    command: bash -c "yarn && yarn run dev"
+    ports:
+      - 8000:8000
+    networks:
+      - foogle-net
+
+  frontend-app:
+    # image: node:12
+    tty: true
+    build: ./frontend
+    restart: always
+    working_dir: /usr/src/app
+    command: bash -c "yarn && yarn start"
+    volumes:
+      - ./frontend:/usr/src/app
+    depends_on:
+      - backend-api
+    ports:
+      - 3000:3000
+    networks:
+      - foogle-net
+
+# we are using a network to connect these
+# two containers. They will be part of the same virtual network
+# called 'backend'.
+networks:
+  foogle-net:
+
+volumes:
+  foogle-vol:
