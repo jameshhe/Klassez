@@ -1,7 +1,7 @@
 version: "3.3"
 
 services:
-  foogle-db:
+  klassez-db:
     build: ./backend/mysql
     restart: always
     ports:
@@ -10,9 +10,9 @@ services:
     expose:
       - '3306'
     volumes:
-      - foogle-vol:/var/lib/mysql
+      - klassez-vol:/var/lib/mysql
     networks:
-      - foogle-net
+      - klassez-net
 
   backend-api:
     build: ./backend
@@ -21,12 +21,12 @@ services:
       - ./backend:/usr/src/app
     working_dir: /usr/src/app
     depends_on:
-      - foogle-db
+      - klassez-db
     command: bash -c "yarn && yarn run dev"
     ports:
       - 8000:8000
     networks:
-      - foogle-net
+      - klassez-net
 
   frontend-app:
     # image: node:12
@@ -42,13 +42,13 @@ services:
     ports:
       - 3000:3000
     networks:
-      - foogle-net
+      - klassez-net
 
 # we are using a network to connect these
 # two containers. They will be part of the same virtual network
 # called 'backend'.
 networks:
-  foogle-net:
+  klassez-net:
 
 volumes:
-  foogle-vol:
+  klassez-vol:
