@@ -1,59 +1,56 @@
 import React from 'react';
-import Routes from './Routes';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {Provider} from "react-redux";
+import {setCurrentUser, logoutUser} from "./actions/authActions";
+import jwt_decode from "jwt-decode";
+import PrivateRoute from "./components/privateRoute";
+import store from "./store";
+import setAuthToken from "./utils/setAuthToken";
+import {ROUTES} from "./Routes"
+import Navigation from "./components/navigation";
+import Landing from "./components/landing";
+import Login from "./components/login";
+import Register from "./components/register/register";
+import "./App.css"
 
 
-class App extends React.Component{
-  state = {
-    isAuthenticated: false,
-    userHasAuthenticated: x => this.setState({ isAuthenticated: x }),
-    search: false,
-    searchQuery: "",
-    navExpanded: false
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+  // Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+      // Logout user
+      store.dispatch(logoutUser());
+      // Redirect to login
+      window.location.href = "/login";
   }
-
-  searchResult(e) {
-    const form = e.currentTarget;
-    if(form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    else {
-      this.setState({search: true});
-    }
-  }
-
-  keyPressed(event) {
-    if (event.key === "Enter" && this.state.searchQuery !== "") {
-      this.searchResult(event)
-    }
-  }
-
-  handleLogout(e) {
-    window.sessionStorage.removeItem("auth");
-    window.sessionStorage.removeItem("username");
-    window.sessionStorage.removeItem("account");
-    window.sessionStorage.removeItem("admin");
-    this.setState({ isAuthenticated: false });
-  }
-
-  setNavExpanded(expanded) {
-    this.setState({ navExpanded: expanded });
-  }
-
-  render() {
-
-    if(this.state.search)
-    {
-      let redirectURL = `/product/${this.state.searchQuery}`;
-      this.setState({ searchQuery: "" });
-      this.setState({ search: false });
-      return(<></>);
-    }
-
-    return <></>;
-  }
-
 }
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <div className="App">
+	            <Navigation/>
+	            <Router>
+	                <Route exact path="/" component={Landing}/>
+                    <Route exact path="/home" component={Landing}/>
+	                <Route exact path="/login" component={Login}/>
+	                <Route exact path="/register" component={Register}/>
+	                <Switch>
+	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
+	                </Switch>
+	            </Router>
+	    	</div>
+    </Provider>
+  );
+};
 
 export default App;
 
