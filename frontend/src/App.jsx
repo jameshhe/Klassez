@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './Routes';
-
+import { ClassAddition } from './classAddition'
 
 class App extends React.Component{
   state = {
@@ -47,10 +47,14 @@ class App extends React.Component{
       let redirectURL = `/product/${this.state.searchQuery}`;
       this.setState({ searchQuery: "" });
       this.setState({ search: false });
-      return(<></>);
-    }
+      return(<>
 
-    return <></>;
+      </>);
+    }
+    
+    return <>
+    
+    </>;
   }
 
 }
