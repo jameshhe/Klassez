@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fdb533c-d461-4783-8bf1-6f8fe10f1639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/classDetails.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Routes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/classDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/classDetails.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +58,9 @@
       <workItem from="1603913889309" duration="2329000" />
       <workItem from="1604006894924" duration="538000" />
       <workItem from="1604375794256" duration="645000" />
-      <workItem from="1604377433026" duration="2382000" />
+      <workItem from="1604377433026" duration="2496000" />
+      <workItem from="1604444001727" duration="21000" />
+      <workItem from="1604503570181" duration="2047000" />
     </task>
     <servers />
   </component>
@@ -75,12 +77,14 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="842" y="190" key="FileChooserDialogImpl" timestamp="1604376697586">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="1684" y="391" key="FileChooserDialogImpl" timestamp="1604444019383">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="842" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1604376697586" />
+    <state x="1684" y="391" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1604444019383" />
     <state x="1700" y="455" key="FileChooserDialogImpl/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1604007431649" />
   </component>
 </project>
