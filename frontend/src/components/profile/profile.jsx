@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProfileHome } from './components';
+import { ProfileHome } from './profile';
 
 export class Profile extends React.Component {
     state = {
