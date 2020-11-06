@@ -1,17 +1,22 @@
 --
+-- See Class Reviews Below
+--
+
+/*--
 -- Create table 'Classes'
 --
 
 DROP TABLE IF EXISTS Classes;
 
 CREATE TABLE Classes (
-  classID VARCHAR(10) NOT NULL,
+  classID INT NOT NULL AUTO_INCREMENT,
   instructorID VARCHAR(10) DEFAULT NULL,
   timeStart TIME,
   timeEnd TIME,
   className VARCHAR(45),
   department VARCHAR(45),
   seatsRemaining INT
+  PRIMARY KEY (classID)
 );
 
 --
@@ -34,7 +39,7 @@ INSERT INTO Classes VALUES
 	('CSE 5343',12255678,"10:00:00","10:50:00",'Operating Systems and Systems Software','Computer Science',4)
 ;
 
-UNLOCK TABLES;
+UNLOCK TABLES;*/
 
 --
 -- Create table 'ClassReviews'
@@ -43,29 +48,32 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS ClassReviews;
 
 CREATE TABLE ClassReviews (
-  classID VARCHAR(10) NOT NULL,
+  classID INT NOT NULL AUTO_INCREMENT,
+  classCode VARCHAR(10) NOT NULL,
   Review VARCHAR(200) DEFAULT NULL,
-  Rating INT DEFAULT NULL
+  Rating INT DEFAULT NULL,
+  StudentID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (classID)
 );
 
 --
--- Dumping dummy data for table 'Classes'
+-- Dumping dummy data for table 'ClassReviews'
 --
 
 LOCK TABLES ClassReviews WRITE;
 
 INSERT INTO ClassReviews VALUES 
-	('CSE 1342','A lot of homework',3),
-	('CSE 1342','Easy',7),
-	('CSE 2341','Fun Class',8),
-	('CSE 2341','Very Boring',4),
-	('CSE 3342','A lot of homework',2),
-	('CSE 3342','Super Easy',8),
-	('CSE 3353','Not fun at all',2),
-	('CSE 3353','Interesting Class',7),
-	('CSE 3330','The best class to take',10),
-	('CSE 3330','The worst class to take',1),
-	('CSE 5342','Heavy Workload',5)
+	(1,'CSE 1342','A lot of homework',3,'1234567890'),
+	(2,'CSE 1342','Easy',7,'123412390'),
+	(3,'CSE 2341','Fun Class',8,'1231437890'),
+	(4,'CSE 2341','Very Boring',4,'1236357890'),
+	(5,'CSE 3342','A lot of homework',2,'1238825390'),
+	(6,'CSE 3342','Super Easy',8,'1236357890'),
+	(7,'CSE 3353','Not fun at all',2,'1238825390'),
+	(8,'CSE 3353','Interesting Class',7,'1231437890'),
+	(9,'CSE 3330','The best class to take',10,'1234567890'),
+	(10,'CSE 3330','The worst class to take',1,'123412390'),
+	(11,'CSE 5342','Heavy Workload',5,'1236357890')
 ;
 
 UNLOCK TABLES;
