@@ -1,11 +1,32 @@
-CREATE Database dummyData;
+
 use dummyData;
 
 
-create Table ClassReviews (classCode varchar(45), review varchar(200), rating int, studentID varChar(10));
-create Table Classes (classID int, instructorID varchar(10), days varchar(100), timeStart Time, timeEnd Time, classCode varchar(45), className varchar(45), department varchar(45), seatsRemaining int);
+
+DROP table Classes ;
+drop table ClassReviews ;
+drop table InstructorReviews ;
+drop table Instructors ;
+drop table Users;
+drop table Students ;
+drop table Schedules ;
+
+
+
+CREATE TABLE ClassReviews (
+  classID INT NOT NULL AUTO_INCREMENT,
+  classCode VARCHAR(10) NOT NULL,
+  Review VARCHAR(200) DEFAULT NULL,
+  Rating INT DEFAULT NULL,
+  StudentID VARCHAR(10) NOT NULL,
+  PRIMARY KEY (classID)
+
+  );
+ 
+ 
+create Table Classes (classID int, instructorID int, days varchar(100), timeStart Time, timeEnd Time, classCode varchar(45), className varchar(45), department varchar(45), seatsRemaining int);
 create Table InstructorReviews (instructorID varchar(10), reviews varchar(200));
-create Table Instructors (instructorID varchar(10), name varchar(100));
+create Table Instructors (instructorID INT NOT NULL AUTO_INCREMENT, name varchar(100), PRIMARY KEY (instructorID));
 create Table Schedules (studentID varchar(10), hours int, semester varchar(45), classesList varchar(45));
 create Table Students (studentID varchar(10), name varchar(45), gradYear varchar(4), major varchar(45),  openToNightClasses bool);
 create Table Users (username varchar(45), password varchar(45), type int, email varchar(100), id varchar(10));
@@ -42,19 +63,36 @@ insert into Users values('zachzebra', 'password', 2, 'zachz@school.edu', 2000000
 insert into Users values('ryanred', 'password', 2, 'ryanr@school.edu', 2000000005);
 insert into Users values('gloriagreen', 'password', 2, 'gloriag@school.edu', 2000000006);
 
-insert into Instructors values(2000000001, 'John Jack');
-insert into Instructors values(2000000002, 'Betty Blue');
-insert into Instructors values(2000000003, 'Maria Moon');
-insert into Instructors values(2000000004, 'Zach Zebra');
-insert into Instructors values(2000000005, 'Ryan Red');
-insert into Instructors values(2000000006, 'Gloria Green');
+insert into Instructors values(1, 'John Jack');
+insert into Instructors values(2, 'Betty Blue');
+insert into Instructors values(3, 'Maria Moon');
+insert into Instructors values(4, 'Zach Zebra');
+insert into Instructors values(5, 'Ryan Red');
+insert into Instructors values(6, 'Gloria Green');
 
 -- classes have id's that start with 4
-insert into Classes values(4000000001, 2000000001, '10:00:00', '11:00:00', 'CS 3330', 'Computer Science', 30);
-insert into Classes values(4000000001, 2000000002, '10:00:00', '11:00:00', 'CS 3330', 'Computer Science', 20);
-insert into Classes values(4000000002, 2000000003, '12:00:00', '14:00:00', 'MATH 1022', 'Math', 10);
-insert into Classes values(4000000002, 2000000004, '12:00:00', '14:00:00', 'MATH 1022', 'Math', 20);
-insert into Classes values(4000000003, 2000000005, '10:00:00', '12:00:00', 'ART 4230', 'Arts', 40);
-insert into Classes values(4000000003, 2000000006, '10:00:00', '12:00:00', 'ART 4230', 'Arts', 40);
-insert into Classes values(4000000004, 2000000001, '09:00:00', '10:30:00', 'CS 1342', 'Math', 5);
-insert into Classes values(4000000004, 2000000002, '09:00:00', '10:30:00', 'CS 1342', 'Math', 15);
+insert into Classes values(1, 1, 'MWF', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 30);
+insert into Classes values(2, 2, 'MWF', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 20);
+insert into Classes values(3, 3, 'TuTh', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 10);
+insert into Classes values(4, 4, 'TuTh', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 20);
+insert into Classes values(5, 5, 'MWF', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
+insert into Classes values(6, 6, 'TuTh', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
+insert into Classes values(7, 1, 'MW', '09:00:00', '10:30:00', 'CS 1342', 'Intro to coding','Math', 5);
+insert into Classes values(8, 2, 'MW','09:00:00', '10:30:00', 'CS 1342', 'Intro to coding', 'Math', 15);
+
+
+INSERT INTO ClassReviews VALUES 
+	(1,'CSE 1342','A lot of homework',3,'1234567890'),
+	(2,'CSE 1342','Easy',7,'123412390'),
+	(3,'CSE 2341','Fun Class',8,'1231437890'),
+	(4,'CSE 2341','Very Boring',4,'1236357890'),
+	(5,'CSE 3342','A lot of homework',2,'1238825390'),
+	(6,'CSE 3342','Super Easy',8,'1236357890'),
+	(7,'CSE 3353','Not fun at all',2,'1238825390'),
+	(8,'CSE 3353','Interesting Class',7,'1231437890'),
+	(9,'CSE 3330','The best class to take',10,'1234567890'),
+	(10,'CSE 3330','The worst class to take',1,'123412390'),
+	(11,'CSE 5342','Heavy Workload',5,'1236357890')
+;
+
+
