@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 
-const ClassDetails = ({class_id}) => {
+const ClassDetails = () => {
     const [class_name, setClass_name] = useState('CS 3345');
     const [timeStart, setTimeStart] = useState('10:00AM');
     const [timeEnd, setTimeEnd] = useState('10:50AM');
@@ -12,7 +12,7 @@ const ClassDetails = ({class_id}) => {
     let {classId} = useParams()
     console.log({classId}.classId)
 
-    const URL = 'http://localhost:8000/classDetails/'
+    // const URL = 'http://localhost:8000/classDetails/'
 
     // useEffect(() => {
     //     const getClassDetails = async () => {
