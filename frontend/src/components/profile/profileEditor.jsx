@@ -111,11 +111,11 @@ export class ProfileEditor extends React.Component {
                 <label forHTML="biographyInput">Biography</label>
                 <textarea 
                     className="form-control" 
-                    id="exampleFormControlTextarea1" 
+                    id="biographyInput" 
                     rows="3"
-                    name="concentrationSelect"
-                    value={this.state.concentration}
-                    onChange={event => this.setState({ concentration: event.target.value })} />
+                    name="biographyInput"
+                    value={this.state.biography}
+                    onChange={event => this.setState({ biography: event.target.value })} />
             </div>
             <hr />
             <br />
