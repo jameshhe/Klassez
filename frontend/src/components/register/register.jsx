@@ -62,11 +62,11 @@ class Register extends Component {
                                     <div className="form-label-group">
                                         <input type="email" onChange={this.onChange}
                                                value={this.state.email}
-                                               error={error.email} id="inputEmail"
+                                               error={error.email} id="email"
                                                placeholder="Email address" className={classnames("form-control", {
                                             invalid: error.email
                                         })} required />
-                                            <label htmlFor="inputEmail">Email address</label>
+                                            <label htmlFor="email">Email address</label>
                                             <span className="red-text">{error.email}</span>
                                     </div>
 
@@ -75,22 +75,22 @@ class Register extends Component {
                                         <div className="form-label-group">
                                             <input type="password" onChange={this.onChange}
                                                    value={this.state.password}
-                                                   error={error.password} id="inputPassword"
+                                                   error={error.password} id="password"
                                                    placeholder="Password" className={classnames("form-control", {
                                                 invalid: error.password
                                             })} required />
-                                                <label htmlFor="inputPassword">Password</label>
+                                                <label htmlFor="password">Password</label>
                                                 <span className="red-text">{error.password}</span>
                                         </div>
 
                                         <div className="form-label-group">
                                             <input type="password" onChange={this.onChange}
                                                    value={this.state.password2}
-                                                   error={error.password2} id="inputConfirmPassword" placeholder="Password"
+                                                   error={error.password2} id="password2" placeholder="Password"
                                                    className={classnames("form-control", {
                                                        invalid: error.password2
                                                    })} required />
-                                                <label htmlFor="inputConfirmPassword">Confirm password</label>
+                                                <label htmlFor="password2">Confirm password</label>
                                                 <span className="red-text">{error.password2}</span>
                                         </div>
 

@@ -2,36 +2,26 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {login} from "../actions/authActions";
-import classnames from "classnames";
 import "./register/register.css";
 
-class Login extends Component {
+class ClassForm extends Component {
     constructor() {
         super();
         this.state = {
-            email: "",
-            password: "",
-            error: {}
+            name = "",
+            classCode = "",
+            professor = "",
+            startTime = "",
+            endTime = "",
+            days = "",
+            seatsRemaining = 0
         };
     }
 
     componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/home");
-        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/home"); // push user to dashboard when they login
-        }
-        if (nextProps.error) {
-            this.setState({
-                error: nextProps.error
-            });
-        }
     }
 
     onChange = e => {
@@ -40,8 +30,13 @@ class Login extends Component {
     onSubmit = e => {
         e.preventDefault();
         const userData = {
-            email: this.state.email,
-            password: this.state.password
+            name = this.state.name,
+            classCode = this.state.classCode,
+            professor = this.state.professor,
+            startTime = this.state.startTime,
+            endTime = this.state.endTime,
+            days = this.state.days,
+            seatsRemaining = this.state.seatsRemaining
         };
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
@@ -118,5 +113,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-    {login}
-)(Login);
+    {classForm}
+)(ClassForm);
