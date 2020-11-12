@@ -1,63 +1,30 @@
-import React from 'react';
-import Routes from './Routes';
-import { ClassAddition } from './classAddition'
+import { withRouter, useHistory, BrowserRouter as Router, Route, Switch, Link, } from 'react-router-dom';
+import { ClassHomePadge } from './classHomepadge';
+import { ClassAddition } from './classAddition';
+import { ClassReview } from './classReview';
+import { ReviewForm } from './reviewForm';
 
-class App extends React.Component{
-  state = {
-    isAuthenticated: false,
-    userHasAuthenticated: x => this.setState({ isAuthenticated: x }),
-    search: false,
-    searchQuery: "",
-    navExpanded: false
-  }
+function App() {
+  return (
+    <Router>
+            <h1>
+              <label>
+                <Link to="/">Home</Link>
+              </label>
+              <br></br>
+              <label>
+                <Link to="/classAddition">Add Class</Link>
+              </label>
+              </h1>
+            <Switch>
+              <Route path="/" exact component={ClassHomePadge}/>
+              <Route path="/classAddition" exact component={ClassAddition} />
+              <Route path="/classReview" exact component={ ClassReview } />
+              <Route path="/reviewForm" exact component={ ReviewForm }/>
+            </Switch>
+    </Router>
 
-  searchResult(e) {
-    const form = e.currentTarget;
-    if(form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    else {
-      this.setState({search: true});
-    }
-  }
-
-  keyPressed(event) {
-    if (event.key === "Enter" && this.state.searchQuery !== "") {
-      this.searchResult(event)
-    }
-  }
-
-  handleLogout(e) {
-    window.sessionStorage.removeItem("auth");
-    window.sessionStorage.removeItem("username");
-    window.sessionStorage.removeItem("account");
-    window.sessionStorage.removeItem("admin");
-    this.setState({ isAuthenticated: false });
-  }
-
-  setNavExpanded(expanded) {
-    this.setState({ navExpanded: expanded });
-  }
-
-  render() {
-
-    if(this.state.search)
-    {
-      let redirectURL = `/product/${this.state.searchQuery}`;
-      this.setState({ searchQuery: "" });
-      this.setState({ search: false });
-      return(<>
-
-      </>);
-    }
-    
-    return <>
-    
-    </>;
-  }
-
+  );
 }
 
 export default App;
-
