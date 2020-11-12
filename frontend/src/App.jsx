@@ -1,16 +1,19 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Provider} from "react-redux";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
-import jwt_decode from "jwt-decode";
-import PrivateRoute from "./components/privateRoute";
-import store from "./store";
-import setAuthToken from "./utils/setAuthToken";
+import React from 'react'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import {Provider} from "react-redux"
+import {setCurrentUser, logoutUser} from "./actions/authActions"
+import jwt_decode from "jwt-decode"
+import PrivateRoute from "./components/privateRoute"
+import store from "./store"
+import setAuthToken from "./utils/setAuthToken"
 import {ROUTES} from "./Routes"
-import Navigation from "./components/navigation";
-import Landing from "./components/landing";
-import Login from "./components/login";
-import Register from "./components/register/register";
+import Navigation from "./components/navigation"
+import Landing from "./components/landing"
+import Login from "./components/login"
+import Register from "./components/register/register"
+import ClassList from "./components/classList/classList"
+import ClassForm from "./components/classForm/classForm"
+import {Class} from "./Models/class"
 import "./App.css"
 
 
@@ -40,9 +43,11 @@ const App = () => {
 	            <Navigation/>
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
-                    <Route exact path="/home" component={Landing}/>
+                  <Route exact path="/home" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/register" component={Register}/>
+                  <Route exact path="/classList" component={ClassList}/>
+                  <Route exact path="/classForm" component={ClassForm}/>
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
