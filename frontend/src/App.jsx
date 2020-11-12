@@ -40,7 +40,7 @@ const App = () => {
 	            <Navigation/>
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
-                    <Route exact path="/home" component={Landing}/>
+                    <Route exact path="/landing" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/register" component={Register}/>
 	                <Switch>
