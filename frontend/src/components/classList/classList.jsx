@@ -67,3 +67,5 @@ export class ClassList extends React.Component{
     </table>;
     }
 }
+
+export default ClassList;
