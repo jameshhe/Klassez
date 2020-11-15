@@ -52,5 +52,22 @@ router.get('/classes/:id', function (req, res) {
 	});
 });
 
+router.get('/students', function (req, res) {
+	con.query("SELECT * FROM classes", function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	});
+});
+
+// @route   GET api/classes/:id
+// @desc    GET class info by classID
+router.get('/students/:id', function (req, res) {
+    var classID 		= req.param.id
+	con.query("SELECT * FROM classes WHERE studentID = ?",studentID ,function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	});
+});
+
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
