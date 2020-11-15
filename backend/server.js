@@ -7,13 +7,17 @@ const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 
 // mysql connection
-var connection = mysql.createConnection({
+var con = mysql.createConnection({
     host: process.env.MYSQL_CLOUD_HOST,
     user: process.env.MYSQL_CLOUD_USER,
     password: process.env.MYSQL_CLOUD_PASS,
     port: process.env.MYSQL_PORT,
     database: process.env.MYSQL_DB
   });
+
+con.connect(function(err){
+  if(err)throw err;
+});
 
 // instantiate app
 const app = express()
@@ -36,7 +40,7 @@ app.use('/api', router);
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function (req, res) {
-	con.query("SELECT * FROM classes", function (err, result, fields) {
+	con.query("SELECT * FROM Classes", function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
@@ -46,14 +50,14 @@ router.get('/classes', function (req, res) {
 // @desc    GET class info by classID
 router.get('/classes/:id', function (req, res) {
     var classID 		= req.param.id
-	con.query("SELECT * FROM classes WHERE classID = ?",classID ,function (err, result, fields) {
+	con.query("SELECT * FROM Classes WHERE classID = ?",classID ,function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
 });
 
 router.get('/students', function (req, res) {
-	con.query("SELECT * FROM classes", function (err, result, fields) {
+	con.query("SELECT * FROM Students", function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
@@ -62,8 +66,8 @@ router.get('/students', function (req, res) {
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
 router.get('/students/:id', function (req, res) {
-    var classID 		= req.param.id
-	con.query("SELECT * FROM classes WHERE studentID = ?",studentID ,function (err, result, fields) {
+    var studentID 		= req.param.id
+	con.query("SELECT * FROM Students WHERE studentID = ?",studentID ,function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
