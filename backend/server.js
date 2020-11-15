@@ -123,7 +123,7 @@ app.use('/api', router);
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function (req, res) {
-	con.query("SELECT * FROM classes", function (err, result, fields) {
+	con.query("SELECT * FROM Classes", function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
@@ -133,7 +133,7 @@ router.get('/classes', function (req, res) {
 // @desc    GET class info by classID
 router.get('/classes/:id', function (req, res) {
     var classID 		= req.param.id
-	con.query("SELECT * FROM classes WHERE classID = ?",classID ,function (err, result, fields) {
+	con.query("SELECT * FROM Classes WHERE classID = ?",classID ,function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
