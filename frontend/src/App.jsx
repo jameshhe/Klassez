@@ -12,7 +12,7 @@ import Landing from "./components/landing"
 import Login from "./components/login"
 import Register from "./components/register/register"
 import ClassList from "./components/classList/classList"
-import ClassForm from "./components/classForm/classForm"
+import ClassForm from "./components/classForm"
 import "./App.css"
 
 
@@ -48,7 +48,7 @@ const App = () => {
                   
 	                <Switch>
                     <Route exact path="/classList" component={ClassList}/>
-                    <Route exact path="/classForm" component={ClassForm}/>
+                    <Route exact path="/classForm/:classId" component={ClassForm}/>
                     {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
 	            </Router>

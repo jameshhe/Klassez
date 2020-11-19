@@ -1,7 +1,9 @@
 import React from "react";
-import "./classForm.css";
+import {ClassRepository} from '../api/classRepository'
 
 class ClassForm extends React.Component {
+    classRepository = new ClassRepository()
+
     state = {
         name: "",
         classCode: "",
@@ -21,6 +23,66 @@ class ClassForm extends React.Component {
     days = ""
 
     componentDidMount() {
+        const classId = this.props.match.params.classId
+
+        if(classId != 0){
+            this.classRepository.getClass(classId)
+                .then(tClass => {
+                    let monday = false
+                    let tuesday = false
+                    let wednesday = false
+                    let thursday = false
+                    let friday = false
+                    let saturday = false
+                    let sunday = false
+                    let days = tClass.days
+
+                    while(days.length > 0){
+                        let temp = days.slice(0, 1)
+                        let numToDelete = 1
+
+                        if(temp == "M")
+                            monday = true
+                        else if(temp == "W")
+                            wednesday = true
+                        else if(temp == "F")
+                            friday = true
+                        else if(temp == "T"){
+                            if(days.slice(1,2) == "h"){
+                                thursday = true
+                                numToDelete = 2
+                            }
+                            else
+                                tuesday = true
+                        } else if(temp == "S"){
+                            if(days.slice(1,2) == "u"){
+                                sunday = true
+                                numToDelete = 2
+                            }
+                            else
+                                saturday = true
+                        }
+
+                        days = days.slice(numToDelete)
+                    }
+
+                    this.setState({
+                        name: tClass.name,
+                        classCode: tClass.classCode,
+                        professor: tClass.professor,
+                        startTime: tClass.startTime,
+                        endTime: tClass.endTime,
+                        monday: monday,
+                        tuesday: tuesday,
+                        wednesday: wednesday,
+                        thursday: thursday,
+                        friday: friday,
+                        saturday: saturday,
+                        sunday: sunday,
+                        seatsRemaining: tClass.seatsRemaining
+                    })
+                })
+        }
     }
 
     onChange = e => {
