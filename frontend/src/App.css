@@ -5,3 +5,7 @@
 .landing-container {
     margin-top: 6rem;
 }
+
+.inner_padding * {
+    padding: 5px
+}

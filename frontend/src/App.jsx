@@ -6,14 +6,13 @@ import jwt_decode from "jwt-decode"
 import PrivateRoute from "./components/privateRoute"
 import store from "./store"
 import setAuthToken from "./utils/setAuthToken"
-import {ROUTES} from "./Routes"
+import {ROUTES} from "./Routes.jsx"
 import Navigation from "./components/navigation"
 import Landing from "./components/landing"
 import Login from "./components/login"
 import Register from "./components/register/register"
 import ClassList from "./components/classList/classList"
 import ClassForm from "./components/classForm/classForm"
-import {Class} from "./Models/class"
 import "./App.css"
 
 
@@ -46,10 +45,11 @@ const App = () => {
                   <Route exact path="/landing" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/register" component={Register}/>
-                  <Route exact path="/classList" component={ClassList}/>
-                  <Route exact path="/classForm" component={ClassForm}/>
+                  
 	                <Switch>
-	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
+                    <Route exact path="/classList" component={ClassList}/>
+                    <Route exact path="/classForm" component={ClassForm}/>
+                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
 	            </Router>
 	    	</div>

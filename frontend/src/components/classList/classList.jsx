@@ -1,20 +1,31 @@
 import React from 'react'
 import "./classList.css"
+import {ClassRepository} from '../../api/classRepository'
 
 export class ClassList extends React.Component{
-    constructor(props){
-        super()
-        this.state = {}
+    classRepository = new ClassRepository()
+    previous = ""
 
-        this.classes = props.classes;
-        this.classes = this.classes.sort((x, y) => (
-            x.classCode > y.classCode ? 1 : -1)
-        )
-        
-        this.previous = "";
+    state = {
+        classes: null
+    }
+
+    componentDidMount(){
+        this.classRepository.getClasses()
+        .then(classes => {
+            classes = classes.sort((x, y) => (
+                x.classCode > y.classCode ? 1 : -1)
+            )
+            this.setState({classes})
+        })
     }
 
     render(){
+        if(!this.state.classes){
+            return <div>Loading Classes...</div>
+        }
+
+
         return <table>
         <tbody>
     
