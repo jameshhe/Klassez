@@ -15,8 +15,6 @@ class ClassForm extends React.Component {
         wednesday: false,
         thursday: false,
         friday: false,
-        saturday: false,
-        sunday: false,
         seatsRemaining: 0
     }
 
@@ -25,7 +23,7 @@ class ClassForm extends React.Component {
     componentDidMount() {
         const classId = this.props.match.params.classId
 
-        if(classId != 0){
+        if(classId){
             this.classRepository.getClass(classId)
                 .then(tClass => {
                     let monday = false
@@ -33,37 +31,23 @@ class ClassForm extends React.Component {
                     let wednesday = false
                     let thursday = false
                     let friday = false
-                    let saturday = false
-                    let sunday = false
                     let days = tClass.days
 
                     while(days.length > 0){
-                        let temp = days.slice(0, 1)
-                        let numToDelete = 1
+                        let temp = days.slice(0, 2)
 
-                        if(temp == "M")
+                        if(temp === "MO")
                             monday = true
-                        else if(temp == "W")
+                        else if(temp === "TU")
+                            tuesday = true
+                        else if(temp === "WE")
                             wednesday = true
-                        else if(temp == "F")
+                        else if(temp === "TH")
+                            thursday = true
+                        else if(temp === "FR")
                             friday = true
-                        else if(temp == "T"){
-                            if(days.slice(1,2) == "h"){
-                                thursday = true
-                                numToDelete = 2
-                            }
-                            else
-                                tuesday = true
-                        } else if(temp == "S"){
-                            if(days.slice(1,2) == "u"){
-                                sunday = true
-                                numToDelete = 2
-                            }
-                            else
-                                saturday = true
-                        }
 
-                        days = days.slice(numToDelete)
+                        days = days.slice(2)
                     }
 
                     this.setState({
@@ -77,8 +61,6 @@ class ClassForm extends React.Component {
                         wednesday: wednesday,
                         thursday: thursday,
                         friday: friday,
-                        saturday: saturday,
-                        sunday: sunday,
                         seatsRemaining: tClass.seatsRemaining
                     })
                 })
@@ -93,19 +75,15 @@ class ClassForm extends React.Component {
         this.days = ""
 
         if(this.state.monday)
-            this.days += "M"
+            this.days += "MO"
         if(this.state.tuesday)
-            this.days += "T"
+            this.days += "TU"
         if(this.state.wednesday)
-            this.days += "W"
+            this.days += "WE"
         if(this.state.thursday)
-            this.days += "Th"
+            this.days += "TH"
         if(this.state.friday)
-            this.days += "F"
-        if(this.state.saturday)
-            this.days += "S"
-        if(this.state.sunday)
-            this.days += "Su"
+            this.days += "FR"
 
         const classData = {
             name: this.state.name,
@@ -117,20 +95,23 @@ class ClassForm extends React.Component {
             seatsRemaining: this.state.seatsRemaining
         };
 
-        this.setState({
-            name: "",
-            classCode: "",
-            professor: "",
-            startTime: "",
-            endTime: "",
-            monday: false,
-            tuesday: false,
-            wednesday: false,
-            thursday: false,
-            friday: false,
-            saturday: false,
-            sunday: false,
-            seatsRemaining: 0
+        this.classRepository.addClass(classData)
+        .then(() => {
+            this.setState({
+                name: "",
+                classCode: "",
+                professor: "",
+                startTime: "",
+                endTime: "",
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                seatsRemaining: 0
+            })
         })
     };
 
@@ -242,24 +223,6 @@ class ClassForm extends React.Component {
                                         className="form-check-input"
                                     />
                                     <label className="form-check-label" htmlFor="friday">Friday</label>
-
-                                    <input
-                                        onChange={() => this.setState({saturday: !this.state.saturday})}
-                                        value={this.state.saturday}
-                                        id="saturday"
-                                        type="checkbox"
-                                        className="form-check-input"
-                                    />
-                                    <label className="form-check-label" htmlFor="saturday">Saturday</label>
-
-                                    <input
-                                        onChange={() => this.setState({sunday: !this.state.sunday})}
-                                        value={this.state.sunday}
-                                        id="sunday"
-                                        type="checkbox"
-                                        className="form-check-input"
-                                    />
-                                    <label className="form-check-label" htmlFor="sunday">Sunday</label>
                                 </div>
 
                                 <div className="form-label-group">

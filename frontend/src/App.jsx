@@ -48,7 +48,8 @@ const App = () => {
                   
 	                <Switch>
                     <Route exact path="/classList" component={ClassList}/>
-                    <Route exact path="/classForm/:classId" component={ClassForm}/>
+                    <Route exact path="/classForm" component={ClassForm}/>
+                    <Route exact path="/classForm/edit/:classId" component={ClassForm}/>
                     {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
 	            </Router>
