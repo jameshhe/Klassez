@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export class ClassRepository {
+export class StudentRepository {
     url = '';
 
-    getClasses() {
+    getStudents() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/classes`)
+            axios.get(`${this.url}/students`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
@@ -14,9 +14,9 @@ export class ClassRepository {
         })
     }
 
-    getClass(classId) {
+    getStudent(studentId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/classes/${classId}`)
+            axios.get(`${this.url}/students/${studentId}`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
