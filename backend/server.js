@@ -5,9 +5,10 @@ const bodyParser = require('body-parser') // http post req handler
 const cors = require('cors') // frontend backend api calling
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
+const logger = require('@rama41222/node-logger/src/logger');
 
 // mysql connection
-var con = mysql.createConnection({
+var con = mysql.createPool({
     host: process.env.MYSQL_CLOUD_HOST,
     user: process.env.MYSQL_CLOUD_USER,
     password: process.env.MYSQL_CLOUD_PASS,
@@ -15,6 +16,7 @@ var con = mysql.createConnection({
     database: process.env.MYSQL_DB
 });
 
+<<<<<<< HEAD
 
 //Open Connection
 con.connect(function(err) {
@@ -25,6 +27,8 @@ con.connect(function(err){
   if(err)throw err;
 });
 
+=======
+>>>>>>> 6d43f281f02d16fe88e97bf3c5dec97ecbf5b04a
 // instantiate app
 const app = express()
 
@@ -45,15 +49,23 @@ app.use('/api', router);
 
 // @route   GET api/classes
 // @desc    GET all classes
-router.get('/classes', function (req, res) {
-	con.query("SELECT * FROM Classes", function (err, result, fields) {
-		if (err) throw err;
-		res.end(JSON.stringify(result)); // Result in JSON format
-	});
+router.get('/classes', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            con.query("SELECT * FROM Classes", function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
 
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
+<<<<<<< HEAD
 router.get('/classes/:id', function (req, res) {
 <<<<<<< HEAD
     var classID 		= req.param.id
@@ -64,17 +76,41 @@ router.get('/classes/:id', function (req, res) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
+=======
+router.get('/classes/:id', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.params.id;
+            con.query("SELECT * FROM Classes WHERE classID = ?", classID, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+
+        }
+    })
+>>>>>>> 6d43f281f02d16fe88e97bf3c5dec97ecbf5b04a
 });
 
-router.get('/students', function (req, res) {
-	con.query("SELECT * FROM Students", function (err, result, fields) {
-		if (err) throw err;
-		res.end(JSON.stringify(result)); // Result in JSON format
-	});
+router.get('/students', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            con.query("SELECT * FROM Students", function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
 
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
+<<<<<<< HEAD
 router.get('/students/:id', function (req, res) {
 <<<<<<< HEAD
     var studentID 		= req.param.id
@@ -85,56 +121,105 @@ router.get('/students/:id', function (req, res) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	});
+=======
+router.get('/students/:id', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var studentID = req.params.id;
+            con.query("SELECT * FROM Students WHERE studentID = ?", studentID, function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+>>>>>>> 6d43f281f02d16fe88e97bf3c5dec97ecbf5b04a
 });
 
 
 // @route   GET api/schedules
 // @desc    GET all schedules
-router.get('/schedules', function (req, res) {
-	con.query("SELECT * FROM Schedules", function (err, result, fields) {
-		if (err) throw err;
-		res.end(JSON.stringify(result)); // Result in JSON format
-	});
+router.get('/schedules', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            con.query("SELECT * FROM Schedules", function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
 
 // @route   GET api/schedules/:id
 // @desc    GET student schedule by student ID
-router.get('/Schedules/:id', function (req, res) {
-	var studentID = req.params.id;
-	  con.query("SELECT * FROM Schedules WHERE studentID = ?",studentID ,function (err, result, fields) {
-		  if (err) throw err;
-		  res.end(JSON.stringify(result)); // Result in JSON format
-	  });
+router.get('/Schedules/:id', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var studentID = req.params.id;
+            con.query("SELECT * FROM Schedules WHERE studentID = ?", studentID, function(err, result, fields) {
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
-  
+
 // @route   GET api/teacherReview/:id
 // @desc    GET teacher review by teacher ID
-router.get('/teacherReview/:id', function (req, res) {
-	var instructorID = req.params.id;
-	  con.query("SELECT * FROM InstructorReviews WHERE instructorID = ?",instructorID ,function (err, result, fields) {
-		  if (err) throw err;
-		  res.end(JSON.stringify(result)); // Result in JSON format
-	  });
+router.get('/teacherReview/:id', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var instructorID = req.params.id;
+            con.query("SELECT * FROM InstructorReviews WHERE instructorID = ?", instructorID, function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
 
 // @route   GET api/classReview/:id
 // @desc    GET class review by class ID
-router.get('/classReview/:id', function (req, res) {
-	var classID = req.params.id;
-	  con.query("SELECT * FROM ClassReviews WHERE classID = ?",classID ,function (err, result, fields) {
-		  if (err) throw err;
-		  res.end(JSON.stringify(result)); // Result in JSON format
-	  });
+router.get('/classReview/:id', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.params.id;
+            con.query("SELECT * FROM ClassReviews WHERE classID = ?", classID, function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
 
 // @route   GET api/prereqs/:id
 // @desc    GET pre-reqs for a class by ID
-router.get('/prereqs/:id', function (req, res) {
-	var classID = req.params.id;
-	  con.query("SELECT * FROM Prerequesites WHERE classID = ?",classID ,function (err, result, fields) {
-		  if (err) throw err;
-		  res.end(JSON.stringify(result)); // Result in JSON format
-	  });
+router.get('/prereqs/:id', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.params.id;
+            con.query("SELECT * FROM Prerequesites WHERE classID = ?", classID, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
 });
 
 // connect
