@@ -48,6 +48,8 @@ router.get('/classes', function (req, res) {
 	});
 });
 
+/* GET */
+
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
 router.get('/classes/:id', function (req, res) {
@@ -124,6 +126,9 @@ router.get('/prereqs/:id', function (req, res) {
 		  res.end(JSON.stringify(result)); // Result in JSON format
 	  });
 });
+
+
+/* POST */
 
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
