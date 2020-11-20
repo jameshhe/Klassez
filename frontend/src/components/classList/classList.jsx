@@ -1,6 +1,7 @@
 import React from 'react'
 import "./classList.css"
 import {ClassRepository} from '../../api/classRepository'
+import {Link} from 'react-router-dom'
 
 export class ClassList extends React.Component{
     classRepository = new ClassRepository()
@@ -60,10 +61,10 @@ export class ClassList extends React.Component{
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className="border">{x.id}</td>
+                                            <td className="border">{x.classID}</td>
                                             <td className="border">{x.professor}</td>
-                                            <td className="border">{x.days} {x.startTime}-{x.endTime}</td>
-                                            <td className="border">View Details</td>
+                                            <td className="border">{x.days} {x.timeStart}-{x.timeEnd}</td>
+                                            <td className="border"><Link to={`/classes/${x.classID}`}>View Details</Link></td>
                                         </tr>
                                     </tbody>
                                 </table>
