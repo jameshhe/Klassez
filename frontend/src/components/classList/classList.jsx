@@ -13,6 +13,7 @@ export class ClassList extends React.Component{
     componentDidMount(){
         this.classRepository.getClasses()
         .then(classes => {
+            console.log(classes)
             classes = classes.sort((x, y) => (
                 x.classCode > y.classCode ? 1 : -1)
             )
@@ -30,7 +31,7 @@ export class ClassList extends React.Component{
         <tbody>
     
     {
-        this.classes.map((x, i) => <tr key={i}>
+        this.state.classes.map((x, i) => <tr key={i}>
             <td>
                 <table>
                     <tbody>
