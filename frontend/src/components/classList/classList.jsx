@@ -36,11 +36,11 @@ export class ClassList extends React.Component{
             <td>
                 <table>
                     <tbody>
+                        
                         {
                             (this.previous !== x.classCode) ? 
-                            <tr>
-                            <td><h2>{x.classCode} - {x.name}</h2></td>
-                            </tr>
+                            <h1>{x.classCode} - {x.className}</h1>
+                            
                             :
                             <></>
                         }
@@ -50,13 +50,13 @@ export class ClassList extends React.Component{
                         
                         <tr>
                             <td>
-                                <table>
+                                <table className="table">
                                     <thead>
                                         <tr>
-                                            <th className="border">ID</th>
-                                            <th className="border">Instructor</th>
-                                            <th className="border">Days and Times</th>
-                                            <th className="border"></th>
+                                            <th>ID</th>
+                                            <th>Instructor</th>
+                                            <th>Days and Times</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
