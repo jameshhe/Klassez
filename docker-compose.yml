@@ -1,18 +1,18 @@
 version: "3.3"
 
 services:
-  klassez-db:
-    build: ./backend/mysql
-    restart: always
-    ports:
-      # <Port exposed> : <MySQL Port running inside container>
-      - '3306:3306'
-    expose:
-      - '3306'
-    volumes:
-      - klassez-vol:/var/lib/mysql
-    networks:
-      - klassez-net
+  # klassez-db:
+  #   build: ./backend/mysql
+  #   restart: always
+  #   ports:
+  #     # <Port exposed> : <MySQL Port running inside container>
+  #     - '3306:3306'
+  #   expose:
+  #     - '3306'
+  #   volumes:
+  #     - klassez-vol:/var/lib/mysql
+  #   networks:
+  #     - klassez-net
 
   backend-api:
     build: ./backend
@@ -20,8 +20,6 @@ services:
     volumes:
       - ./backend:/usr/src/app
     working_dir: /usr/src/app
-    depends_on:
-      - klassez-db
     command: bash -c "yarn && yarn run dev"
     ports:
       - 8000:8000
@@ -49,6 +47,3 @@ services:
 # called 'backend'.
 networks:
   klassez-net:
-
-volumes:
-  klassez-vol:
