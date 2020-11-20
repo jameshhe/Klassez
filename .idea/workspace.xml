@@ -20,12 +20,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fdb533c-d461-4783-8bf1-6f8fe10f1639" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/log/2020-11-12-results.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/log/2020-11-15-results.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/mysql_setup.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Models/class.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/classRepository.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/studentRepository.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/classForm.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/classList/classList.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/classList/classList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mysql/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mysql/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mysql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mysql/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/classDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/classDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navigation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/schedule.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/schedule.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +60,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Homework 3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -70,6 +84,7 @@
       <workItem from="1605112096941" duration="670000" />
       <workItem from="1605139196823" duration="29000" />
       <workItem from="1605828786381" duration="863000" />
+      <workItem from="1605900228739" duration="351000" />
     </task>
     <servers />
   </component>
