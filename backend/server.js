@@ -37,7 +37,7 @@ app.use('/api', router);
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -53,7 +53,7 @@ router.get('/classes', function(req, res) {
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
 router.get('/classes/:id', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -69,7 +69,7 @@ router.get('/classes/:id', function(req, res) {
 });
 
 router.get('/students', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -85,7 +85,7 @@ router.get('/students', function(req, res) {
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
 router.get('/students/:id', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -103,7 +103,7 @@ router.get('/students/:id', function(req, res) {
 // @route   GET api/schedules
 // @desc    GET all schedules
 router.get('/schedules', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -119,7 +119,7 @@ router.get('/schedules', function(req, res) {
 // @route   GET api/schedules/:id
 // @desc    GET student schedule by student ID
 router.get('/Schedules/:id', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -135,7 +135,7 @@ router.get('/Schedules/:id', function(req, res) {
 // @route   GET api/teacherReview/:id
 // @desc    GET teacher review by teacher ID
 router.get('/teacherReview/:id', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -152,7 +152,7 @@ router.get('/teacherReview/:id', function(req, res) {
 // @route   GET api/classReview/:id
 // @desc    GET class review by class ID
 router.get('/classReview/:id', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -169,7 +169,7 @@ router.get('/classReview/:id', function(req, res) {
 // @route   GET api/prereqs/:id
 // @desc    GET pre-reqs for a class by ID
 router.get('/prereqs/:id', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
