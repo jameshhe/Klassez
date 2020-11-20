@@ -40,11 +40,11 @@ const App = () => {
 	            <Navigation/>
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
-                    <Route exact path="/landing" component={Landing}/>
+                  <Route exact path="/landing" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/register" component={Register}/>
 	                <Switch>
-	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
+	                    {ROUTES.map((route, i) => <Route key={i} {...route}/>)}
 	                </Switch>
 	            </Router>
 	    	</div>

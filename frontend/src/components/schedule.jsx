@@ -15,14 +15,14 @@ const Schedule = () => {
     const date = 1
     const [classes, setClasses] = useState([
         {
-            startDate: new Date(2020, 1, 9, 9),
-            endDate: new Date(2020, 1, 9, 9, 50),
+            startDate: new Date(year, month, date, 9),
+            endDate: new Date(year, month, date, 9, 50),
             title: 'CS3381',
             rRule: 'BYDAY=MO,WE,FR'
         },
         {
-            startDate: new Date(2020, 1, 9, 11),
-            endDate: new Date(2020, 1, 9, 12, 15),
+            startDate: new Date(year, month, date, 11),
+            endDate: new Date(year, month, date, 12, 15),
             title: 'CS5324',
             rRule: 'BYDAY=TU,TH'
         }
