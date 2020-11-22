@@ -20,31 +20,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fdb533c-d461-4783-8bf1-6f8fe10f1639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/log/2020-11-12-results.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/log/2020-11-15-results.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mysql_setup.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Models/class.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/classRepository.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/studentRepository.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/classForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/classList/classList.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/classList/classList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/mysql/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mysql/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/mysql/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/mysql/init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Klassez 2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/.setupTests 2.js.icloud" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App 2.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/profile/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/profile/profile.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/profile/profileEditor.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/profile/profileHome.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/utils/setAuthToken 2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mysql/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/mysql/init.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/privateRoutes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,6 +70,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 3345\Klassez\frontend\src" />
+      <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 3345\Klassez\frontend" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -84,7 +97,10 @@
       <workItem from="1605112096941" duration="670000" />
       <workItem from="1605139196823" duration="29000" />
       <workItem from="1605828786381" duration="863000" />
-      <workItem from="1605900228739" duration="351000" />
+      <workItem from="1605900228739" duration="1215000" />
+      <workItem from="1605909759415" duration="820000" />
+      <workItem from="1605981793524" duration="69000" />
+      <workItem from="1606080252043" duration="447000" />
     </task>
     <servers />
   </component>
@@ -108,15 +124,24 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1690" y="505" key="#com.intellij.fileTypes.FileTypeChooser/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1604888595958" />
-    <state x="842" y="190" key="FileChooserDialogImpl" timestamp="1605831237529">
+    <state x="842" y="190" key="FileChooserDialogImpl" timestamp="1605981859817">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="842" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605831237528" />
-    <state x="1684" y="391" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1604961836964" />
+    <state x="842" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605981859817" />
+    <state x="1684" y="391" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1605901442495" />
     <state x="1700" y="455" key="FileChooserDialogImpl/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1605139207339" />
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1604900244797">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="453" y="0" key="FileDocumentManager.FileCacheConflict" timestamp="1605900468458">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="453" y="0" key="FileDocumentManager.FileCacheConflict/0.0.2560.1400@0.0.2560.1400" timestamp="1605900468458" />
+    <state x="310" y="456" key="MultipleFileMergeDialog" timestamp="1605900677513">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="310" y="456" key="MultipleFileMergeDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1605900677513" />
+    <state x="606" y="2" width="1344" height="1396" key="search.everywhere.popup" timestamp="1605900334537">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1604900244797" />
+    <state x="606" y="2" width="1344" height="1396" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1605900334537" />
   </component>
 </project>

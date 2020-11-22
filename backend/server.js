@@ -31,7 +31,7 @@ app.use(cors()) // cross origin resource sharing
 // create router
 var router = express.Router();
 
-// REGISTER  ROUTES
+// REGISTER  PrivateRoutes
 app.use('/api', router);
 
 // @route   GET api/classes
