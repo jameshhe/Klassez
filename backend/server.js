@@ -27,6 +27,45 @@ app.use(cors()) // cross origin resource sharing
 var router = express.Router();
 // REGISTER  ROUTES
 app.use('/api', router);
+// @route   GET api/login
+// @desc    GET user by username, password
+router.get('/login', function(req, res) {	//verify path matches
+	mysql.createPool.getConnection((err, con) =>{
+		if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+			const username = req.query.username;
+			const password = req.query.password;
+			
+			con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(err, result, fields) {
+				con.release()
+				if (err) throw err;
+				res.end(JSON.stringify(result));
+			});
+		}
+	})
+});
+// @route   POST api/register
+// @desc    POST user by username, password
+router.post('/register', function(req, res) {	//verify path matches
+	mysql.createPool.getConnection((err, con) =>{
+		if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+			var id = req.body.id;
+			var type = req.body.type;		//Users declare account type at register?
+			var email = req.body.email;
+			var username = req.body.username;
+			var password = req.body.password;
+
+			con.query('INSERT INTO users (username,password,type,email,id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
+			con.release()
+			if (err) throw err;
+			res.end(JSON.stringify(result));
+			});
+		}
+	})
+});
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function(req, res) {
