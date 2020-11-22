@@ -27,6 +27,28 @@ app.use(cors()) // cross origin resource sharing
 var router = express.Router();
 // REGISTER  ROUTES
 app.use('/api', router);
+// @route   POST api/register
+// @desc    POST user by username, password
+router.post('/register', function(req, res) {	//verify path matches
+	mysql.createPool.getConnection((err, con) =>{
+		if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+			var id = req.body.id;
+			var type = req.body.type;		//Users declare account type at register?
+			var email = req.body.email;
+			var username = req.body.username;
+			var password = req.body.password;
+
+			con.query('INSERT INTO users (username,password,type,email,id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
+			con.release()
+			if (err) throw err;
+			res.end(JSON.stringify(result));
+			});
+		}
+	})
+});
+
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function(req, res) {
@@ -58,6 +80,62 @@ router.get('/classes/:id', function(req, res) {
         }
     })
 });
+// @route   GET api/classes/:professorID
+// @desc    GET class info by professorID
+router.get('/classes/:instructorID', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.params.id;
+            con.query("SELECT * FROM Classes WHERE instructorID = ?", instructorID, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+// @route   GET api/classes/:classCode
+// @desc    GET class info by classCode
+router.get('/classes/:classCode', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.params.id;
+            con.query("SELECT * FROM Classes WHERE classCode = classCode'", classCode, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+// @route   GET api/classes/:classCode
+// @desc    GET class info by classCode
+router.get('/classes/:classCode', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.params.id;
+            con.query("SELECT * FROM Classes WHERE classCode LIKE '%[?]%'", classCode, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+
+
+
+
+
+
+
 router.get('/students', function(req, res) {
     mysql.createPool.getConnection((err, con) => {
         if (err) {
