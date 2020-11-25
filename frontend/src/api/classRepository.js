@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 export class ClassRepository {
-    url = '';
+    url = 'http://localhost:8080/api/classes';
 
     getClasses() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/classes`)
+            axios.get(`${this.url}`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
@@ -16,7 +16,7 @@ export class ClassRepository {
 
     getClass(classId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/classes/${classId}`)
+            axios.get(`${this.url}/${classId}`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
