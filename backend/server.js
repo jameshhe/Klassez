@@ -130,7 +130,7 @@ router.get('/Schedules/:id', function(req, res) {
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
-        }
+        }   
     })
 });
 
