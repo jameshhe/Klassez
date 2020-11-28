@@ -1,5 +1,9 @@
-import React from 'react';
+import ClassDetails from "./components/classDetails";
+import Schedule from "./components/schedule";
+import Home from "./components/home";
 
-export default function Routes({ appProps }) {
-    return <></>;
-}
+export const ROUTES = [
+    {path: "/home", component: Home},
+    {path: "/classes/:classId", component: ClassDetails },
+    {path: "/schedule", component: Schedule}
+]
