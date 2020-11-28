@@ -22,16 +22,19 @@ export class ProfileEditor extends React.Component {
         classification: ''
     };
 
-    onAddClick() {
-        this.props.onPhoneAdded({
-            type: this.state.type,
-            number: this.state.number
-        });
-
-        //good spot for validation to make sure only numbers passed in
+    onSave() {
+        //udpate the profile instead of creating new
+        // this.props.onProfileUpdated(new ProductReview(this.state.userName, this.state.rating,this.state.comment, day + ' ' + months[monthIndex] + ', ' + year));
         this.setState({
-            type: '',
-            number: ''
+            firstName: '',
+            lastName: '',
+            profilePic: '',
+            biography: '',
+            year: '',
+            major: '',
+            minor: '',
+            concentration: '',
+            classification: ''
         });
     }
 
@@ -134,8 +137,19 @@ export class ProfileEditor extends React.Component {
                         Save
                     </button>
                 </div>
-                {/* <Link className="btn btn-secondary btn-block" to="/">Return to List</Link> */}
+                <Link to={`/home`} 
+                    className="btn btn-secondary btn-block">
+                    Return to Home
+                </Link>
             </div>
         </form>
+    }
+
+    componentDidMount() {
+        const studentId = +this.props.match.params.id;
+        if (studentId) {
+            this.profileRepository.getProfile(studentId)
+                .then(profile => this.setState(profile));
+        }
     }
 }

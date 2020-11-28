@@ -1,27 +1,22 @@
 import React from 'react';
-import { ProfileHome } from './profile';
+import { ProfileDetails } from '../Models';
+import "./profile.css";
+import {ProfileRepository} from '../../api/profileRepository'
 
-export class Profile extends React.Component {
+export class ProfilePage extends React.Component {
+
+    profileRepository = new ProfileRepository()
+
     state = {
-        profile: new ProfileHome(
-            1,
-            "John",
-            "Doe",
-            "https://bloom-obgyn.com/wp-content/uploads/2016/09/dummy-profile-pic.png",
-            "Aspiring software engineer who has a passion for web development and Angular. For my front-end experience, I have worked in JavaScript, HTML/CSS, and React and for backend, I am proficient in C/C++, Java, and SQL. Looking to learn more DevOps and deployment concepts from my classess.",
-            "Junior",
-            "Computer Science",
-            "Mathematics",
-            "N/A", 
-            "Student"
-        )
-    };
+        profile: new ProfileDetails()
+    }
 
     render() {
         return <>
-            <div id="header">
+             <div id="header">
                 {/* Nav bar with static breadcrumb */}
                 <a href="DummyLink"> {this.state.profile.classification} </a> / <span id="profileTitle">{ this.state.profile.firstName + " " + this.state.profile.lastName }</span>
+                <button id = "editProfile" className="align-right"> Edit Profile </button>
             </div>
             <div id="profileInfo">
                 <br></br><br></br>
@@ -50,3 +45,5 @@ export class Profile extends React.Component {
         </>;
     }
 }
+
+export default ProfilePage;

@@ -1,4 +1,4 @@
-export class ProfileHome {
+export class ProfileDetails {
     constructor(id, firstName, lastName, profilePic, biography, year, major, minor, concentration, classification){
         this.id = id;
         this.firstName = firstName;
