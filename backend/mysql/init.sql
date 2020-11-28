@@ -4,12 +4,12 @@ use dummyData;
 
 
 DROP table Classes ;
-drop table ClassReviews ;
-drop table InstructorReviews ;
-drop table Instructors ;
-drop table Users;
-drop table Students ;
-drop table Schedules ;
+DROP table ClassReviews ;
+DROP table InstructorReviews ;
+DROP table Instructors ;
+DROP table Users;
+DROP table Students ;
+DROP table Schedules ;
 
 
 
@@ -92,16 +92,16 @@ insert into Users values('mollymoe', 'password', 1, 'mollym@school.edu', 8);
 insert into Users values('patrickpear', 'password', 1, 'patrickp@school.edu', 9);
 insert into Users values('donaldduck', 'password', 1, 'donaldd@school.edu', 10);
 
-insert into Students values('Billy Bob', 2022, 'Computer Science', true);
-insert into Students values('Sarah Sue', 2021, 'Arts', false);
-insert into Students values('Jane Doe', 2023, 'Math', true);
-insert into Students values('John Doe', 2023, 'Math', false);
-insert into Students values('Kelly King', 2022, 'Computer Science', true);
-insert into Students values('Lola Lee', 2024, 'Undeclared', false);
-insert into Students values('Casey Carl', 2023, 'Math', true);
-insert into Students values('Molly Moe', 2023, 'Math', false);
-insert into Students values('Patrick Pear', 2022, 'Computer Science', true);
-insert into Students values( 'Donald Duck', 2024, 'Arts', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Billy Bob', 2022, 'Computer Science', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('Sarah Sue', 2021, 'Arts', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Jane Doe', 2023, 'Math', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('John Doe', 2023, 'Math', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Kelly King', 2022, 'Computer Science', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('Lola Lee', 2024, 'Undeclared', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Casey Carl', 2023, 'Math', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('Molly Moe', 2023, 'Math', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Patrick Pear', 2022, 'Computer Science', true);
+insert into Students (name, gradYear, major, openToNightClasses) values( 'Donald Duck', 2024, 'Arts', false);
 
 -- instructors have type = 2, id begins with 2
 insert into Users values('johnjack', 'password', 2, 'johnj@school.edu', 21);
@@ -111,36 +111,32 @@ insert into Users values('zachzebra', 'password', 2, 'zachz@school.edu', 24);
 insert into Users values('ryanred', 'password', 2, 'ryanr@school.edu', 25);
 insert into Users values('gloriagreen', 'password', 2, 'gloriag@school.edu', 26);
 
-insert into Instructors values('John Jack');
-insert into Instructors values('Betty Blue');
-insert into Instructors values('Maria Moon');
-insert into Instructors values('Zach Zebra');
-insert into Instructors values('Ryan Red');
-insert into Instructors values('Gloria Green');
+insert into Instructors (name) values('John Jack');
+insert into Instructors (name) values('Betty Blue');
+insert into Instructors (name) values('Maria Moon');
+insert into Instructors (name) values('Zach Zebra');
+insert into Instructors (name) values('Ryan Red');
+insert into Instructors (name) values('Gloria Green');
 
 -- classes have id's that start with 4
-insert into Classes values(21, 'MWF', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 30);
-insert into Classes values(22, 'MWF', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 20);
-insert into Classes values(23, 'TuTh', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 10);
-insert into Classes values(24, 'TuTh', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 20);
-insert into Classes values(25, 'MWF', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
-insert into Classes values(26, 'TuTh', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
-insert into Classes values(21, 'MW', '09:00:00', '10:30:00', 'CS 1342', 'Intro to coding','Computer Science', 5);
-insert into Classes values(22, 'MW','09:00:00', '10:30:00', 'CS 1342', 'Intro to coding', 'Computer Science', 15);
-
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(1, 'MWF', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 30);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(2, 'TuTh', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 20);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(3, 'MWF', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 10);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(4, 'TuTh', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 20);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(5, 'MWF', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(6, 'TuTh', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(1, 'MW', '12:00:00', '13:20:00', 'CS 1342', 'Intro to coding','Computer Science', 5);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(2, 'TuTh','08:30:00', '10:00:00', 'CS 1342', 'Intro to coding', 'Computer Science', 15);
 
 INSERT INTO ClassReviews VALUES 
-	('CSE 1342','A lot of homework',3,'1234567890'),
-	('CSE 1342','Easy',7,'123412390'),
-	('CSE 2341','Fun Class',8,'1231437890'),
-	('CSE 2341','Very Boring',4,'1236357890'),
-	('CSE 3342','A lot of homework',2,'1238825390'),
-	('CSE 3342','Super Easy',8,'1236357890'),
-	('CSE 3353','Not fun at all',2,'1238825390'),
-	('CSE 3353','Interesting Class',7,'1231437890'),
-	('CSE 3330','The best class to take',10,'1234567890'),
-	('CSE 3330','The worst class to take',1,'123412390'),
-	('CSE 5342','Heavy Workload',5,'1236357890')
+	(1, 'CS 1342', 'A lot of homework', 3, 1),
+	(2, 'CS 1342', 'Easy', 4, 5),
+	(3, 'MATH 1022', 'Fun Class', 5, 3),
+	(4, 'MATH 1022', 'Very Boring', 1, 4),
+	(5, 'ART 4230', 'A lot of homework', 2, 2),
+	(6, 'ART 4230', 'Super Easy', 5, 10),
+	(1, 'CS 3330', 'The best class to take', 5, 9),
+	(2, 'CS 3330', 'The worst class to take', 1, 6)
 ;
 
 INSERT INTO Prerequesites values(1, 'CS 3330', 'CS 1342');
