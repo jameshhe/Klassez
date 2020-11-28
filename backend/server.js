@@ -66,6 +66,40 @@ router.post('/register', function(req, res) {	//verify path matches
 		}
 	})
 });
+// @route   POST api/register/:type
+// @desc    POST student or instructors by register credentials
+router.post('/register/:type', function(req, res) {	
+	mysql.createPool.getConnection((err, con) =>{
+		if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+			var type = req.parama.type;
+			
+			if(type == 1) {
+				var studentID = req.body.studentID;
+				var name = req.body.name;
+				var openToNightClasses = req.body.openToNightClasses;
+
+				con.query('INSERT INTO students (studentID,name,openToNightClasses) VALUES (?,?,?)', [studentID,name,openToNightClasses], (err, result, fields) => {
+				con.release()
+				if (err) throw err;
+				res.end(JSON.stringify(result));
+				});
+			}
+			
+			else if(type == 2) {
+				var instructorID = req.body.instructorID;
+				var name = req.body.name;
+				
+				con.query('INSERT INTO instructors (instructorID,name) VALUES (?,?)', [instructorID,name], (err, result, fields) => {
+				con.release()
+				if (err) throw err;
+				res.end(JSON.stringify(result));
+				});
+			}
+		}
+	})
+});
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function(req, res) {
