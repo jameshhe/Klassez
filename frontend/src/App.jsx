@@ -1,16 +1,18 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Provider} from "react-redux";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
-import jwt_decode from "jwt-decode";
-import PrivateRoute from "./components/privateRoute";
-import store from "./store";
-import setAuthToken from "./utils/setAuthToken";
-import {ROUTES} from "./Routes"
-import Navigation from "./components/navigation";
-import Landing from "./components/landing";
-import Login from "./components/login";
-import Register from "./components/register/register";
+import React from 'react'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import {Provider} from "react-redux"
+import {setCurrentUser, logoutUser} from "./actions/authActions"
+import jwt_decode from "jwt-decode"
+import PrivateRoute from "./components/privateRoute"
+import store from "./store"
+import setAuthToken from "./utils/setAuthToken"
+import {ROUTES} from "./Routes.jsx"
+import Navigation from "./components/navigation"
+import Landing from "./components/landing"
+import Login from "./components/login"
+import Register from "./components/register/register"
+import ClassList from "./components/classList/classList"
+import ClassForm from "./components/classForm"
 import "./App.css"
 
 
@@ -39,12 +41,15 @@ const App = () => {
       <div className="App">
 	            <Navigation/>
 	            <Router>
-	                <Route exact path="/" component={Landing}/>
-                    <Route exact path="/landing" component={Landing}/>
-	                <Route exact path="/login" component={Login}/>
-	                <Route exact path="/register" component={Register}/>
 	                <Switch>
-	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
+                    <Route exact path="/" component={Landing}/>
+                    <Route exact path="/landing" component={Landing}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/classList" component={ClassList}/>
+                    <Route exact path="/classForm" component={ClassForm}/>
+                    <Route exact path="/classForm/edit/:classId" component={ClassForm}/>
+                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
 	            </Router>
 	    	</div>
