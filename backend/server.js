@@ -6,34 +6,26 @@ const cors = require('cors') // frontend backend api calling
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 const logger = require('@rama41222/node-logger/src/logger');
-
 // mysql connection
 var con = mysql.createPool({
     host: process.env.MYSQL_CLOUD_HOST,
     user: process.env.MYSQL_CLOUD_USER,
     password: process.env.MYSQL_CLOUD_PASS,
-    port: process.env.MYSQL_PORT,
-    database: process.env.MYSQL_DB
+    port: process.env.MYSQL_PORT
 });
-
 // instantiate app
 const app = express()
-
 // configurations
 const port = 8080 // port
-
 // enable
 app.use(bodyParser.urlencoded({ extended: true })) // url-encoded body parsing
 app.use(bodyParser.json()) // json parsing
 app.use(express.json()) // enable json parsing???
 app.use(cors()) // cross origin resource sharing
-
 // create router
 var router = express.Router();
-
-// REGISTER  PrivateRoutes
+// REGISTER  ROUTES
 app.use('/api', router);
-
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function(req, res) {
@@ -49,7 +41,6 @@ router.get('/classes', function(req, res) {
         }
     })
 });
-
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
 router.get('/classes/:id', function(req, res) {
@@ -63,11 +54,9 @@ router.get('/classes/:id', function(req, res) {
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
-
         }
     })
 });
-
 router.get('/students', function(req, res) {
     mysql.createPool.getConnection((err, con) => {
         if (err) {
@@ -81,7 +70,6 @@ router.get('/students', function(req, res) {
         }
     })
 });
-
 // @route   GET api/classes/:id
 // @desc    GET class info by classID
 router.get('/students/:id', function(req, res) {
@@ -98,8 +86,6 @@ router.get('/students/:id', function(req, res) {
         }
     })
 });
-
-
 // @route   GET api/schedules
 // @desc    GET all schedules
 router.get('/schedules', function(req, res) {
@@ -115,7 +101,6 @@ router.get('/schedules', function(req, res) {
         }
     })
 });
-
 // @route   GET api/schedules/:id
 // @desc    GET student schedule by student ID
 router.get('/Schedules/:id', function(req, res) {
@@ -131,7 +116,6 @@ router.get('/Schedules/:id', function(req, res) {
         }
     })
 });
-
 // @route   GET api/teacherReview/:id
 // @desc    GET teacher review by teacher ID
 router.get('/teacherReview/:id', function(req, res) {
@@ -148,7 +132,6 @@ router.get('/teacherReview/:id', function(req, res) {
         }
     })
 });
-
 // @route   GET api/classReview/:id
 // @desc    GET class review by class ID
 router.get('/classReview/:id', function(req, res) {
@@ -165,7 +148,6 @@ router.get('/classReview/:id', function(req, res) {
         }
     })
 });
-
 // @route   GET api/prereqs/:id
 // @desc    GET pre-reqs for a class by ID
 router.get('/prereqs/:id', function(req, res) {
@@ -182,6 +164,13 @@ router.get('/prereqs/:id', function(req, res) {
         }
     })
 });
-
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
+
+
+
+
+
+//build more routes routes for classes for searching purposes
+//routes for searching for professors
+//stats page that shows how many students got their preferred times
