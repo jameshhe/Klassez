@@ -1,5 +1,5 @@
 import ClassDetails from "./components/classDetails";
-import Schedule from "./components/schedule";
+import Schedule from "./components/schedule/schedule";
 import Home from "./components/home";
 
 export const PRIVATE_ROUTES = [

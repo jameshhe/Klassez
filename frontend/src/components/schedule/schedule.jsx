@@ -6,6 +6,7 @@ import {
     WeekView,
     Appointments
 } from '@devexpress/dx-react-scheduler-material-ui'
+import ScheduleSelect from "./scheduleSelect";
 
 const Schedule = () => {
     const currentDate = Date.now()
@@ -18,13 +19,15 @@ const Schedule = () => {
             startDate: new Date(year, month, date, 9),
             endDate: new Date(year, month, date, 9, 50),
             title: 'CS3381',
-            rRule: 'BYDAY=MO,WE,FR'
+            rRule: 'BYDAY=MO,WE,FR',
+            checked: true
         },
         {
             startDate: new Date(year, month, date, 11),
             endDate: new Date(year, month, date, 12, 15),
             title: 'CS5324',
-            rRule: 'BYDAY=TU,TH'
+            rRule: 'BYDAY=TU,TH',
+            checked: true
         }
     ]);
 
@@ -40,23 +43,40 @@ const Schedule = () => {
     //     }
     // },[])
 
+    const changeClass = newClasses => {
+        setClasses(newClasses)
+    }
+
+
     return (
         <div className="row">
             <div className="col-md-6 offset-md-3">
                 <h1 className="display-4 my-2 text-center">My Schedule</h1>
                 <hr/>
-                <Paper>
-                    <Scheduler data={classes}>
-                        <ViewState currentDate={currentDate}/>
-                        <WeekView
-                            startDayHour={8}
-                            endDayHour={22}
-                            excludedDays={[0, 6]}
-                            cellDuration={30}
+                <div className="row">
+                    <div className="col-2">
+                        <ScheduleSelect
+                            classes={classes}
+                            onChange={classes => changeClass(classes)}
                         />
-                        <Appointments />
-                    </Scheduler>
-                </Paper>
+                    </div>
+                    <div className="col-10">
+                        <Paper>
+                            <Scheduler data={classes.filter(myClass => myClass.checked === true)}>
+                                <ViewState currentDate={currentDate}/>
+                                <WeekView
+                                    startDayHour={8}
+                                    endDayHour={22}
+                                    excludedDays={[0, 6]}
+                                    cellDuration={30}
+                                />
+                                <Appointments />
+                            </Scheduler>
+                        </Paper>
+                    </div>
+                </div>
+
+
             </div>
 
         </div>
