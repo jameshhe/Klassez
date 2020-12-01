@@ -5,7 +5,7 @@ export class ProfileRepository {
 
     getProfile(studentId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/students/${studentId}`)
+            axios.get(`${this.url}/students?studentId=3`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)

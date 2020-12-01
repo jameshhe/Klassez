@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ProfileRepository } from '../../api/profileRepository';
 
 export class ProfileEditor extends React.Component {
+
+    profileRepository = new ProfileRepository()
 
     profileTypes = [
         'student',
@@ -22,20 +25,44 @@ export class ProfileEditor extends React.Component {
         classification: ''
     };
 
-    onSave() {
-        //udpate the profile instead of creating new
-        // this.props.onProfileUpdated(new ProductReview(this.state.userName, this.state.rating,this.state.comment, day + ' ' + months[monthIndex] + ', ' + year));
-        this.setState({
-            firstName: '',
-            lastName: '',
-            profilePic: '',
-            biography: '',
-            year: '',
-            major: '',
-            minor: '',
-            concentration: '',
-            classification: ''
-        });
+    onSave = () => {
+        const profileData = {
+            type: this.state.type,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            profilePic: this.state.profilePic,
+            biography: this.state.biography,
+            year: this.state.year,
+            major: this.state.major,
+            minor: this.state.minor,
+            concentration: this.state.concentration,
+            classification: this.state.classification
+        };
+
+        if(this.state.id){
+            this.profileRepository.updateProfile(profileData)
+        }
+        else{
+            console.log("here");
+        }
+
+        .then(() => {
+            this.setState({
+                name: "",
+                classCode: "",
+                professor: "",
+                startTime: "",
+                endTime: "",
+                monday: false,
+                tuesday: false,
+                wednesday: false,
+                thursday: false,
+                friday: false,
+                saturday: false,
+                sunday: false,
+                seatsRemaining: 0
+            })
+        })
     }
 
 
