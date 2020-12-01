@@ -249,6 +249,33 @@ router.get('/prereqs/:id', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
+// @route   GET api/classesbytime/:startTime
+// @desc    GET class info by start time
+router.get('/classoptions', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var start = req.body.startTime;
+            var classes = req.body.classes;
+            var end = req.body.endTime ;
+
+            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
+            INNER JOIN Instructors i \
+            ON c.instructorID = i.instructorID \
+            WHERE timeStart >= ? AND timeEnd <= ? \
+            AND classID IN (?) ", [start, end, classes], function (err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
 /* POST */
 
 // @route   POST api/addclass
