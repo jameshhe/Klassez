@@ -6,7 +6,9 @@ const cors = require('cors') // frontend backend api calling
 const mysql = require('mysql');
 const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 const logger = require('@rama41222/node-logger/src/logger');
-
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
+const secretOrKey = "secret"
 // mysql connection
 var con = mysql.createPool({
     host: process.env.MYSQL_CLOUD_HOST,
@@ -35,6 +37,83 @@ var router = express.Router();
 app.use('/api', router);
 
 /* GET */
+
+// @route   GET api/login
+// @desc    GET user by username, password
+router.get('/login', function(req, res) {	//verify path matches
+    mysql.createPool.getConnection((err, con) =>{
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            const username = req.query.username;
+            const password = req.query.password;
+
+            con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result));
+                // Check password
+                bcrypt.compare(password, result.password).then(isMatch => {
+                    if (isMatch) {
+                        // User matched
+                        // Create JWT Payload
+                        const payload = {
+                            id: result.id,
+                            name: result.name
+                        };
+// Sign token
+                        jwt.sign(
+                            payload,
+                            secretOrKey,
+                            {
+                                expiresIn: 3600 // 1 year in seconds
+                            },
+                            (err, token) => {
+                                res.json({
+                                    success: true,
+                                    token: "Bearer " + token
+                                });
+                            }
+                        );
+                    } else {
+                        return res
+                            .status(400)
+                            .json({ passwordincorrect: "Password incorrect" });
+                    }
+                });
+            });
+        }
+    })
+});
+// @route   POST api/register
+// @desc    POST user by username, password
+router.post('/register', function(req, res) {	//verify path matches
+    mysql.createPool.getConnection((err, con) =>{
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var id = req.body.id;
+            var type = req.body.type;		//Users declare account type at register?
+            var email = req.body.email;
+            var username = req.body.username;
+            var password = req.body.password;
+
+            // Hash password before saving in database
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) throw err;
+                    password = hash;
+                });
+            });
+
+            con.query('INSERT INTO users (username,password,type,email,id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result));
+            });
+        }
+    })
+});
 
 // @route   GET api/classes
 // @desc    GET all classes

@@ -22,10 +22,12 @@
     <list default="true" id="0fdb533c-d461-4783-8bf1-6f8fe10f1639" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/landing.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/landing.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navigation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/schedule/schedule.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/schedule/schedule.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/schedule/scheduleSelect.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/schedule/scheduleSelect.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +94,7 @@
       <workItem from="1606083822329" duration="1198000" />
       <workItem from="1606143733016" duration="204000" />
       <workItem from="1606763652177" duration="4158000" />
-      <workItem from="1606772192576" duration="5233000" />
+      <workItem from="1606772192576" duration="10277000" />
     </task>
     <servers />
   </component>
