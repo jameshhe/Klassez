@@ -41,28 +41,24 @@ export class ProfileEditor extends React.Component {
 
         if(this.state.id){
             this.profileRepository.updateProfile(profileData)
+            .then(() => {
+                this.setState({
+                    type: "",
+                    firstName: "",
+                    lastName: "",
+                    profilePic: "",
+                    biography: "",
+                    year: "",
+                    major: "",
+                    minor: "",
+                    concentration: "",
+                    classification: "",
+                })
+            })
         }
         else{
             console.log("here");
         }
-
-        .then(() => {
-            this.setState({
-                name: "",
-                classCode: "",
-                professor: "",
-                startTime: "",
-                endTime: "",
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                seatsRemaining: 0
-            })
-        })
     }
 
 

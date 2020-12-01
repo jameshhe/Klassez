@@ -1,14 +1,15 @@
 import React from 'react';
-import { ProfileDetails } from '../Models';
-import "./profile.css";
+// import { ProfileDetails } from '../Models/ProfileDetails';
+import {Link} from "react-router-dom";
 import {ProfileRepository} from '../../api/profileRepository'
+import "./profile.css";
 
 export class ProfilePage extends React.Component {
 
     profileRepository = new ProfileRepository()
 
     state = {
-        profile: new ProfileDetails()
+        profile: []
     }
 
     render() {
@@ -16,8 +17,12 @@ export class ProfilePage extends React.Component {
              <div id="header">
                 {/* Nav bar with static breadcrumb */}
                 <a href="DummyLink"> {this.state.profile.classification} </a> / <span id="profileTitle">{ this.state.profile.firstName + " " + this.state.profile.lastName }</span>
-                <button id = "editProfile" className="align-right"> Edit Profile </button>
-            </div>
+                <button id = "editProfile" className="align-right" type="button"> 
+                <Link
+                    to={'edit/' + this.state.id}
+                    >Edit Profile</Link>
+                </button>
+                </div>
             <div id="profileInfo">
                 <br></br><br></br>
                 <span 
