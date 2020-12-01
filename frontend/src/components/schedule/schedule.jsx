@@ -43,7 +43,11 @@ const Schedule = () => {
     //     }
     // },[])
 
-    const changeClass = newClasses => {
+    const changeClass = (myClass, checked) => {
+        let newClasses = classes
+        newClasses = newClasses.map(
+            newClass => newClass.title === myClass.title ? {...newClass, checked: checked} : newClass
+        )
         setClasses(newClasses)
     }
 
@@ -55,11 +59,18 @@ const Schedule = () => {
                 <hr/>
                 <div className="row">
                     <div className="col-2">
-                        <ScheduleSelect
-                            classes={classes}
-                            onChange={classes => changeClass(classes)}
-                        />
+                        <form className="form-group">
+                            {classes.map((myClass, index) =>
+                                <ScheduleSelect
+                                    key={index}
+                                    myClass={myClass}
+                                    onChange={(myClass, checked) => changeClass(myClass, checked)}
+                                />
+                            )}
+                        </form>
                     </div>
+
+
                     <div className="col-10">
                         <Paper>
                             <Scheduler data={classes.filter(myClass => myClass.checked === true)}>

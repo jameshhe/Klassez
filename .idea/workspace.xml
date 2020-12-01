@@ -20,10 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fdb533c-d461-4783-8bf1-6f8fe10f1639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/schedule/scheduleSelect.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/schedule.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/schedule/schedule.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/privateRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/privateRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/schedule/schedule.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/schedule/schedule.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/schedule/scheduleSelect.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/schedule/scheduleSelect.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +92,7 @@
       <workItem from="1606083822329" duration="1198000" />
       <workItem from="1606143733016" duration="204000" />
       <workItem from="1606763652177" duration="4158000" />
-      <workItem from="1606772192576" duration="760000" />
+      <workItem from="1606772192576" duration="5233000" />
     </task>
     <servers />
   </component>
@@ -108,36 +110,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1690" y="505" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604888595958">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="1690" y="505" key="#com.intellij.fileTypes.FileTypeChooser/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1604888595958" />
-    <state x="1700" y="455" key="FileChooserDialogImpl" timestamp="1606143777107">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="842" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605981859817" />
-    <state x="1684" y="391" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1605901442495" />
-    <state x="1700" y="455" key="FileChooserDialogImpl/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1606143777107" />
-    <state x="453" y="0" key="FileDocumentManager.FileCacheConflict" timestamp="1605900468458">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="453" y="0" key="FileDocumentManager.FileCacheConflict/0.0.2560.1400@0.0.2560.1400" timestamp="1605900468458" />
-    <state x="155" y="203" key="MultipleFileMergeDialog" timestamp="1606763832088">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="155" y="203" key="MultipleFileMergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1606763832088" />
-    <state x="310" y="456" key="MultipleFileMergeDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1605900677513" />
-    <state x="310" y="456" key="MultipleFileMergeDialog/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1606080826825" />
-    <state x="1421" y="348" key="SettingsEditor" timestamp="1606765146551">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="1421" y="348" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1606765146551" />
-    <state x="606" y="2" width="1344" height="1396" key="search.everywhere.popup" timestamp="1605900334537">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1604900244797" />
-    <state x="606" y="2" width="1344" height="1396" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1605900334537" />
   </component>
 </project>
