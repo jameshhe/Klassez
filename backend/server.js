@@ -43,7 +43,9 @@ router.get('/classes', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            con.query("SELECT * FROM classes_view", function (err, result, fields) {
+            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
+            INNER JOIN Instructors i \
+            ON c.instructorID = i.instructorID", function (err, result, fields) {
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -85,7 +87,10 @@ router.get('/classesbytime/:startTime', function(req, res) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
             var startTime = req.params.startTime;
-            con.query("SELECT * FROM classes_view WHERE `Start time` = ?", startTime, function(err, result, fields) {
+            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
+            INNER JOIN Instructors i \
+            ON c.instructorID = i.instructorID \
+            WHERE timeStart = ?", startTime, function (err, result, fields) {
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
