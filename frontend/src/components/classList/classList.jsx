@@ -28,29 +28,25 @@ export class ClassList extends React.Component{
         }
 
 
-        return <table>
-        <tbody>
+        return <ul>
     
     {
-        this.state.classes.map((x, i) => <tr key={i}>
-            <td>
+        this.state.classes.map((x, i) => <li key={i} className="card">
                 <table>
+                    {
+                        (this.previous !== x.classCode) ? 
+                        <div className="card-header"><b>{x.classCode} - {x.className}</b></div>
+                        :
+                        <></>
+                    }
+                    <div className="hidden">
+                        {this.previous = x.classCode}
+                    </div>
+
                     <tbody>
-                        
-                        {
-                            (this.previous !== x.classCode) ? 
-                            <h1>{x.classCode} - {x.className}</h1>
-                            
-                            :
-                            <></>
-                        }
-                        <div className="hidden">
-                            {this.previous = x.classCode}
-                        </div>
-                        
                         <tr>
                             <td>
-                                <table className="table">
+                                <table className="table table-hover table-sm">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -72,12 +68,10 @@ export class ClassList extends React.Component{
                         </tr>
                     </tbody>
                 </table>
-            </td>
-        </tr>
+            </li>
         )
     }
-        </tbody>
-    </table>;
+    </ul>;
     }
 }
 
