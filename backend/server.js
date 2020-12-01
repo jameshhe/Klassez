@@ -27,6 +27,7 @@ app.use(cors()) // cross origin resource sharing
 var router = express.Router();
 // REGISTER  ROUTES
 app.use('/api', router);
+// LOGIN ROUTE OUTDATED, LOGIN ROUTE WITH HASHING ON JAMES BRANCH
 // @route   GET api/login
 // @desc    GET user by username, password
 router.get('/login', function(req, res) {	//verify path matches
@@ -48,33 +49,31 @@ router.get('/login', function(req, res) {	//verify path matches
 // @route   POST api/register
 // @desc    POST user by username, password
 router.post('/register', function(req, res) {	//verify path matches
-	mysql.createPool.getConnection((err, con) =>{
-		if (err) {
+    mysql.createPool.getConnection((err, con) =>{
+        if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-			var id = req.body.id;
-			var type = req.body.type;		//Users declare account type at register?
-			var email = req.body.email;
-			var username = req.body.username;
-			var password = req.body.password;
+            var id = req.body.id;
+            var type = req.body.type;
+            var email = req.body.email;
+            var username = req.body.username;
+            var password = req.body.password;
 
-			con.query('INSERT INTO users (username,password,type,email,id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
-			con.release()
-			if (err) throw err;
-			res.end(JSON.stringify(result));
-			});
-		}
-	})
-});
-// @route   POST api/register/:type
-// @desc    POST student or instructors by register credentials
-router.post('/register/:type', function(req, res) {	
-	mysql.createPool.getConnection((err, con) =>{
-		if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-			var type = req.parama.type;
+            // Hash password before saving in database
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) throw err;
+                    password = hash;
+                });
+            });
+
+            con.query('INSERT INTO users (username,password,type,email,id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result));
+            });
 			
+			// Insert into Students or Instructors as well
 			if(type == 1) {
 				var studentID = req.body.studentID;
 				var name = req.body.name;
@@ -97,8 +96,8 @@ router.post('/register/:type', function(req, res) {
 				res.end(JSON.stringify(result));
 				});
 			}
-		}
-	})
+        }
+    })
 });
 // @route   GET api/classes
 // @desc    GET all classes
