@@ -363,6 +363,97 @@ router.post('/reviewteacher', function(req, res) {
     })
 });
 
+/* ---------------------------------------------------------------- */
+
+// @route   POST api/reviewteacher
+// @desc    add a instructor review
+router.post('/addschedule', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var studentID   = req.body.studentID;
+            var numHours    = req.body.numHours;
+            var semester    = req.body.semester;
+            var cList       = req.body.classesList;
+
+            console.log("Adding schedule of student: ", studentID);
+
+            con.query("INSERT INTO Schedules \
+            (studentID, numHours, semester, classesList) \
+            VALUES (?, ?, ?, ?)", [studentID, numHours, semester, cList],
+            function (err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
+/* PUT */
+
+// @route   POST api/updateclasstime
+// @desc    updates the start and end timne of a class by classID
+router.put('/updateclasstime', async (req, res) => {
+    var classID     = req.body.classID;
+    var startTime   = req.body.timeStart;
+    var endTime     = req.body.timeEnd;
+
+    if (startTime == null || endTime == null) return res.status(400).send('missing data');
+    else if (startTime == endTime) return res.status(400).send('start time and end time are equal');
+
+    console.log("updating class", classID,"time");
+
+    con.query("UPDATE Classes \
+    SET timeStart = ?, timeEnd = ? \
+    WHERE classID = ?", [startTime, endTime, classID], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	 });
+});
+
+/* ---------------------------------------------------------------- */
+
+// @route   POST api/updateclassteacher
+// @desc    updates the instructor ID in a class
+router.put('/updateclassteacher', async (req, res) => {
+    var classID         = req.body.classID;
+    var instructorID    = req.body.instructorID;
+
+    if (instructorID == null) return res.status(400).send('missing instructor id');
+
+    console.log("updating instructor id in class:", classID,"to",instructorID);
+
+    con.query("UPDATE Classes \
+    SET instructorID = ? \
+    WHERE classID = ?", [instructorID, classID], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	 });
+});
+
+/* ---------------------------------------------------------------- */
+
+// @route   POST api/updateclassteacher
+// @desc    updates the instructor ID in a class
+router.put('/updateseats', async (req, res) => {
+    var classID         = req.body.classID;
+    var seats           = req.body.seatsRemaining;
+
+    if (seats == null) return res.status(400).send('missing number of seats');
+
+    console.log("updating number of seatsin class:", classID,"to",seats,"seats");
+
+    con.query("UPDATE Classes \
+    SET seatsRemaining = ? \
+    WHERE classID = ?", [seats, classID], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	 });
+});
 
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
