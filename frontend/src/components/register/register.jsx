@@ -10,7 +10,7 @@ class Register extends Component {
     constructor() {
         super();
         this.state = {
-            name: "",
+            username: "",
             email: "",
             password: "",
             password2: "",
@@ -33,7 +33,7 @@ class Register extends Component {
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
-            name: this.state.name,
+            username: this.state.username,
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2
@@ -51,12 +51,12 @@ class Register extends Component {
                                 <h5 className="card-title text-center">Register</h5>
                                 <form className="form-signin" onSubmit={this.onSubmit}>
                                     <div className="form-label-group">
-                                        <input type="text" onChange={this.onChange} error={error.name}
-                                               value={this.state.name} id="name" className={classnames("form-control", {
-                                            invalid: error.name
-                                        })} placeholder="Username" required autoFocus />
-                                            <label htmlFor="name">Username</label>
-                                            <span className="red-text">{error.name}</span>
+                                        <input type="text" onChange={this.onChange} error={error.username}
+                                               value={this.state.username} id="name" className={classnames("form-control", {
+                                            invalid: error.username
+                                        })} placeholder="username" required autoFocus />
+                                            <label htmlFor="username">Username</label>
+                                            <span className="red-text">{error.username}</span>
                                     </div>
 
                                     <div className="form-label-group">
