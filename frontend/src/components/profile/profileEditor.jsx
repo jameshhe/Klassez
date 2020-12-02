@@ -163,7 +163,14 @@ export class ProfileEditor extends React.Component {
             <br />
         </form>
     }
-}
 
+    componentDidMount() {
+        const accountId = +this.props.match.params.accountId;
+        if (accountId) {
+            this.profileRepository.getProfile(accountId)
+                .then(account => this.setState(account));
+        }
+    }
+}
 
 export default withRouter(ProfileEditor);
