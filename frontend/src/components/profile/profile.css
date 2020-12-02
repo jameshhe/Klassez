@@ -14,12 +14,12 @@
 }
 
 h1 {
-  margin-left: 18em;
+  margin-left: 21.5em;
   margin-top: 5em;
 }
 
 #year {
-  left: 5em;
+  left: 4em;
   position: relative;
 }
 
@@ -28,7 +28,7 @@ p{
 }
 
 #major, #minor, #concentration {
-  margin-left: 31em;
+  margin-left: 40em;
 }
 
 #bioInfo, #schedule {
@@ -38,7 +38,7 @@ p{
 #profilePic {
   height: 10em;
   width: 10em;
-  margin-left: 30em;
+  margin-left: 40em;
   position: relative;
   float: left;
 }
@@ -46,9 +46,7 @@ p{
 #editProfile {
     margin-top: 6px;
     margin-right: 5px;
-    border-radius: 1.2em;
-    background-color: #0066FF;
-    color: white;
+    border-radius: .5em;
     position:absolute;
     top:0;
     right:0;

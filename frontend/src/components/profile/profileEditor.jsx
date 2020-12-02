@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ProfileRepository } from '../../api/profileRepository';
+import { withRouter } from "react-router-dom";
+import {ProfileRepository} from '../../api/profileRepository'
 
 export class ProfileEditor extends React.Component {
 
@@ -39,27 +40,26 @@ export class ProfileEditor extends React.Component {
             classification: this.state.classification
         };
 
-        if(this.state.id){
-            this.profileRepository.updateProfile(profileData)
-            .then(() => {
-                this.setState({
-                    type: "",
-                    firstName: "",
-                    lastName: "",
-                    profilePic: "",
-                    biography: "",
-                    year: "",
-                    major: "",
-                    minor: "",
-                    concentration: "",
-                    classification: "",
-                })
+        
+        this.profileRepository.updateProfile(this.state.id, profileData)
+        .then(() => {
+            alert('Profile updated!');
+            this.setState({
+                type: "",
+                firstName: "",
+                lastName: "",
+                profilePic: "",
+                biography: "",
+                year: "",
+                major: "",
+                minor: "",
+                concentration: "",
+                classification: "",
+                redirect: '/profile',
             })
-        }
-        else{
-            console.log("here");
-        }
+        })
     }
+    
 
 
     render() {
@@ -148,9 +148,8 @@ export class ProfileEditor extends React.Component {
             <div className="row">
                 <div className="col">
                     <button type="button"
-                        className="btn btn-secondary btn-block"
-                        onClick={() => this.onSave()}>
-                        Cancel
+                        className="btn btn-block">
+                        <Link to={'/profile'}className="btn btn-secondary btn-block"> Cancel </Link>
                     </button>
                 </div>
                 <div className="col">
@@ -160,19 +159,11 @@ export class ProfileEditor extends React.Component {
                         Save
                     </button>
                 </div>
-                <Link to={`/home`} 
-                    className="btn btn-secondary btn-block">
-                    Return to Home
-                </Link>
             </div>
+            <br />
         </form>
     }
-
-    componentDidMount() {
-        const studentId = +this.props.match.params.id;
-        if (studentId) {
-            this.profileRepository.getProfile(studentId)
-                .then(profile => this.setState(profile));
-        }
-    }
 }
+
+
+export default withRouter(ProfileEditor);

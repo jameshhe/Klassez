@@ -1,11 +1,12 @@
 import axios from 'axios'
 
 export class ProfileRepository {
-    url = '';
+
+    url = 'http://localhost:8080/api/students';
 
     getProfile(studentId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/students?studentId=3`)
+            axios.get(`${this.url}/${studentId}`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
