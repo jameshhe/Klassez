@@ -15,7 +15,8 @@ class ClassForm extends React.Component {
         wednesday: false,
         thursday: false,
         friday: false,
-        seatsRemaining: 0
+        seatsRemaining: 0,
+        newClass: false
     }
 
     days = ""
@@ -64,6 +65,8 @@ class ClassForm extends React.Component {
                         seatsRemaining: tClass.seatsRemaining
                     })
                 })
+        } else{
+            this.setState({newClass: true})
         }
     }
 
