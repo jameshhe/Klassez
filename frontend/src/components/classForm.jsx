@@ -5,7 +5,7 @@ class ClassForm extends React.Component {
     classRepository = new ClassRepository()
 
     state = {
-        name: "",
+        className: "",
         classCode: "",
         professor: "",
         startTime: "",
@@ -52,7 +52,7 @@ class ClassForm extends React.Component {
                     }
 
                     this.setState({
-                        name: tClass.name,
+                        className: tClass.className,
                         classCode: tClass.classCode,
                         professor: tClass.professor,
                         startTime: tClass.startTime,
@@ -89,7 +89,7 @@ class ClassForm extends React.Component {
             this.days += "FR"
 
         const classData = {
-            name: this.state.name,
+            className: this.state.className,
             classCode: this.state.classCode,
             professor: this.state.professor,
             startTime: this.state.startTime,
@@ -98,24 +98,28 @@ class ClassForm extends React.Component {
             seatsRemaining: this.state.seatsRemaining
         };
 
-        this.classRepository.addClass(classData)
-        .then(() => {
-            this.setState({
-                name: "",
-                classCode: "",
-                professor: "",
-                startTime: "",
-                endTime: "",
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false,
-                sunday: false,
-                seatsRemaining: 0
+        if(this.state.newClass){
+            this.classRepository.addClass(classData)
+            .then(() => {
+                this.setState({
+                    className: "",
+                    classCode: "",
+                    professor: "",
+                    startTime: "",
+                    endTime: "",
+                    monday: false,
+                    tuesday: false,
+                    wednesday: false,
+                    thursday: false,
+                    friday: false,
+                    saturday: false,
+                    sunday: false,
+                    seatsRemaining: 0
+                })
             })
-        })
+        } else {
+
+        }
     };
 
     render() {
@@ -130,12 +134,12 @@ class ClassForm extends React.Component {
                                     <div className="form-label-group">
                                         <input
                                             onChange={this.onChange}
-                                            value={this.state.name}
-                                            id="name"
+                                            value={this.state.className}
+                                            id="className"
                                             type="text"
                                             className="form-control"
                                         />
-                                        <label htmlFor="name">Name</label>
+                                        <label htmlFor="className">Name</label>
                                     </div>
 
                                     <div className="form-label-group">
