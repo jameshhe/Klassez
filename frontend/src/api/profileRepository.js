@@ -14,6 +14,7 @@ export class ProfileRepository {
                 })
         })
     }
+    
 
     updateProfile(id, profile) {
         return new Promise((resolve, reject) => {

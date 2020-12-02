@@ -43,4 +43,4 @@ export class ProfilePage extends React.Component {
     }
 }
 
-export default withRouter(Profile);
+export default withRouter(ProfilePage);
