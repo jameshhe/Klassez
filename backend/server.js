@@ -53,6 +53,7 @@ router.post('/login', function(req, res) { //verify path matches
                 con.release()
                 if (err) throw err;
                 //res.end(JSON.stringify(result));
+                console.log(result)
                 console.log(email, password, result[0].password)
                     // Check password
                 bcrypt.compare(password, result[0].password).then(isMatch => {
@@ -96,6 +97,7 @@ router.post('/login', function(req, res) { //verify path matches
 // @desc    POST user by username, password
 router.post('/register', function(req, res) { //verify path matches
     con.getConnection((err, con) => {
+        console.log(req.body)
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -110,7 +112,9 @@ router.post('/register', function(req, res) { //verify path matches
                     if (err) throw err;
                     password = hash;
 
-                    con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
+                    var id = Math.random() * 1000 + 40
+
+                    con.query('INSERT INTO Users (username,password,type,email, id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
                         con.release()
                         if (err) throw err;
                         res.end(JSON.stringify(result));

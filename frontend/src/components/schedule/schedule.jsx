@@ -13,6 +13,7 @@ import axios from 'axios'
 const Schedule = () => {
     const store = useSelector(state => state.auth)
     console.log(store.user.id)
+    console.log(this.state)
 
     const currentDate = Date.now()
     // Assume classes start at 8/1/2020
