@@ -68,8 +68,6 @@ export class ProfileEditor extends React.Component {
         })
     }
     
-
-
     render() {
         return <form className="container pt-3">
             <div id="editProfileHeader" className="d-flex justify-content-center flex-column"> <h3>Edit Profile</h3></div>
@@ -153,33 +151,33 @@ export class ProfileEditor extends React.Component {
                                 id="exampleFormControlSelect1"
                                 value={this.state.timeStart}
                                 onChange={event => this.setState({ timeStart: event.target.value })}>
-                            <option></option>
-                            <option>9:00AM</option>
-                            <option>9:30AM</option>
-                            <option>10:00AM</option>
-                            <option>10:30AM</option>
-                            <option>11:00AM</option>
-                            <option>11:30AM</option>
-                            <option>12:00PM</option>
-                            <option>12:30PM</option>
-                            <option>1:00PM</option>
-                            <option>1:30PM</option>
-                            <option>2:00PM</option>
-                            <option>2:30PM</option>
-                            <option>3:00PM</option>
-                            <option>3:30PM</option>
-                            <option>4:00PM</option>
-                            <option>4:30PM</option>
-                            <option>5:00PM</option>
-                            <option>5:30PM</option>
-                            <option>6:00PM</option>
-                            <option>6:30PM</option>
-                            <option>7:00PM</option>
-                            <option>7:30PM</option>
-                            <option>8:00PM</option>
-                            <option>8:30PM</option>
-                            <option>9:00PM</option>
-                            <option>9:30PM</option>
+                                <option></option>
+                                <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
                         </select>
                     </div>
                 </div>
@@ -190,33 +188,33 @@ export class ProfileEditor extends React.Component {
                                 id="exampleFormControlSelect1"
                                 value={this.state.timeEnd}
                                 onChange={event => this.setState({ timeEnd: event.target.value })}>
-                            <option></option>
-                            <option>9:00AM</option>
-                            <option>9:30AM</option>
-                            <option>10:00AM</option>
-                            <option>10:30AM</option>
-                            <option>11:00AM</option>
-                            <option>11:30AM</option>
-                            <option>12:00PM</option>
-                            <option>12:30PM</option>
-                            <option>1:00PM</option>
-                            <option>1:30PM</option>
-                            <option>2:00PM</option>
-                            <option>2:30PM</option>
-                            <option>3:00PM</option>
-                            <option>3:30PM</option>
-                            <option>4:00PM</option>
-                            <option>4:30PM</option>
-                            <option>5:00PM</option>
-                            <option>5:30PM</option>
-                            <option>6:00PM</option>
-                            <option>6:30PM</option>
-                            <option>7:00PM</option>
-                            <option>7:30PM</option>
-                            <option>8:00PM</option>
-                            <option>8:30PM</option>
-                            <option>9:00PM</option>
-                            <option>9:30PM</option>
+                                <option></option>
+                                <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
                         </select>
                     </div>
                 </div>

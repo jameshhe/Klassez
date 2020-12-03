@@ -6,7 +6,7 @@ import store from '../../store'
 
 export class ProfilePage extends React.Component {
 
-   user = store.getState().auth.user
+    user = store.getState().auth.user
     profileRepository = new ProfileRepository()
 
     state = {
@@ -37,7 +37,11 @@ export class ProfilePage extends React.Component {
 
     render() {
         if(!this.state.firstName){
-            return <div>Loading Profile...{ console.log(this.user)}</div>
+            return <div>Loading Profile...{ console.log(this.user)}
+                        <div className="text-center">
+                            <Link to={'/editProfile'} className="btn btn-info justify-content-center"> Create Profile </Link>
+                        </div>
+                    </div>
         }
         return <>
         
