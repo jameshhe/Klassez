@@ -9,7 +9,7 @@ export class RecomendForm extends React.Component{
         teacher: '',
         text: '',
     }
-
+    
     render(){
          return<>
             <form>
@@ -20,7 +20,7 @@ export class RecomendForm extends React.Component{
                     <input type="classid" class="form-control" id="classid" placeholder="class"/>
                 </div>
                 <div class="form-group">
-                    <input type="teahcer" class="form-control" id="classid" placeholder="Professot"/>
+                    <input type="teahcer" class="form-control" id="teacher" placeholder="Professor"/>
                 </div>
                 <div class="form-group">
                     <textarea type="txt" class="form-control" value={this.state.text} placeholder="Comment"></textarea>

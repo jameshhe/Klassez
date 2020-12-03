@@ -1,14 +1,26 @@
 import React from 'react'
 import { Reviews } from './reviews';
 import { Link } from 'react-router-dom';
+import {ReviewRepository} from '../api/reviewRepository'
 
 export class ClassReview extends React.Component{
-    reviewList = [
-        new Reviews("CS1301", "Bob", 3, "Could be better"),
-        new Reviews("CS1001", "Jim", 4, "Great Class"),
-        new Reviews("CS1001", "George", 4.5, "Amazing class"),
+    reviewRepository = new ReviewRepository();
+    reviewList = {
 
-    ];
+    }
+       
+    
+
+    URL = "http://localhost:8080/api/review/"
+
+    componentDidMount(){
+        const IDvalue = +this.props.match.params.classid;
+        if(IDvalue)
+        {
+            this.reviewRepository.getReview(IDvalue)
+                .then( Reviews => this.setState({ Reviews }));
+        }
+    }
 
     render(){
         return<>
