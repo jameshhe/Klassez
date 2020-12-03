@@ -6,7 +6,7 @@ import store from '../../store'
 
 export class ProfilePage extends React.Component {
 
-   user = store.getState().auth.user
+    user = store.getState().auth.user
     profileRepository = new ProfileRepository()
 
     state = {
@@ -14,14 +14,14 @@ export class ProfilePage extends React.Component {
         firstName: '',
         lastName: '',
         profilePic: '',
-        biography: '',
         year: '',
         major: '',
         minor: '',
         concentration: '',
         classification: '',
-        preferredHours: ''
-        
+        preferredStart: '',
+        preferredEnd:'',
+        preferNight:''        
     }
 
     componentDidMount(){
@@ -35,25 +35,13 @@ export class ProfilePage extends React.Component {
         })
     }
 
-    // state = {
-    //     profile: new ProfileDetails(
-    //         1,
-    //         "John",
-    //         "Doe", 
-    //         "https://bloom-obgyn.com/wp-content/uploads/2016/09/dummy-profile-pic.png",
-    //         "Aspiring software engineer who has a passion for web development and Angular. For my front-end experience, I have worked in JavaScript, HTML/CSS, and React and for backend, I am proficient in C/C++, Java, and SQL. Looking to learn more DevOps and deployment concepts from my classess.",
-    //         "Junior",
-    //         "Computer Science",
-    //         "Mathematics",
-    //         "N/A", 
-    //         "Student",
-    //         "MWF 12pm-5pm"
-    //     )
-    // };
-
     render() {
         if(!this.state.firstName){
-            return <div>Loading Profile...{ console.log(this.user)}</div>
+            return <div>Loading Profile...{ console.log(this.user)}
+                        <div className="text-center">
+                            <Link to={'/editProfile'} className="btn btn-info justify-content-center"> Create Profile </Link>
+                        </div>
+                    </div>
         }
         return <>
         
@@ -75,9 +63,10 @@ export class ProfilePage extends React.Component {
                 <br></br><br></br>
                 <br></br><br></br>
                 <div id = "bioInfo"> 
-                    <h2 id="bio"> Preferred Hours</h2>
-                    <h2 id="bio"> Biography </h2> <br></br>
-                    <div id="biography"> { this.state.biography } </div>
+                    <h2 id="bio"> Preferred Hours</h2><br></br>
+                    Preferred Start Time:   <div id="biography"> { this.state.preferredStart } </div>
+                    Preferred End Time:     <div id="biography"> { this.state.preferredEnd } </div>
+                    Preferred Night Class?: <div id="biography"> { this.state.preferNight } </div>
                 </div>
                 <br></br><br></br>
                 <div id = "schedule">
@@ -87,5 +76,4 @@ export class ProfilePage extends React.Component {
         </>;
     }
 }
-
 export default withRouter(ProfilePage);

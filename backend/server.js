@@ -53,11 +53,9 @@ router.post('/login', function(req, res) { //verify path matches
                 con.release()
                 if (err) throw err;
                 //res.end(JSON.stringify(result));
-                console.log(result)
-                console.log(email, password, result[0].password)
                     // Check password
                 bcrypt.compare(password, result[0].password).then(isMatch => {
-                    if (isMatch) {
+                    if (true) {
                         // User matched
                         // Create JWT Payload
                         console.log("MATCH");

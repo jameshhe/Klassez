@@ -9,11 +9,14 @@ import {
 import ScheduleSelect from "./scheduleSelect";
 import { useSelector } from 'react-redux';
 import axios from 'axios'
+import { useLocation } from 'react-router-dom';
 
 const Schedule = () => {
     const store = useSelector(state => state.auth)
     console.log(store.user.id)
-    console.log(this.state)
+    const location = useLocation()
+    console.log(location)
+
 
     const currentDate = Date.now()
     // Assume classes start at 8/1/2020
@@ -63,7 +66,28 @@ const Schedule = () => {
                     setClasses(myClasses)
                 })
         }
-        fetchClasses()
+        if(!location.state.selectedClasses)
+            fetchClasses()
+        else{
+            const allClasses = location.state.selectedClasses
+            const myClasses = []
+            allClasses.map(newClass => {
+                console.log(newClass)
+                const starts = newClass.timeStart.split(':')
+                const ends = newClass.timeEnd.split(':')
+                console.log(starts, ends)
+                const myClass = {
+                    startDate: new Date(year, month, date, starts[0], starts[1]),
+                    endDate: new Date(year, month, date, ends[0], ends[1]),
+                    title: newClass.classCode,
+                    rRule: `BYDAY=${newClass.days}`,
+                    checked: true
+                }
+                myClasses.push(myClass)
+            })
+            console.log(myClasses)
+            setClasses(myClasses)
+        }
     },[])
 
     const changeClass = (myClass, checked) => {
