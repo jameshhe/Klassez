@@ -9,7 +9,8 @@ const logger = require('@rama41222/node-logger/src/logger');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const secretOrKey = "secret"
-    // mysql connection
+
+// mysql connection
 var con = mysql.createPool({
     host: process.env.MYSQL_CLOUD_HOST,
     user: process.env.MYSQL_CLOUD_USER,
@@ -41,25 +42,29 @@ app.use('/api', router);
 // @route   GET api/login
 // @desc    GET user by username, password
 router.get('/login', function(req, res) { //verify path matches
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            const username = req.query.username;
+            const email = req.query.email;
             const password = req.query.password;
 
-            con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(err, result, fields) {
+            con.query('SELECT * FROM Users WHERE email = ?', email, function(err, result, fields) {
                 con.release()
                 if (err) throw err;
-                res.end(JSON.stringify(result));
-                // Check password
-                bcrypt.compare(password, result.password).then(isMatch => {
+                //res.end(JSON.stringify(result));
+                console.log(email, password, result[0].password)
+                    // Check password
+                bcrypt.compare(password, result[0].password).then(isMatch => {
                     if (isMatch) {
                         // User matched
                         // Create JWT Payload
+                        console.log("MATCH");
                         const payload = {
-                            id: result.id,
-                            name: result.name
+                            id: result[0].id,
+                            username: result[0].username,
+                            type: result[0].type,
+                            email: result[0].email
                         };
                         // Sign token
                         jwt.sign(
@@ -84,14 +89,16 @@ router.get('/login', function(req, res) { //verify path matches
         }
     })
 });
+
+/* ---------------------------------------------------------------- */
+
 // @route   POST api/register
 // @desc    POST user by username, password
 router.post('/register', function(req, res) { //verify path matches
-    mysql.createPool.getConnection((err, con) => {
+    con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var id = req.body.id;
             var type = req.body.type; //Users declare account type at register?
             var email = req.body.email;
             var username = req.body.username;
@@ -102,17 +109,20 @@ router.post('/register', function(req, res) { //verify path matches
                 bcrypt.hash(password, salt, (err, hash) => {
                     if (err) throw err;
                     password = hash;
-                });
-            });
 
-            con.query('INSERT INTO users (username,password,type,email,id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result));
+                    con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
+                        con.release()
+                        if (err) throw err;
+                        res.end(JSON.stringify(result));
+                    });
+
+                });
             });
         }
     })
 });
+
+/* ---------------------------------------------------------------- */
 
 // @route   GET api/classes
 // @desc    GET all classes
@@ -235,7 +245,7 @@ router.get('/schedules', function(req, res) {
 
 // @route   GET api/schedules/:id
 // @desc    GET student schedule by student ID
-router.get('/Schedules/:id', function(req, res) {
+router.get('/schedules/:id', function(req, res) {
     con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
@@ -280,25 +290,6 @@ router.get('/classReview/:id', function(req, res) {
             var classID = req.params.id;
             con.query("SELECT * FROM ClassReviews WHERE classID = ?", classID, function(err, result, fields) {
                 con.release();
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
-
-/* ---------------------------------------------------------------- */
-
-// @route   GET api/prereqs/:id
-// @desc    GET pre-reqs for a class by ID
-router.get('/prereqs/:id', function(req, res) {
-    con.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var classID = req.params.id;
-            con.query("SELECT * FROM Prerequesites WHERE classID = ?", classID, function(err, result, fields) {
-                con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
@@ -514,15 +505,15 @@ router.put('/updateclassteacher', async(req, res) => {
 
 /* ---------------------------------------------------------------- */
 
-// @route   POST api/updateclassteacher
-// @desc    updates the instructor ID in a class
+// @route   POST api/updateseats
+// @desc    updates the number of seats in a class by ID
 router.put('/updateseats', async(req, res) => {
     var classID = req.body.classID;
     var seats = req.body.seatsRemaining;
 
     if (seats == null) return res.status(400).send('missing number of seats');
 
-    console.log("updating number of seatsin class:", classID, "to", seats, "seats");
+    console.log("updating number of seats in class:", classID, "to", seats, "seats");
 
     con.query("UPDATE Classes \
     SET seatsRemaining = ? \
