@@ -525,5 +525,33 @@ router.put('/updateseats', async(req, res) => {
     });
 });
 
+// @route   PUT api/editprofile
+// @desc    updates the user profile
+router.put('/students/:studentID', async(req, res) => {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+			var studentID					= req.params.studentID;
+            var name    					= req.body.name;
+            var preferredTimesStart			= req.body.timeStart;
+			var preferredTimesEnd			= req.body.timeEnd;
+			var gradYear					= req.body.year;
+			var major						= req.body.major;
+			var openToNightClasses			= req.body.preferNight;
+			
+            console.log("Updating profile of student: ", studentID);
+
+            con.query("UPDATE Students \
+            SET name = ?, preferredTimesStart = ?, preferredTimesEnd, gradYear = ?, major = ?, openToNightClasses = ?) \
+            WHERE studentID = ?", [name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses, studentID],
+            function (err, result, fields) {
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
