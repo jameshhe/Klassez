@@ -8,6 +8,8 @@ const ClassDetails = () => {
     const [timeEnd, setTimeEnd] = useState('10:50AM');
     const [department, setDepartment] = useState('Computer Science');
     const [seats, setSeats] = useState(0);
+    const [classCode, setClassCode] = useState('')
+    const [instructor, setInstructor] = useState('')
 
     // get class id from params
     let {classId} = useParams()
@@ -26,6 +28,8 @@ const ClassDetails = () => {
                     setTimeEnd(data.timeEnd)
                     setDepartment(data.department)
                     setSeats(data.seatsRemaining)
+                    setClassCode(data.classCode)
+                    setInstructor(data.Insturctor)
                 })
                 .catch(err => console.log(err))
         }

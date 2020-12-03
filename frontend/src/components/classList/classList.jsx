@@ -34,13 +34,13 @@ export class ClassList extends React.Component{
         this.state.classes.map((x, i) => <li key={i} className="card">
                 <table>
                     {
-                        (this.previous !== x['Class code']) ? 
-                        <div className="card-header"><b>{x['Class code']} - {x['Class name']}</b></div>
+                        (this.previous !== x.classCode) ? 
+                        <div className="card-header"><b>{x.classCode} - {x.className}</b></div>
                         :
                         <></>
                     }
                     <div className="hidden">
-                        {this.previous = x['Class code']}
+                        {this.previous = x.classCode}
                     </div>
 
                     <tbody>
@@ -57,9 +57,9 @@ export class ClassList extends React.Component{
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className="border">{x['Seats available']}</td>
-                                            <td className="border">{x.Instructor}</td>
-                                            <td className="border">{x.days} {x['Start time']}-{x['End time']}</td>
+                                            <td className="border">{x.seatsRemaining}</td>
+                                            <td className="border">{x.Insturctor}</td>
+                                            <td className="border">{x.days} {x.timeStart}-{x.timeEnd}</td>
                                             <td className="border"><Link to={`/classes/${x.classID}`}>View Details</Link></td>
                                         </tr>
                                     </tbody>
