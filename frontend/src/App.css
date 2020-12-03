@@ -2,8 +2,13 @@
     box-sizing: border-box;
 }
 
+
+
 .landing-container {
-    margin-top: 6rem;
+    background-image: url("https://images.pexels.com/photos/3781824/pexels-photo-3781824.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .inner_padding * {
