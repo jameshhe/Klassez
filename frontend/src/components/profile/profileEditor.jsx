@@ -26,12 +26,8 @@ export class ProfileEditor extends React.Component {
         concentration: '',
         classification: '',
         timeStart: '',
-<<<<<<< HEAD
         timeEnd: '',
         preferNight: ''
-=======
-        timeEnd: ''
->>>>>>> 9257b992277c685662ac643245037c52e6f583a4
     };
 
     onSave = () => {
