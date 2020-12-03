@@ -1,5 +1,5 @@
 export class ProfileDetails {
-    constructor(id, firstName, lastName, profilePic, biography, year, major, minor, concentration, classification){
+    constructor(id, firstName, lastName, profilePic, biography, year, major, minor, concentration, classification, preferredHours){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -10,5 +10,6 @@ export class ProfileDetails {
         this.minor = minor;
         this.concentration = concentration;
         this.classification = classification;
+        this.preferredHours = preferredHours;
     }
 }

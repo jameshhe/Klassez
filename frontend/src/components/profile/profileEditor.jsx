@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import {ProfileRepository} from '../../api/profileRepository'
 
+
 export class ProfileEditor extends React.Component {
 
     profileRepository = new ProfileRepository()
@@ -59,8 +60,6 @@ export class ProfileEditor extends React.Component {
             })
         })
     }
-    
-
 
     render() {
         return <form className="container pt-3">
@@ -133,6 +132,195 @@ export class ProfileEditor extends React.Component {
                 </div>
             </div>
             <br />
+            
+            <div className="form-check form-check-inline">
+                <label for="exampleFormControlSelect2">Preferred Schedule Times</label><div></div>
+                <div className="col">
+                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+                        <label className="form-check-label" foforHTMLr="inlineCheckbox1">Mon</label><br />
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2">
+                                <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
+                            </select>
+                        </div>
+                </div>
+                <div className="col">
+                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+                        <label className="form-check-label" foforHTMLr="inlineCheckbox1">Tues</label><br />
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2">
+                            <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
+                            </select>
+                        </div>
+                </div>
+                <div className="col">
+                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+                        <label className="form-check-label" foforHTMLr="inlineCheckbox1">Wed</label><br />
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2">
+                            <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
+                            </select>
+                        </div>
+                </div>
+                <div className="col">
+                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+                        <label className="form-check-label" foforHTMLr="inlineCheckbox1">Thurs</label><br />
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2">
+                            <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
+                            </select>
+                        </div>
+                </div>
+                <div className="col">
+                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+                        <label className="form-check-label" foforHTMLr="inlineCheckbox1">Fri</label><br />
+                        <div class="form-group">
+                            <select multiple class="form-control" id="exampleFormControlSelect2">
+                            <option>9:00AM</option>
+                                <option>9:30AM</option>
+                                <option>10:00AM</option>
+                                <option>10:30AM</option>
+                                <option>11:00AM</option>
+                                <option>11:30AM</option>
+                                <option>12:00PM</option>
+                                <option>12:30PM</option>
+                                <option>1:00PM</option>
+                                <option>1:30PM</option>
+                                <option>2:00PM</option>
+                                <option>2:30PM</option>
+                                <option>3:00PM</option>
+                                <option>3:30PM</option>
+                                <option>4:00PM</option>
+                                <option>4:30PM</option>
+                                <option>5:00PM</option>
+                                <option>5:30PM</option>
+                                <option>6:00PM</option>
+                                <option>6:30PM</option>
+                                <option>7:00PM</option>
+                                <option>7:30PM</option>
+                                <option>8:00PM</option>
+                                <option>8:30PM</option>
+                                <option>9:00PM</option>
+                                <option>9:30PM</option>
+                            </select>
+                        </div>
+                </div>
+            </div>
+            <br /><br />
+            Prefer night classes?
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
+                <label class="form-check-label" for="exampleRadios1">
+                    Yes
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"/>
+                <label class="form-check-label" for="exampleRadios2">
+                    No
+                </label>
+            </div>
+            <br />
             <div className="form-group">
                 <label forHTML="biographyInput">Biography</label>
                 <textarea 
@@ -162,14 +350,6 @@ export class ProfileEditor extends React.Component {
             </div>
             <br />
         </form>
-    }
-
-    componentDidMount() {
-        const accountId = +this.props.match.params.accountId;
-        if (accountId) {
-            this.profileRepository.getProfile(accountId)
-                .then(account => this.setState(account));
-        }
     }
 }
 

@@ -1,15 +1,41 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import {ProfileRepository} from '../../api/profileRepository'
+import { ProfileRepository } from '../../api/profileRepository'
 import "./profile.css";
 
 export class ProfilePage extends React.Component {
 
     profileRepository = new ProfileRepository()
 
-    state = {
-        profile: []
+    constructor(id, firstName, lastName, profilePic, biography, year, major, minor, concentration, classification, preferredHours){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.profilePic = profilePic;
+        this.biography = biography;
+        this.year = year;
+        this.major = major;
+        this.minor = minor;
+        this.concentration = concentration;
+        this.classification = classification;
+        this.preferredHours = preferredHours;
     }
+
+    // state = {
+    //     profile: new ProfileDetails(
+    //         1,
+    //         "John",
+    //         "Doe", 
+    //         "https://bloom-obgyn.com/wp-content/uploads/2016/09/dummy-profile-pic.png",
+    //         "Aspiring software engineer who has a passion for web development and Angular. For my front-end experience, I have worked in JavaScript, HTML/CSS, and React and for backend, I am proficient in C/C++, Java, and SQL. Looking to learn more DevOps and deployment concepts from my classess.",
+    //         "Junior",
+    //         "Computer Science",
+    //         "Mathematics",
+    //         "N/A", 
+    //         "Student",
+    //         "MWF 12pm-5pm"
+    //     )
+    // };
 
     render() {
         return <>
@@ -31,6 +57,7 @@ export class ProfilePage extends React.Component {
                 <br></br><br></br>
                 <br></br><br></br>
                 <div id = "bioInfo"> 
+                    <h2 id="bio"> Preferred Hours</h2>
                     <h2 id="bio"> Biography </h2> <br></br>
                     <div id="biography"> { this.state.profile.biography } </div>
                 </div>
