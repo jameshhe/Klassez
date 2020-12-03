@@ -7,8 +7,13 @@ import {
     Appointments
 } from '@devexpress/dx-react-scheduler-material-ui'
 import ScheduleSelect from "./scheduleSelect";
+import { useSelector } from 'react-redux';
+import axios from 'axios'
 
 const Schedule = () => {
+    const store = useSelector(state => state.auth)
+    console.log(store.user.id)
+
     const currentDate = Date.now()
     // Assume classes start at 8/1/2020
     const year = 2020
@@ -32,16 +37,33 @@ const Schedule = () => {
     ]);
 
     // fetch classes from database
-    const URL = "http://localhost:8080/classes"
-    // useEffect(() => {
-    //     const fetchClasses = async () => {
-    //         await axios.get(URL)
-    //             .then(res => {
-    //                 const allClasses = res.data
-    //                 setClasses(allClasses)
-    //             })
-    //     }
-    // },[])
+    const URL = "http://localhost:8080/api/classes/"
+    useEffect(() => {
+        const fetchClasses = async () => {
+            await axios.get(URL+store.user.id)
+                .then(res => {
+                    const allClasses = res.data
+                    const myClasses = []
+                    allClasses.map(newClass => {
+                        console.log(newClass)
+                        const starts = newClass.timeStart.split(':')
+                        const ends = newClass.timeEnd.split(':')
+                        console.log(starts, ends)
+                        const myClass = {
+                            startDate: new Date(year, month, date, starts[0], starts[1]),
+                            endDate: new Date(year, month, date, ends[0], ends[1]),
+                            title: newClass.classCode,
+                            rRule: `BYDAY=${newClass.days}`,
+                            checked: true
+                        }
+                        myClasses.push(myClass)
+                    })
+                    console.log(myClasses)
+                    setClasses(myClasses)
+                })
+        }
+        fetchClasses()
+    },[])
 
     const changeClass = (myClass, checked) => {
         let newClasses = classes

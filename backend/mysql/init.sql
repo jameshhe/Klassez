@@ -1,7 +1,5 @@
 use dummyData;
 
-
-
 DROP table Classes ;
 drop table ClassReviews ;
 drop table InstructorReviews ;

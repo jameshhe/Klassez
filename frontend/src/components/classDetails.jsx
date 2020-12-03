@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
+import axios from 'axios'
 
 const ClassDetails = () => {
     const [class_name, setClass_name] = useState('CS 3345');
@@ -12,18 +13,24 @@ const ClassDetails = () => {
     let {classId} = useParams()
     console.log({classId}.classId)
 
-    // const URL = 'http://localhost:8000/classDetails/'
+    const URL = 'http://localhost:8080/api/classes/'
 
-    // useEffect(() => {
-    //     const getClassDetails = async () => {
-    //         await axios.get(URL + {classId}.classId)
-    //             .then(res => {
-    //                 const data = res.data
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    //     getClassDetails()
-    // }, []);
+    useEffect(() => {
+        const getClassDetails = async () => {
+            await axios.get(URL + {classId}.classId)
+                .then(res => {
+                    console.log(res.data)
+                    const data = res.data[0]
+                    setClass_name(data.className)
+                    setTimeStart(data.timeStart)
+                    setTimeEnd(data.timeEnd)
+                    setDepartment(data.department)
+                    setSeats(data.seatsRemaining)
+                })
+                .catch(err => console.log(err))
+        }
+        getClassDetails()
+    }, []);
 
 
     return (
