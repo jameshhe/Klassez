@@ -41,13 +41,13 @@ app.use('/api', router);
 
 // @route   GET api/login
 // @desc    GET user by username, password
-router.get('/login', function(req, res) { //verify path matches
+router.post('/login', function(req, res) { //verify path matches
     con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            const email = req.query.email;
-            const password = req.query.password;
+            const email = req.body.email;
+            const password = req.body.password;
 
             con.query('SELECT * FROM Users WHERE email = ?', email, function(err, result, fields) {
                 con.release()
@@ -318,9 +318,11 @@ router.get('/prereqs/:id', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
-// @route   GET api/classesbytime/:startTime
-// @desc    GET class info by start time
-router.get('/classoptions', function(req, res) {
+/* POST */
+
+// @route   POST api/classesbytime/:startTime
+// @desc    return list of classes in the preferred time
+router.post('/classoptions', function(req, res) {
     con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
@@ -343,8 +345,6 @@ router.get('/classoptions', function(req, res) {
 });
 
 /* ---------------------------------------------------------------- */
-
-/* POST */
 
 // @route   POST api/addclass
 // @desc    add a class
