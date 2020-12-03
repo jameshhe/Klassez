@@ -24,7 +24,9 @@ export class ProfileEditor extends React.Component {
         major: '',
         minor: '',
         concentration: '',
-        classification: ''
+        classification: '',
+        timeStart: '',
+        timeEnd: ''
     };
 
     onSave = () => {

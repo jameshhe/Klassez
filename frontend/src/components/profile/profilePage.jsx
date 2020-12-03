@@ -2,25 +2,37 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { ProfileRepository } from '../../api/profileRepository'
 import "./profile.css";
+import store from '../../store'
 
 export class ProfilePage extends React.Component {
 
+   user = store.getState().auth.user
     profileRepository = new ProfileRepository()
 
-    constructor(id, firstName, lastName, profilePic, biography, year, major, minor, concentration, classification, preferredHours){
-        this.state = {
-            id: 0,
-            firstName: "",
-            lastName: "",
-            profilePic: "",
-            biography: "",
-            year: "",
-            major: "",
-            minor: "",
-            concentration: "",
-            classification: "",
-            preferredHours: ""
-        };
+    state = {
+        id: this.user.id,
+        firstName: '',
+        lastName: '',
+        profilePic: '',
+        biography: '',
+        year: '',
+        major: '',
+        minor: '',
+        concentration: '',
+        classification: '',
+        preferredHours: ''
+        
+    }
+
+    componentDidMount(){
+        this.profileRepository.getProfile(this.user.id)
+        .then(profile => {
+            let userProfile = profile[0]
+            let names = userProfile.name.split()
+            userProfile.firstName = names[0]
+            userProfile.lastName = names[1]
+            this.setState(userProfile)
+        })
     }
 
     // state = {
@@ -40,28 +52,32 @@ export class ProfilePage extends React.Component {
     // };
 
     render() {
+        if(!this.state.firstName){
+            return <div>Loading Profile...{ console.log(this.user)}</div>
+        }
         return <>
+        
             <Link to={'/editProfile'} className="btn btn-info mt-2 mr-2 float-right"> Edit Profile </Link>
             <br />
             <div id="profileInfo">
                 <br />
                 <span 
                     id="profilePic" className="align-top">
-                        <img src= { this.state.profile.profilePic } height="200" width="200" alt = "profilePicture"/>
+                        <img src= { this.state.profilePic } height="200" width="200" alt = "profilePicture"/>
                 </span>
                 <div id = "profile">
-                    <h1> { this.state.profile.firstName + " " + this.state.profile.lastName } </h1>
-                    <p id="year"> <i> {this.state.profile.year} </i> </p>
-                    <div id="major"> <p><b>Major: </b>{ this.state.profile.major }</p> </div>
-                    <div id="minor"> <p><b>Minor: </b> { this.state.profile.minor }</p> </div>
-                    <div id="concentration"> <p><b>Concentration: </b>{ this.state.profile.concentration }</p> </div>
+                    <h1> { this.state.firstName + " " + this.state.lastName } </h1>
+                    <p id="year"> <i> {this.state.year} </i> </p>
+                    <div id="major"> <p><b>Major: </b>{ this.state.major }</p> </div>
+                    <div id="minor"> <p><b>Minor: </b> { this.state.minor }</p> </div>
+                    <div id="concentration"> <p><b>Concentration: </b>{ this.state.concentration }</p> </div>
                 </div>
                 <br></br><br></br>
                 <br></br><br></br>
                 <div id = "bioInfo"> 
                     <h2 id="bio"> Preferred Hours</h2>
                     <h2 id="bio"> Biography </h2> <br></br>
-                    <div id="biography"> { this.state.profile.biography } </div>
+                    <div id="biography"> { this.state.biography } </div>
                 </div>
                 <br></br><br></br>
                 <div id = "schedule">

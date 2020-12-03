@@ -1,15 +1,13 @@
-
 use dummyData;
 
-
-
 DROP table Classes ;
-DROP table ClassReviews ;
-DROP table InstructorReviews ;
-DROP table Instructors ;
-DROP table Users;
-DROP table Students ;
-DROP table Schedules ;
+drop table ClassReviews ;
+drop table InstructorReviews ;
+drop table Instructors ;
+drop table Users;
+drop table Students ;
+drop table Schedules ;
+drop table Prerequesites ;
 
 
 
@@ -92,16 +90,16 @@ insert into Users values('mollymoe', 'password', 1, 'mollym@school.edu', 8);
 insert into Users values('patrickpear', 'password', 1, 'patrickp@school.edu', 9);
 insert into Users values('donaldduck', 'password', 1, 'donaldd@school.edu', 10);
 
-insert into Students (name, gradYear, major, openToNightClasses) values('Billy Bob', 2022, 'Computer Science', true);
-insert into Students (name, gradYear, major, openToNightClasses) values('Sarah Sue', 2021, 'Arts', false);
-insert into Students (name, gradYear, major, openToNightClasses) values('Jane Doe', 2023, 'Math', true);
-insert into Students (name, gradYear, major, openToNightClasses) values('John Doe', 2023, 'Math', false);
-insert into Students (name, gradYear, major, openToNightClasses) values('Kelly King', 2022, 'Computer Science', true);
-insert into Students (name, gradYear, major, openToNightClasses) values('Lola Lee', 2024, 'Undeclared', false);
-insert into Students (name, gradYear, major, openToNightClasses) values('Casey Carl', 2023, 'Math', true);
-insert into Students (name, gradYear, major, openToNightClasses) values('Molly Moe', 2023, 'Math', false);
-insert into Students (name, gradYear, major, openToNightClasses) values('Patrick Pear', 2022, 'Computer Science', true);
-insert into Students (name, gradYear, major, openToNightClasses) values( 'Donald Duck', 2024, 'Arts', false);
+insert into Students values(1, 'Billy Bob', 2022, 'Computer Science', true);
+insert into Students values(2, 'Sarah Sue', 2021, 'Arts', false);
+insert into Students values(3, 'Jane Doe', 2023, 'Math', true);
+insert into Students values(4, 'John Doe', 2023, 'Math', false);
+insert into Students values(5, 'Kelly King', 2022, 'Computer Science', true);
+insert into Students values(6, 'Lola Lee', 2024, 'Undeclared', false);
+insert into Students values(7, 'Casey Carl', 2023, 'Math', true);
+insert into Students values(8, 'Molly Moe', 2023, 'Math', false);
+insert into Students values(9, 'Patrick Pear', 2022, 'Computer Science', true);
+insert into Students values(10, 'Donald Duck', 2024, 'Arts', false);
 
 -- instructors have type = 2, id begins with 2
 insert into Users values('johnjack', 'password', 2, 'johnj@school.edu', 21);

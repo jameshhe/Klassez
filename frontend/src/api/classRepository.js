@@ -24,4 +24,15 @@ export class ClassRepository {
                 })
         })
     }
+
+    addClass(body) {
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/addclasses`, body)
+                .then(x => resolve(x.data))
+                .catch(e => {
+                    alert(e)
+                    reject()
+                })
+        })
+    }
 }
