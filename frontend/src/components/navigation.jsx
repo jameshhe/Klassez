@@ -18,7 +18,7 @@ const Navigation = () => {
                     <Nav className="mr-auto">
                         <Nav.Link href="/classList">Classes</Nav.Link>
                         <Nav.Link href="/profile">My Profile</Nav.Link>
-                        <Nav.Link href="/schedule">My Schedule</Nav.Link>
+                        {/* <Nav.Link href="/schedule">My Schedule</Nav.Link> */}
                         <Nav.Link href="/classSelector">Select Classes</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
