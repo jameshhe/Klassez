@@ -14,34 +14,14 @@ export class ProfilePage extends React.Component {
         firstName: '',
         lastName: '',
         profilePic: '',
-<<<<<<< HEAD
-=======
-        biography: '',
->>>>>>> 9257b992277c685662ac643245037c52e6f583a4
         year: '',
         major: '',
         minor: '',
         concentration: '',
         classification: '',
-<<<<<<< HEAD
         preferredStart: '',
         preferredEnd:'',
         preferNight:''        
-=======
-        preferredHours: ''
-        
-    }
-
-    componentDidMount(){
-        this.profileRepository.getProfile(this.user.id)
-        .then(profile => {
-            let userProfile = profile[0]
-            let names = userProfile.name.split()
-            userProfile.firstName = names[0]
-            userProfile.lastName = names[1]
-            this.setState(userProfile)
-        })
->>>>>>> 9257b992277c685662ac643245037c52e6f583a4
     }
 
     componentDidMount(){
@@ -79,16 +59,10 @@ export class ProfilePage extends React.Component {
                 <br></br><br></br>
                 <br></br><br></br>
                 <div id = "bioInfo"> 
-<<<<<<< HEAD
                     <h2 id="bio"> Preferred Hours</h2><br></br>
                     Preferred Start Time:   <div id="biography"> { this.state.preferredStart } </div>
                     Preferred End Time:     <div id="biography"> { this.state.preferredEnd } </div>
                     Preferred Night Class?: <div id="biography"> { this.state.preferNight } </div>
-=======
-                    <h2 id="bio"> Preferred Hours</h2>
-                    <h2 id="bio"> Biography </h2> <br></br>
-                    <div id="biography"> { this.state.biography } </div>
->>>>>>> 9257b992277c685662ac643245037c52e6f583a4
                 </div>
                 <br></br><br></br>
                 <div id = "schedule">
