@@ -11,6 +11,7 @@ export class ProfilePage extends React.Component {
 
     state = {
         id: this.user.id,
+        type: this.user.type,
         firstName: '',
         lastName: '',
         profilePic: '',
@@ -25,7 +26,7 @@ export class ProfilePage extends React.Component {
     }
 
     componentDidMount(){
-        this.profileRepository.getProfile(this.user.id)
+        this.profileRepository.getProfile(this.user.id, this.user.type)
         .then(profile => {
             let userProfile = profile[0]
             let names = userProfile.name.split()

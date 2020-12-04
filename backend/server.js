@@ -51,7 +51,7 @@ router.post('/login', function(req, res) { //verify path matches
 
             con.query('SELECT * FROM Users WHERE email = ?', email, function(err, result, fields) {
                 if(result.length == 0){
-                    res.status(401).json({ noUser: "User doesn't exist" });
+                    return res.status(401).json({ noUser: "User doesn't exist" });
                 }
                 con.release()
                 if (err) throw err;
@@ -101,7 +101,7 @@ router.post('/register', function(req, res) { //verify path matches
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var type = req.body.type; //Users declare account type at register?
+            var type = req.body.type; 
             var email = req.body.email;
             var username = req.body.username;
             var password = req.body.password;
@@ -120,6 +120,22 @@ router.post('/register', function(req, res) { //verify path matches
 
                 });
             });
+			
+			// Update Students or Instructors
+			if(type == 1){
+				con.query('INSERT INTO Students (name) VALUES (?)', [username], (err, result, fields) => {
+					con.release()
+					if (err) throw err;
+					res.end(JSON.stringify(result));
+				});
+			}
+			else if(type == 2){
+				con.query('INSERT INTO Instructors (name) VALUES (?)', [username], (err, result, fields) => {
+					con.release()
+					if (err) throw err;
+					res.end(JSON.stringify(result));
+				});
+			}
         }
     })
 });
@@ -137,6 +153,43 @@ router.get('/classes', function(req, res) {
             INNER JOIN Instructors i \
             ON c.instructorID = i.instructorID", function(err, result, fields) {
                 con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
+// @route   GET api/classes/:c=instructorName
+// @desc    GET class info by instructorName
+router.get('/classes/:instructorName', function(req, res) {
+    mysql.createPool.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var instructorName = req.params.instructorName;
+            con.query("SELECT * FROM Classes INNER JOIN Instructors ON Classes.instructorID = Instructors.instructorID WHERE instructorName = ?", instructorName, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+// @route   GET api/instructor/:id
+// @desc    GET instructor info by id
+router.get('/instructor/:id', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var instructorID = req.params.id;
+            con.query("SELECT * FROM Instructors WHERE instructorID = ?", instructorID, function(err, result, fields) {
+                con.release();
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
@@ -374,6 +427,33 @@ router.post('/addclass', function(req, res) {
                     if (err) throw err;
                     res.end(JSON.stringify(result)); // Result in JSON format
                 });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
+// @route   POST api/addPrereqs/::classID,parentClassName, childClassName
+// @desc    POST class info by className with a specific instructor
+router.post('/addPrereqs', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.body.classID;
+            var parentClassName = req.body.className;
+            var childClassName = req.body.className
+
+            console.log("Adding class: ", className);
+
+            con.query("INSERT INTO Prerequesites \
+            (classID, parentClassName, childClassName) \
+            VALUES (?, ?, ?)", [classID, parentClassName, childClassName],
+            function (err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
         }
     })
 });
