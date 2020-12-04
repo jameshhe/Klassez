@@ -66,7 +66,7 @@ router.post('/login', function(req, res) { //verify path matches
 
             con.query('SELECT * FROM Users WHERE email = ?', email, function(err, result, fields) {
                 if(result.length == 0){
-                    res.status(401).json({ noUser: "User doesn't exist" });
+                    return res.status(401).json({ noUser: "User doesn't exist" });
                 }
                 con.release()
                 if (err) throw err;
@@ -96,9 +96,7 @@ router.post('/login', function(req, res) { //verify path matches
                             }
                         );
                     } else {
-                        return res
-                            .status(400)
-                            .json({ passwordincorrect: "Password incorrect" });
+                        return res.status(400).json({ passwordincorrect: "Password incorrect" });
                     }
                 });
             });
@@ -110,13 +108,12 @@ router.post('/login', function(req, res) { //verify path matches
 
 // @route   POST api/register
 // @desc    POST user by username, password
-router.post('/register', function(req, res) { //verify path matches
-    con.getConnection((err, con) => {
-        console.log(req.body)
+router.post('/register', function(req, res) {	//verify path matches
+    con.getConnection((err, con) =>{
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var type = req.body.type; //Users declare account type at register?
+            var type = req.body.type;		//Users declare account type at register?
             var email = req.body.email;
             var username = req.body.username;
             var password = req.body.password;
@@ -128,9 +125,30 @@ router.post('/register', function(req, res) { //verify path matches
                     password = hash;
 
                     con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
-                        con.release()
+                        //con.release()
                         if (err) throw err;
-                        res.end(JSON.stringify(result));
+                        //res.end(JSON.stringify(result));
+                                    // Update Students or Instructors
+                        console.log(result.insertId)
+
+                        if (type == 1) {
+                            console.log("Add student");
+
+			            	con.query('INSERT INTO Students (studentID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			            		con.release()
+			            		if (err) throw err;
+			            		res.end(JSON.stringify(result));
+			            	});
+			            }
+                        else if (type == 2) {
+                            console.log("Add instructor");
+
+			            	con.query('INSERT INTO Instructors (instructorID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			            		con.release()
+			            		if (err) throw err;
+			            		res.end(JSON.stringify(result));
+			            	});
+			            }
                     });
 
                 });
@@ -148,10 +166,47 @@ router.get('/classes', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
+            con.query("SELECT c.*,i.name,i.instructorID AS Insturctor FROM Classes c \
             INNER JOIN Instructors i \
             ON c.instructorID = i.instructorID", function (err, result, fields) {
                 con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
+// @route   GET api/classes/:c=instructorName
+// @desc    GET class info by instructorName
+// router.get('/classes/:instructorName', function(req, res) {
+//     con.getConnection((err, con) => {
+//         if (err) {
+//             res.status(400).send('Problem obtaining MySQL connection')
+//         } else {
+//             var instructorName = req.params.instructorName;
+//             con.query("SELECT * FROM Classes INNER JOIN Instructors ON Classes.instructorID = Instructors.instructorID WHERE name = ?", instructorName, function(err, result, fields) {
+//                 con.release()
+//                 if (err) throw err;
+//                 res.end(JSON.stringify(result)); // Result in JSON format
+//             });
+//         }
+//     })
+// });
+
+/* ---------------------------------------------------------------- */
+// @route   GET api/instructor/:id
+// @desc    GET instructor info by id
+router.get('/instructor/:id', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var instructorID = req.params.id;
+            con.query("SELECT * FROM Instructors WHERE instructorID = ?", instructorID, function(err, result, fields) {
+                con.release();
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
@@ -214,7 +269,7 @@ router.get('/classes/:instructorID', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var classID = req.params.id;
+            var instructorID = req.params.id;
             con.query("SELECT * FROM Classes WHERE instructorID = ?", instructorID, function(err, result, fields) {
                 con.release()
                 if (err) throw err;
@@ -228,7 +283,7 @@ router.get('/classes/:instructorID', function(req, res) {
 
 // @route   GET api/classes/:classCode
 // @desc    GET class info by classCode
-router.get('/classes/:classCode', function(req, res) {
+router.get('/classByCode/:classCode', function(req, res) {
     mysql.createPool.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
@@ -471,6 +526,24 @@ router.get('/prereqs/:id', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
+// @route   GET api/instructors
+// @desc    GET all instructors
+router.get('/instructors', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            con.query("SELECT * FROM Instructors", function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
 // @route   GET api/instructor/:id
 // @desc    GET instructor info by id
 router.get('/instructor/:id', function(req, res) {
@@ -479,7 +552,7 @@ router.get('/instructor/:id', function(req, res) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
             var instructorID = req.params.id;
-            con.query("SELECT * FROM Students WHERE instructorID = ?", instructorID, function(err, result, fields) {
+            con.query("SELECT * FROM Instructors WHERE instructorID = ?", instructorID, function(err, result, fields) {
                 con.release();
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -556,7 +629,7 @@ router.post('/addclass', function(req, res) {
             var instructorID    = req.body.instructorID;
             var days            = req.body.days;
             var timeStart       = req.body.timeStart;
-            var timeEnd         = req.body.timeStart;
+            var timeEnd         = req.body.timeEnd;
             var classCode       = req.body.classCode;
             var className       = req.body.className;
             var department      = req.body.department;
@@ -567,6 +640,33 @@ router.post('/addclass', function(req, res) {
             con.query("INSERT INTO Classes \
             (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) \
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining],
+            function (err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
+// @route   POST api/addPrereqs/::classID,parentClassName, childClassName
+// @desc    POST class info by className with a specific instructor
+router.post('/addPrereqs', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            var classID = req.body.classID;
+            var parentClassName = req.body.className;
+            var childClassName = req.body.className
+
+            console.log("Adding class: ", className);
+
+            con.query("INSERT INTO Prerequesites \
+            (classID, parentClassName, childClassName) \
+            VALUES (?, ?, ?)", [classID, parentClassName, childClassName],
             function (err, result, fields) {
                 con.release()
                 if (err) throw err;
@@ -692,6 +792,23 @@ router.post('/addPrereqs', function(req, res) {
 
 // @route   POST api/updateclasstime
 // @desc    updates the start and end timne of a class by classID
+
+router.put('/updateclass/:classId', async (req, res) => {
+    if(!req.body.days || !req.body.timeStart || !req.body.timeEnd || !req.body.classCode||
+        !req.body.className || !req.body.department || !req.body.seatsRemaining || !req.body.instructorID){
+        return res.status(400).send("Missing one or more fields")
+    }
+
+    if (req.body.timeStart == req.body.timeEnd) return res.status(400).send('start time and end time are equal');
+
+    con.query("UPDATE Classes \
+    SET instructorID = ?, days = ?, timeStart = ?, timeEnd = ?, classCode = ?, className = ?, department = ?, seatsRemaining = ? \
+    WHERE classID = ?", [req.body.instructorID, req.body.days, req.body.timeStart, req.body.timeEnd, req.body.classCode, req.body.className, req.body.department, req.body.seatsRemaining, req.params.classId], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	 });
+});
+
 router.put('/updateclasstime', async (req, res) => {
     var classID     = req.body.classID;
     var startTime   = req.body.timeStart;

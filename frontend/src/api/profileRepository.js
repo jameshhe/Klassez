@@ -2,11 +2,11 @@ import axios from 'axios'
 
 export class ProfileRepository {
 
-    url = 'http://localhost:8080/api/students';
+    url = 'http://localhost:8080/api';
 
     getProfile(userID, userType) {
         return new Promise((resolve, reject) => {
-            if(userType == 1){
+            if(userType == 2){
                 axios.get(`${this.url}/instructor/${userID}`)
                 .then(x => resolve(x.data))
                 .catch(e => {
@@ -14,7 +14,7 @@ export class ProfileRepository {
                     reject()
                 })
             }
-            else if(userType == 2){
+            else if(userType == 1){
                 axios.get(`${this.url}/students/${userID}`)
                 .then(x => resolve(x.data))
                 .catch(e => {

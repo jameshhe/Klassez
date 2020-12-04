@@ -1,10 +1,13 @@
 import React from 'react'
 import "./classSelector.css"
 import {ClassRepository} from '../../api/classRepository'
-import {Link, Redirect} from 'react-router-dom'
+import {StudentRepository} from '../../api/studentRepository'
+import store from '../../store'
 
 export class ClassSelector extends React.Component{
     classRepository = new ClassRepository()
+    studentRepository = new StudentRepository()
+    user = store.getState().auth.user
     previous = ""
 
     constructor(){
@@ -45,12 +48,27 @@ export class ClassSelector extends React.Component{
     }
 
     generate = () => {
-        this.props.history.push({
-            pathname: '/schedule',
-            state: { selectedClasses: this.state.selectedClasses }
-          })
-          
-        // return <Redirect to={{pathname: '/schedule', state: {selectedClasses: this.state.selectedClasses}}}></Redirect>
+        if((this.user.id)){
+            var body = {
+                studentID: this.user.id,
+                numHours: (3 * this.state.selectedClasses.length),
+                semester: "Spring 2021",
+                classesList: this.state.selectedClasses
+            }
+
+            this.studentRepository.addSchedule(body)
+            .then(() => {
+                this.props.history.push({
+                    pathname: '/schedule',
+                    state: { selectedClasses: this.state.selectedClasses }
+                  })
+            })
+        } else{
+            this.props.history.push({
+                pathname: '/schedule',
+                state: { selectedClasses: this.state.selectedClasses }
+              })
+        }
     }
 
     componentDidMount(){
@@ -61,6 +79,18 @@ export class ClassSelector extends React.Component{
                 x.classCode > y.classCode ? 1 : -1)
             )
             this.setState({classes})
+            
+            if(this.user.id){
+                this.studentRepository.getSchedule(this.user.id)
+                    .then((schedules) => {
+                        if(schedules[schedules.length - 1].classesList){
+                            for(var k = schedules[schedules.length - 1].classesList.length - 1; k >=0; k-- ){
+                                this.add(schedules[schedules.length - 1].classesList[k], k)
+                            }
+                        }
+                    })
+
+            }
         })
     }
 
