@@ -9,13 +9,7 @@ export class ProfileEditor extends React.Component {
 
     profileRepository = new ProfileRepository()
     user = store.getState().auth.user
-
-    profileTypes = [
-        'student',
-        'professor',
-        'administrator',
-    ]
-
+        
     state = {
         type: '',
         firstName: '',
@@ -34,10 +28,31 @@ export class ProfileEditor extends React.Component {
     };
 
     componentDidMount() {
-        const studentId = +this.props.match.params.id;
+
+        const studentId = this.user.id;
+
         if (studentId) {
-            this.profileRepository.getProfile(studentId)
-                .then(profile => this.setState(profile));
+            this.profileRepository.getProfile(studentId, this.user.type )
+            .then(profile => {
+
+                let userProfile = profile[0]
+                let names = userProfile.name.split()
+                userProfile.firstName = names[0]
+                userProfile.lastName = names[1]
+
+                this.setState({
+                    firstName: userProfile.firstName,
+                    lastName: userProfile.lastName,
+                    year: userProfile.year,
+                    major: userProfile.major,
+                    minor: userProfile.minor,
+                    concentration: userProfile.concentration,
+                    type: userProfile.type,
+                    timeStart: userProfile.timeStart,
+                    timeEnd: userProfile.timeEnd,
+                    preferNight: userProfile.preferNight
+                })
+            })
         }
     }
 
@@ -55,7 +70,6 @@ export class ProfileEditor extends React.Component {
             timeEnd: this.state.timeEnd,
             preferNight: this.state.preferNight
         };
-
         
         this.profileRepository.updateProfile(this.user.id, profileData)
         .then(() => {
@@ -85,7 +99,7 @@ export class ProfileEditor extends React.Component {
             <br />
             <div className="form-group">
                 <label htmlFor="profilePic" id="profileEdit">Profile Picture</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+                <input type="file" className="form-control-file" id="exampleFormControlFile1" />
             </div>
             <br />
             <div className="row">
@@ -95,6 +109,7 @@ export class ProfileEditor extends React.Component {
                         id="firstName"
                         name="firstName"
                         className="form-control"
+                        placeholder="First name"
                         value={this.state.firstName}
                         onChange={event => this.setState({ firstName: event.target.value })} />
                 </div>
@@ -103,6 +118,7 @@ export class ProfileEditor extends React.Component {
                     <input type="text"
                         id="lastName"
                         name="lastName"
+                        placeholder="Last name"
                         className="form-control"
                         value={this.state.lastName}
                         onChange={event => this.setState({ lastName: event.target.value })} />
@@ -114,6 +130,7 @@ export class ProfileEditor extends React.Component {
                 <select className="form-control" 
                     id="yearSelect"
                     value={this.state.year}
+                    placeholder="Grad Year"
                     onChange={event => this.setState({ year: event.target.value })}>
                     <option></option>
                     <option>Freshman</option>
@@ -128,6 +145,7 @@ export class ProfileEditor extends React.Component {
                 <input type="text"
                     id="majorSelect"
                     name="major"
+                    placeholder="Major"
                     className="form-control"
                     value={this.state.major}
                     onChange={event => this.setState({ major: event.target.value })} />
@@ -138,6 +156,7 @@ export class ProfileEditor extends React.Component {
                     <input type="text"
                         id="minorSelect"
                         name="minorSelect"
+                        placeholder="Minor"
                         className="form-control"
                         value={this.state.minor}
                         onChange={event => this.setState({ minor: event.target.value })} />
@@ -148,6 +167,7 @@ export class ProfileEditor extends React.Component {
                         id="concentrationSelect"
                         name="concentrationSelect"
                         className="form-control"
+                        placeholder="Concentration"
                         value={this.state.concentration}
                         onChange={event => this.setState({ concentration: event.target.value })} />
                 </div>
@@ -157,7 +177,7 @@ export class ProfileEditor extends React.Component {
             <div className = "row">
                 <div className="col">
                     <div className="form-group">
-                        <label for="exampleFormControlSelect1">Preferred Start Time</label>
+                        <label htmlFor="exampleFormControlSelect1">Preferred Start Time</label>
                         <select className="form-control" 
                                 id="exampleFormControlSelect1"
                                 value={this.state.timeStart}
@@ -232,18 +252,17 @@ export class ProfileEditor extends React.Component {
             </div>
             <br />
             Prefer night classes?
-            <div className="form-check">
-                <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
-                <label className="form-check-label" for="exampleRadios1">
-                    Yes
-                </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"/>
-                <label className="form-check-label" for="exampleRadios2">
-                    No
-                </label>
-            </div>
+            <div className="form-group">
+                        <label for="exampleFormControlSelect1">Preferred End Time</label>
+                        <select className="form-control" 
+                                id="exampleFormControlSelect1"
+                                value={this.state.preferNight}
+                                onChange={event => this.setState({ preferNight: event.target.value })}>
+                                <option></option>
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
+                        </select>
+                    </div>
             <br />
             <hr />
             <br />
