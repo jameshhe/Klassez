@@ -111,9 +111,30 @@ router.post('/register', function(req, res) {	//verify path matches
                     password = hash;
 
                     con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
-                        con.release()
+                        //con.release()
                         if (err) throw err;
-                        res.end(JSON.stringify(result));
+                        //res.end(JSON.stringify(result));
+                                    // Update Students or Instructors
+                        console.log(result.insertId)
+
+                        if (type == 1) {
+                            console.log("Add student");
+
+			            	con.query('INSERT INTO Students (studentID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			            		con.release()
+			            		if (err) throw err;
+			            		res.end(JSON.stringify(result));
+			            	});
+			            }
+                        else if (type == 2) {
+                            console.log("Add instructor");
+
+			            	con.query('INSERT INTO Instructors (instructorID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			            		con.release()
+			            		if (err) throw err;
+			            		res.end(JSON.stringify(result));
+			            	});
+			            }
                     });
 
                 });
