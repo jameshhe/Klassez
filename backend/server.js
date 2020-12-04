@@ -730,14 +730,14 @@ router.post('/addschedule', function(req, res) {
             var semester    = req.body.semester;
             var cList       = req.body.classesList;
 
-            console.log("Adding schedule of student: ", studentID);
-
             con.query("INSERT INTO Schedules \
             (studentID, numHours, semester, classesList) \
             VALUES (?, ?, ?, ?)", [studentID, numHours, semester, cList],
             function (err, result, fields) {
                 con.release()
-                if (err) throw err;
+                if (err){
+                    res.status(400).send("User already has a schedule")
+                }
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
         }
@@ -789,6 +789,21 @@ router.put('/updateclass/:classId', async (req, res) => {
     con.query("UPDATE Classes \
     SET instructorID = ?, days = ?, timeStart = ?, timeEnd = ?, classCode = ?, className = ?, department = ?, seatsRemaining = ? \
     WHERE classID = ?", [req.body.instructorID, req.body.days, req.body.timeStart, req.body.timeEnd, req.body.classCode, req.body.className, req.body.department, req.body.seatsRemaining, req.params.classId], function (err, result, fields) {
+		if (err) throw err;
+		res.end(JSON.stringify(result)); // Result in JSON format
+	 });
+});
+
+
+router.put('/schedule/update/:id', function(req, res) {
+    var studentID   = req.body.studentID;
+    var numHours    = req.body.numHours;
+    var semester    = req.body.semester;
+    var cList       = req.body.classesList;
+
+    con.query("UPDATE Schedules \
+    SET numHours = ?, semester = ?, classesList = ? \
+    WHERE studentID = ?", [numHours, semester, cList, studentID], function (err, result, fields) {
 		if (err) throw err;
 		res.end(JSON.stringify(result)); // Result in JSON format
 	 });

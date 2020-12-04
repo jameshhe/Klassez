@@ -13,9 +13,7 @@ import { useLocation } from 'react-router-dom';
 
 const Schedule = () => {
     const store = useSelector(state => state.auth)
-    console.log(store.user.id)
     const location = useLocation()
-    console.log(location)
 
 
     const currentDate = Date.now()
@@ -52,7 +50,6 @@ const Schedule = () => {
                         console.log(newClass)
                         const starts = newClass.timeStart.split(':')
                         const ends = newClass.timeEnd.split(':')
-                        console.log(starts, ends)
                         const myClass = {
                             startDate: new Date(year, month, date, starts[0], starts[1]),
                             endDate: new Date(year, month, date, ends[0], ends[1]),
@@ -75,7 +72,6 @@ const Schedule = () => {
                 console.log(newClass)
                 const starts = newClass.timeStart.split(':')
                 const ends = newClass.timeEnd.split(':')
-                console.log(starts, ends)
                 const myClass = {
                     startDate: new Date(year, month, date, starts[0], starts[1]),
                     endDate: new Date(year, month, date, ends[0], ends[1]),

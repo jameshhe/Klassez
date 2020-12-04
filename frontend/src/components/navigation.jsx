@@ -9,7 +9,7 @@ const Navigation = () => {
     const onLogout = () => {
         dispatch(logoutUser())
     }
-    console.log(user)
+    
     return (
         <div>
             <Navbar bg="dark" variant="dark" expand="lg">
@@ -20,6 +20,7 @@ const Navigation = () => {
                         <Nav.Link href="/classList">Classes</Nav.Link>
                         <Nav.Link href="/profile">My Profile</Nav.Link>
                         <Nav.Link href="/classSelector">Select Classes</Nav.Link>
+                        {user.isAuthenticated ? <Nav.Link href="/schedule">Schedule</Nav.Link> : <></>}
                     </Nav>
                 </Navbar.Collapse>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}
