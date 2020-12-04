@@ -121,19 +121,20 @@ router.post('/register', function(req, res) { //verify path matches
                 });
             });
 			
+			// Update Students or Instructors
 			if(type == 1){
 				con.query('INSERT INTO Students (name) VALUES (?)', [username], (err, result, fields) => {
-                        con.release()
-                        if (err) throw err;
-                        res.end(JSON.stringify(result));
-                    });
+					con.release()
+					if (err) throw err;
+					res.end(JSON.stringify(result));
+				});
 			}
 			else if(type == 2){
 				con.query('INSERT INTO Instructors (name) VALUES (?)', [username], (err, result, fields) => {
-                        con.release()
-                        if (err) throw err;
-                        res.end(JSON.stringify(result));
-                    });
+					con.release()
+					if (err) throw err;
+					res.end(JSON.stringify(result));
+				});
 			}
         }
     })
