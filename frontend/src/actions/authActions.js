@@ -7,11 +7,11 @@ import {
     USER_LOADING
 } from "./types";
 // Register User
-const api = "http://localhost:8000";
+const api = "http://localhost:8080/api";
 axios.defaults.baseURL = api;
 export const register = (userData, history) => dispatch => {
     axios
-        .post("/users/register", userData)
+        .post("/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -37,7 +37,7 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const login = userData => dispatch => {
     axios
-        .post("/users/login", userData)
+        .post("/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage

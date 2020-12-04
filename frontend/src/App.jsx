@@ -6,13 +6,14 @@ import jwt_decode from "jwt-decode"
 import PrivateRoute from "./components/privateRoute"
 import store from "./store"
 import setAuthToken from "./utils/setAuthToken"
-import {ROUTES} from "./Routes.jsx"
+import {PRIVATE_ROUTES} from "./privateRoutes.js"
 import Navigation from "./components/navigation"
 import Landing from "./components/landing"
 import Login from "./components/login"
 import Register from "./components/register/register"
 import ClassList from "./components/classList/classList"
 import "./App.css"
+import {ROUTES} from "./routes";
 
 
 // Check for token to keep user logged in
@@ -38,15 +39,11 @@ const App = () => {
   return (
     <Provider store={store}>
       <div className="App">
-	            <Navigation/>
 	            <Router>
+                    <Navigation/>
 	                <Switch>
-                    <Route exact path="/" component={Landing}/>
-                    <Route exact path="/landing" component={Landing}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/register" component={Register}/>
-                    <Route exact path="/classes" component={ClassList}/>
-                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
+                        {ROUTES.map((route, i) => <Route exact key={i} {...route}/>)}
+                        {PRIVATE_ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
 	            </Router>
 	    	</div>
@@ -55,4 +52,3 @@ const App = () => {
 };
 
 export default App;
-

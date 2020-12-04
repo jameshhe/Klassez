@@ -64,8 +64,8 @@ CREATE TABLE Students (
 );
 
 CREATE TABLE Users (
-  username varchar(45) NOT NULL,
-  password varchar(45) NOT NULL,
+  username varchar(200) NOT NULL,
+  password varchar(500) NOT NULL,
   type int NOT NULL,
   email varchar(100) NOT NULL,
   id int NOT NULL,
