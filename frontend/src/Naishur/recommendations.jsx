@@ -10,6 +10,7 @@ export class Recommendations extends React.Component{
 
     ];
 
+
     render(){
         return<>
             <ul className="list-group">
@@ -34,9 +35,6 @@ export class Recommendations extends React.Component{
                 }
             </ul>
             <div>
-            <Link to="/">
-               Go Home
-             </Link>
           </div>
         </>
     }
