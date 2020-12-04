@@ -93,13 +93,12 @@ router.post('/login', function(req, res) { //verify path matches
 
 // @route   POST api/register
 // @desc    POST user by username, password
-router.post('/register', function(req, res) { //verify path matches
-    con.getConnection((err, con) => {
-        console.log(req.body)
+router.post('/register', function(req, res) {	//verify path matches
+    con.getConnection((err, con) =>{
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var type = req.body.type; 
+            var type = req.body.type;		//Users declare account type at register?
             var email = req.body.email;
             var username = req.body.username;
             var password = req.body.password;
@@ -111,29 +110,34 @@ router.post('/register', function(req, res) { //verify path matches
                     password = hash;
 
                     con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
-                        con.release()
+                        //con.release()
                         if (err) throw err;
-                        res.end(JSON.stringify(result));
+                        //res.end(JSON.stringify(result));
+                                    // Update Students or Instructors
+                        console.log(result.insertId)
+
+                        if (type == 1) {
+                            console.log("Add student");
+
+			            	con.query('INSERT INTO Students (studentID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			            		con.release()
+			            		if (err) throw err;
+			            		res.end(JSON.stringify(result));
+			            	});
+			            }
+                        else if (type == 2) {
+                            console.log("Add instructor");
+
+			            	con.query('INSERT INTO Instructors (instructorID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			            		con.release()
+			            		if (err) throw err;
+			            		res.end(JSON.stringify(result));
+			            	});
+			            }
                     });
 
                 });
             });
-			
-			// Update Students or Instructors
-			if(type == 1){
-				con.query('INSERT INTO Students (name) VALUES (?)', [username], (err, result, fields) => {
-					con.release()
-					if (err) throw err;
-					res.end(JSON.stringify(result));
-				});
-			}
-			else if(type == 2){
-				con.query('INSERT INTO Instructors (name) VALUES (?)', [username], (err, result, fields) => {
-					con.release()
-					if (err) throw err;
-					res.end(JSON.stringify(result));
-				});
-			}
         }
     })
 });
@@ -250,7 +254,7 @@ router.get('/classes/:instructorID', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var classID = req.params.id;
+            var instructorID = req.params.id;
             con.query("SELECT * FROM Classes WHERE instructorID = ?", instructorID, function(err, result, fields) {
                 con.release()
                 if (err) throw err;
@@ -264,7 +268,7 @@ router.get('/classes/:instructorID', function(req, res) {
 
 // @route   GET api/classes/:classCode
 // @desc    GET class info by classCode
-router.get('/classes/:classCode', function(req, res) {
+router.get('/classByCode/:classCode', function(req, res) {
     mysql.createPool.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
@@ -533,7 +537,7 @@ router.get('/instructor/:id', function(req, res) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
             var instructorID = req.params.id;
-            con.query("SELECT * FROM Students WHERE instructorID = ?", instructorID, function(err, result, fields) {
+            con.query("SELECT * FROM Instructors WHERE instructorID = ?", instructorID, function(err, result, fields) {
                 con.release();
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
