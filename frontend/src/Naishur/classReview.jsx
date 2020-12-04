@@ -5,6 +5,7 @@ import {ReviewClassRepository} from '../api/reviewClassRepository'
 
 export class ClassReview extends React.Component{
     reviewClassRepository = new ReviewClassRepository();
+    
     reviewList = {
 
     }

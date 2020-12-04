@@ -1,13 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import {ReviewClassRepository} from '../api/reviewClassRepository'
 
-export class RecomendForm extends React.Component{
+export class TeacherReviewForm extends React.Component{
     reviewClassRepository = new ReviewClassRepository();
 
     state ={
-        studentname: '',
-        classid: '',
         teacher: '',
         text: '',
     }
@@ -22,12 +19,6 @@ export class RecomendForm extends React.Component{
     render(){
          return<>
             <form>
-                <div class="form-group">
-                   <input type="studentName" class="form-control" id="studentName" placeholder="Name" value={ this.state.studentname} onChange={ event =>this.setState({ studentname: event.target.value }) }/>
-                </div>
-                <div class="form-group">
-                    <input type="classid" class="form-control" id="classid" placeholder="class" value={ this.state.classid} onChange={ event =>this.setState({ classid: event.target.value }) }/>
-                </div>
                 <div class="form-group">
                     <input type="teahcer" class="form-control" id="teacher" placeholder="Professor" value={ this.state.teacher} onChange={ event =>this.setState({ teacher: event.target.value }) } />
                 </div>

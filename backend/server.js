@@ -97,7 +97,7 @@ router.post('/login', function(req, res) {	//verify path matches
 router.post('/register', function(req, res) {	//verify path matches
     con.getConnection((err, con) =>{
         if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
+            res.status(400).send('Error')
         } else {
             var type = req.body.type;		//Users declare account type at register?
             var email = req.body.email;

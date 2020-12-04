@@ -3,6 +3,7 @@ import { Recomends } from './recomends';
 import { Link } from 'react-router-dom';
 
 export class Recommendations extends React.Component{
+    
     reviewList = [
         new Recomends("CS1301", "Bob", "Professor", "Could be better"),
         new Recomends("CS1001", "Jim", "Adjunct Professor ", "Great Class"),
