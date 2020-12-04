@@ -9,6 +9,7 @@ const Navigation = () => {
     const onLogout = () => {
         dispatch(logoutUser())
     }
+    console.log(user)
     return (
         <div>
             <Navbar bg="dark" variant="dark" expand="lg">
@@ -16,8 +17,10 @@ const Navigation = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
+                        <Nav.Link href="/classList">Classes</Nav.Link>
                         <Nav.Link href="/profile">My Profile</Nav.Link>
-                        <Nav.Link href="/schedule">My Schedule</Nav.Link>
+                        {/* <Nav.Link href="/schedule">My Schedule</Nav.Link> */}
+                        <Nav.Link href="/classSelector">Select Classes</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}

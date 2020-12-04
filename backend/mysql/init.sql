@@ -1,5 +1,6 @@
 use dummyData;
 
+<<<<<<< HEAD
 DROP TABLE IF EXISTS Classes ;
 DROP TABLE IF EXISTS ClassReviews ;
 DROP TABLE IF EXISTS InstructorReviews ;
@@ -16,6 +17,30 @@ CREATE TABLE ClassReviews (
   StudentID int NOT NULL
 );
  
+=======
+
+
+DROP table Classes ;
+DROP table ClassReviews ;
+DROP table InstructorReviews ;
+DROP table Instructors ;
+DROP table Users;
+DROP table Students ;
+DROP table Schedules ;
+
+
+
+CREATE TABLE ClassReviews (
+  classID int NOT NULL AUTO_INCREMENT,
+  classCode varchar(10) NOT NULL,
+  Review varchar(200) DEFAULT NULL,
+  Rating int DEFAULT NULL,
+  StudentID int NOT NULL,
+  PRIMARY KEY (classID)
+);
+ 
+ 
+>>>>>>> aa0fc804ec5ddc2128c887980fb8749126424330
 CREATE TABLE Classes (
   classID int NOT NULL AUTO_INCREMENT,
   instructorID int NOT NULL,
@@ -60,8 +85,8 @@ CREATE TABLE Students (
 );
 
 CREATE TABLE Users (
-  username varchar(45) NOT NULL,
-  password varchar(45) NOT NULL,
+  username varchar(200) NOT NULL,
+  password varchar(500) NOT NULL,
   type int NOT NULL,
   email varchar(100) NOT NULL,
   id int NOT NULL,
@@ -87,6 +112,7 @@ insert into Users values('mollymoe', 'password', 1, 'mollym@school.edu', 8);
 insert into Users values('patrickpear', 'password', 1, 'patrickp@school.edu', 9);
 insert into Users values('donaldduck', 'password', 1, 'donaldd@school.edu', 10);
 
+<<<<<<< HEAD
 insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses) values('Billy Bob', '12:00:00', '17:00:00', 2022, 'Computer Science', true);
 insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses) values('Sarah Sue', '8:00:00', '13:30:00', 2021, 'Arts', false);
 insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses) values('Jane Doe', '13:00:00', '17:00:00', 2023, 'Math', true);
@@ -97,6 +123,18 @@ insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, ma
 insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses) values('Molly Moe', '11:00:00', '17:00:00', 2023, 'Math', false);
 insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses) values('Patrick Pear', '8:30:00', '13:00:00', 2022, 'Computer Science', true);
 insert into Students (name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses) values( 'Donald Duck', '12:00:00', '17:00:00', 2024, 'Arts', false);
+=======
+insert into Students (name, gradYear, major, openToNightClasses) values('Billy Bob', 2022, 'Computer Science', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('Sarah Sue', 2021, 'Arts', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Jane Doe', 2023, 'Math', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('John Doe', 2023, 'Math', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Kelly King', 2022, 'Computer Science', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('Lola Lee', 2024, 'Undeclared', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Casey Carl', 2023, 'Math', true);
+insert into Students (name, gradYear, major, openToNightClasses) values('Molly Moe', 2023, 'Math', false);
+insert into Students (name, gradYear, major, openToNightClasses) values('Patrick Pear', 2022, 'Computer Science', true);
+insert into Students (name, gradYear, major, openToNightClasses) values( 'Donald Duck', 2024, 'Arts', false);
+>>>>>>> aa0fc804ec5ddc2128c887980fb8749126424330
 
 -- instructors have type = 2, id begins with 2
 insert into Users values('johnjack', 'password', 2, 'johnj@school.edu', 21);
@@ -134,4 +172,8 @@ INSERT INTO ClassReviews VALUES
 	(2, 'CS 3330', 'The worst class to take', 1, 6)
 ;
 
+<<<<<<< HEAD
 INSERT INTO Prerequesites values(1, 'CS 3330', 'CS 1342');
+=======
+INSERT INTO Prerequesites values(1, 'CS 3330', 'CS 1342');
+>>>>>>> aa0fc804ec5ddc2128c887980fb8749126424330
