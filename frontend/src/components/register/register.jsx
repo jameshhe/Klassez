@@ -14,6 +14,7 @@ class Register extends Component {
             email: "",
             password: "",
             password2: "",
+            type: 1,
             error: {}
         };
     }
@@ -33,10 +34,11 @@ class Register extends Component {
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
-            name: this.state.name,
+            username: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
+            type: this.state.type
         };
         this.props.register(newUser, this.props.history);
     };
@@ -92,6 +94,19 @@ class Register extends Component {
                                                    })} required />
                                                 <label htmlFor="password2">Confirm password</label>
                                                 <span className="red-text">{error.password2}</span>
+                                        </div>
+
+                                        <div className="mb-2">
+                                            <label htmlFor="type">Select Type</label>
+                                            <select name="type" id="type" onChange={this.onChange} className={classnames("form-control", {
+                                                       invalid: error.type
+                                                   })} required>
+                                                <option value="0"/>
+                                                <option value="1">Student</option>
+                                                <option value="2">Professor</option>
+                                            </select>
+                                            
+                                            <span className="red-text">{error.type}</span>
                                         </div>
 
                                         <button className="btn btn-lg btn-primary btn-block text-uppercase"
