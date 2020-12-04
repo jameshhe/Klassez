@@ -9,6 +9,7 @@ const logger = require('@rama41222/node-logger/src/logger');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const secretOrKey = "secret"
+
 // mysql connection
 var con = mysql.createPool({
     host: process.env.MYSQL_CLOUD_HOST,
@@ -124,6 +125,7 @@ router.post('/register', function(req, res) { //verify path matches
 });
 
 /* ---------------------------------------------------------------- */
+
 // @route   GET api/classes
 // @desc    GET all classes
 router.get('/classes', function(req, res) {
@@ -302,8 +304,6 @@ router.get('/students', function(req, res) {
     })
 });
 
-
-
 /* ---------------------------------------------------------------- */
 
 // @route   GET api/classes/:id
@@ -435,31 +435,35 @@ router.get('/classReview/:classCode', function(req, res) {
     })
 });
 
+/* ---------------------------------------------------------------- */
 
-
-
-
-
-
-
-
-//build more routes routes for classes for searching purposes
-//routes for searching for professors
-//stats page that shows how many students got their preferred times
-
-
-
-
-
-// @route   GET api/classes/:id
-// @desc    GET class info by classID
-router.get('/instructor/:id', function(req, res) {
+// @route   GET api/prereqs/:id
+// @desc    GET pre-reqs for a class by ID
+router.get('/prereqs/:id', function(req, res) {
     con.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var instructorID = req.params.id;
-            con.query("SELECT * FROM Students WHERE instructorID = ?", instructorID, function(err, result, fields) {
+            var classID = req.params.id;
+            con.query("SELECT * FROM Prerequesites WHERE classID = ?", classID, function(err, result, fields) {
+                con.release()
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+
+
+// @route   GET api/instructors
+// @desc    GET all instructors
+router.get('/instructors', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            con.query("SELECT * FROM Instructors", function(err, result, fields) {
                 con.release();
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -467,65 +471,6 @@ router.get('/instructor/:id', function(req, res) {
         }
     })
 });
-
-
-//Post Requests
-
-// @route   POST api/classes/:preReqs/::classID,parentClassName, childClassName
-// @desc    POST class info by className with a specific instructor
-router.post('/prerequesites', function(req, res) {
-    con.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var classID = req.body.classID;
-            var parentClassName = req.body.className;
-            var childClassName = req.body.className
-
-            console.log("Adding class: ", className);
-
-            con.query("INSERT INTO Prerequesites \
-            (classID, parentClassName, childClassName) \
-            VALUES (?, ?, ?)", [classID, parentClassName, childClassName],
-            function (err, result, fields) {
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
-
-// @route   POST api/addclass
-// @desc    add a class
-router.post('/addclass', function(req, res) {
-    con.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var instructorID    = req.body.instructorID;
-            var days            = req.body.days;
-            var timeStart       = req.body.timeStart;
-            var timeEnd         = req.body.timeStart;
-            var classCode       = req.body.classCode;
-            var className       = req.body.className;
-            var department      = req.body.department;
-            var seatsRemaining  = req.body.seatsRemaining;
-
-            console.log("Adding class: ", className);
-
-            con.query("INSERT INTO Classes \
-            (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) \
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining],
-            function (err, result, fields) {
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
-
 /* ---------------------------------------------------------------- */
 
 // @route   GET api/instructor/:id
@@ -544,6 +489,8 @@ router.get('/instructor/:id', function(req, res) {
         }
     })
 });
+
+
 
 /* ---------------------------------------------------------------- */
 
@@ -574,16 +521,8 @@ router.post('/classoptions', function(req, res) {
     })
 });
 
-// @route   GET api/classesbytime/:startTime
-// @desc    GET first five classes, not all 
-router.post('/classoptionsTop', function(req, res) {
-    con.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var start = req.body.startTime;
-            var classes = req.body.classes;
-            var end = req.body.endTime ;
+
+/* ---------------------------------------------------------------- */
 
 // @route   GET api/classoptionsTop
 // @desc    GET first five classes, not all 
