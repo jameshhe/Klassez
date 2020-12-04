@@ -9,13 +9,7 @@ export class ProfileEditor extends React.Component {
 
     profileRepository = new ProfileRepository()
     user = store.getState().auth.user
-
-    profileTypes = [
-        'student',
-        'professor',
-        'administrator',
-    ]
-
+        
     state = {
         type: '',
         firstName: '',
@@ -34,10 +28,32 @@ export class ProfileEditor extends React.Component {
     };
 
     componentDidMount() {
-        const studentId = +this.props.match.params.id;
+
+        const studentId = +this.props.match.params.studentId;
+
         if (studentId) {
-            this.profileRepository.getProfile(studentId)
-                .then(profile => this.setState(profile));
+            this.profileRepository.getProfile(studentId, this.state.type )
+            .then(profile => {
+
+                let userProfile = profile[0]
+                console.log(userProfile)
+                let names = userProfile.name.split()
+                userProfile.firstName = names[0]
+                userProfile.lastName = names[1]
+
+                this.setState({
+                    firstName: userProfile.firstName,
+                    lastName: userProfile.lastName,
+                    year: userProfile.year,
+                    major: userProfile.major,
+                    minor: userProfile.minor,
+                    concentration: userProfile.concentration,
+                    type: userProfile.type,
+                    timeStart: userProfile.timeStart,
+                    timeEnd: userProfile.timeEnd,
+                    preferNight: userProfile.preferNight
+                })
+            })
         }
     }
 
@@ -85,7 +101,7 @@ export class ProfileEditor extends React.Component {
             <br />
             <div className="form-group">
                 <label htmlFor="profilePic" id="profileEdit">Profile Picture</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+                <input type="file" className="form-control-file" id="exampleFormControlFile1" />
             </div>
             <br />
             <div className="row">
@@ -95,6 +111,7 @@ export class ProfileEditor extends React.Component {
                         id="firstName"
                         name="firstName"
                         className="form-control"
+                        placeholder="First name"
                         value={this.state.firstName}
                         onChange={event => this.setState({ firstName: event.target.value })} />
                 </div>
@@ -103,6 +120,7 @@ export class ProfileEditor extends React.Component {
                     <input type="text"
                         id="lastName"
                         name="lastName"
+                        placeholder="Last name"
                         className="form-control"
                         value={this.state.lastName}
                         onChange={event => this.setState({ lastName: event.target.value })} />
@@ -114,6 +132,7 @@ export class ProfileEditor extends React.Component {
                 <select className="form-control" 
                     id="yearSelect"
                     value={this.state.year}
+                    placeholder="Grad Year"
                     onChange={event => this.setState({ year: event.target.value })}>
                     <option></option>
                     <option>Freshman</option>
@@ -128,6 +147,7 @@ export class ProfileEditor extends React.Component {
                 <input type="text"
                     id="majorSelect"
                     name="major"
+                    placeholder="Major"
                     className="form-control"
                     value={this.state.major}
                     onChange={event => this.setState({ major: event.target.value })} />
@@ -138,6 +158,7 @@ export class ProfileEditor extends React.Component {
                     <input type="text"
                         id="minorSelect"
                         name="minorSelect"
+                        placeholder="Minor"
                         className="form-control"
                         value={this.state.minor}
                         onChange={event => this.setState({ minor: event.target.value })} />
@@ -148,6 +169,7 @@ export class ProfileEditor extends React.Component {
                         id="concentrationSelect"
                         name="concentrationSelect"
                         className="form-control"
+                        placeholder="Concentration"
                         value={this.state.concentration}
                         onChange={event => this.setState({ concentration: event.target.value })} />
                 </div>
@@ -157,7 +179,7 @@ export class ProfileEditor extends React.Component {
             <div className = "row">
                 <div className="col">
                     <div className="form-group">
-                        <label for="exampleFormControlSelect1">Preferred Start Time</label>
+                        <label htmlFor="exampleFormControlSelect1">Preferred Start Time</label>
                         <select className="form-control" 
                                 id="exampleFormControlSelect1"
                                 value={this.state.timeStart}

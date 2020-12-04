@@ -57,7 +57,7 @@ export class ProfilePage extends React.Component {
                         <div>
                             <br />
                             {/* //take out hard code later */}
-                            <h2 className="font-weight-bold">//{ this.state.name } - Junior{ this.state.year }</h2><br />
+                            <h2 className="font-weight-bold">{ this.state.name } - Junior{ this.state.year }</h2><br />
                             <h4 className="font-weight-light">Major: { this.state.major }</h4>
                             <h4 className="font-weight-light">Minor: { this.state.minor }</h4>
                             <h6 className="font-weight-light">Concentration: { this.state.minor }</h6>
@@ -67,19 +67,19 @@ export class ProfilePage extends React.Component {
                     </div>
                     <br />
                     <div className="row ml-4">
-                        <table class="table table-striped">
+                        <table className="table table-striped">
                             <thead>
                                 <tr>
-                                <th scope="col">Preferred Stary Time of Day</th>
+                                <th scope="col">Preferred Start Time of Day</th>
                                 <th scope="col">Preferred End Time of Day</th>
                                 <th scope="col">Prefer Night Classes?</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                <td>9:00am{ this.state.preferredStart }</td>
-                                <td>5:00pm{ this.state.preferredEnd }</td>
-                                <td>No{ this.state.preferNight }</td>
+                                <td>{ this.state.preferredStart }</td>
+                                <td>{ this.state.preferredEnd }</td>
+                                <td>{ this.state.preferNight }</td>
                                 </tr>
                             </tbody>
                         </table>
