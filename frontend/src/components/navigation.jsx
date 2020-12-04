@@ -9,6 +9,7 @@ const Navigation = () => {
     const onLogout = () => {
         dispatch(logoutUser())
     }
+    console.log(user)
     return (
         <div>
             <Navbar bg="dark" variant="dark" expand="lg">

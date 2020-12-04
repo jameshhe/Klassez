@@ -45,7 +45,7 @@ export class ProfilePage extends React.Component {
         }
         return <>
         
-            {/* <Link to={'/editProfile'} className="btn btn-info mt-2 mr-2 float-right"> Edit Profile </Link> */}
+            <Link to={'/editProfile'} className="btn btn-info mt-2 mr-2 float-right"> Edit Profile </Link>
             <br />
             <div id="profileInfo">
                 <br />

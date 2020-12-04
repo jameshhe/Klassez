@@ -50,15 +50,17 @@ router.post('/login', function(req, res) { //verify path matches
             const password = req.body.password;
 
             con.query('SELECT * FROM Users WHERE email = ?', email, function(err, result, fields) {
+                if(result.length == 0){
+                    res.status(401).json({ noUser: "User doesn't exist" });
+                }
                 con.release()
                 if (err) throw err;
                 //res.end(JSON.stringify(result));
                     // Check password
                 bcrypt.compare(password, result[0].password).then(isMatch => {
-                    if (true) {
+                    if (isMatch) {
                         // User matched
                         // Create JWT Payload
-                        console.log("MATCH");
                         const payload = {
                             id: result[0].id,
                             username: result[0].username,
@@ -110,9 +112,7 @@ router.post('/register', function(req, res) { //verify path matches
                     if (err) throw err;
                     password = hash;
 
-                    var id = Math.random() * 1000 + 40
-
-                    con.query('INSERT INTO Users (username,password,type,email, id) VALUES (?,?,?,?,?)', [username, password, type, email, id], (err, result, fields) => {
+                    con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
                         con.release()
                         if (err) throw err;
                         res.end(JSON.stringify(result));

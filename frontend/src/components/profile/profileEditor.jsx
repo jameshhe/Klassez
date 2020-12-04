@@ -33,6 +33,14 @@ export class ProfileEditor extends React.Component {
         id: 0
     };
 
+    componentDidMount() {
+        const studentId = +this.props.match.params.id;
+        if (studentId) {
+            this.profileRepository.getProfile(studentId)
+                .then(profile => this.setState(profile));
+        }
+    }
+
     onSave = () => {
         const profileData = {
             type: this.state.type,
