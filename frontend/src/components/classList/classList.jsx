@@ -2,9 +2,11 @@ import React from 'react'
 import "./classList.css"
 import {ClassRepository} from '../../api/classRepository'
 import {Link} from 'react-router-dom'
+import store from '../../store'
 
 export class ClassList extends React.Component{
     classRepository = new ClassRepository()
+    user = store.getState().auth.user
     previous = ""
 
     state = {
@@ -28,8 +30,15 @@ export class ClassList extends React.Component{
         }
 
 
-        return <ul>
-    
+        return <div>
+            
+            <ul>
+                {
+                    (this.user.type == 2) ? 
+                    <Link className='btn btn-primary' to='/classes/new'>Add Class</Link> :
+                    <></>
+                }
+            
     {
         this.state.classes.map((x, i) => <li key={i} className="card">
                 <table>
@@ -71,7 +80,8 @@ export class ClassList extends React.Component{
             </li>
         )
     }
-    </ul>;
+    </ul>
+    </div>;
     }
 }
 

@@ -1,7 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import store from '../store'
 
 const Landing = () => {
+    const user = store.getState().auth.user
+    console.log(user)
 
     return (
         <div className="landing-container h-100">
@@ -14,19 +17,24 @@ const Landing = () => {
                         Planning classes made easy
                     </p>
                     <div className="mx-auto justify-content-center">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <Link
-                                    to="/login"
-                                    className="btn btn-primary m-2"
-                                >Log In</Link>
-                                <Link
-                                    to="/register"
-                                    className="btn btn-primary m-2"
-                                >Register</Link>
-                            </div>
+                        {
+                        (!(user.id)) ?
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <Link
+                                        to="/login"
+                                        className="btn btn-primary m-2"
+                                    >Log In</Link>
+                                    <Link
+                                        to="/register"
+                                        className="btn btn-primary m-2"
+                                    >Register</Link>
+                                </div>
 
-                        </div>
+                            </div> :
+                            <></>
+                        }
+                        
                         <div className="row">
                             <div className="col-md-12">
                                 <Link
