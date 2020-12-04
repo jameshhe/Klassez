@@ -46,7 +46,6 @@ const ClassDetails = () => {
         getClassDetails()
     }, []);
 
-
     return (
         <div>
             <nav className="productNav py-2 pl-3 ml-3 mb-3"><a href="/classList">Class List</a> / <span className="text-secondary">{class_name}</span></nav>
