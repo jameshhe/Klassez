@@ -197,7 +197,7 @@ router.get('/classes/:instructorID', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            var classID = req.params.id;
+            var instructorID = req.params.id;
             con.query("SELECT * FROM Classes WHERE instructorID = ?", instructorID, function(err, result, fields) {
                 con.release()
                 if (err) throw err;
@@ -211,7 +211,7 @@ router.get('/classes/:instructorID', function(req, res) {
 
 // @route   GET api/classes/:classCode
 // @desc    GET class info by classCode
-router.get('/classes/:classCode', function(req, res) {
+router.get('/classByCode/:classCode', function(req, res) {
     mysql.createPool.getConnection((err, con) => {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
@@ -454,6 +454,24 @@ router.get('/prereqs/:id', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
+// @route   GET api/instructors
+// @desc    GET all instructors
+router.get('/instructors', function(req, res) {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+            con.query("SELECT * FROM Instructors", function(err, result, fields) {
+                con.release();
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
+/* ---------------------------------------------------------------- */
+
 // @route   GET api/instructor/:id
 // @desc    GET instructor info by id
 router.get('/instructor/:id', function(req, res) {
@@ -462,7 +480,7 @@ router.get('/instructor/:id', function(req, res) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
             var instructorID = req.params.id;
-            con.query("SELECT * FROM Students WHERE instructorID = ?", instructorID, function(err, result, fields) {
+            con.query("SELECT * FROM Instructors WHERE instructorID = ?", instructorID, function(err, result, fields) {
                 con.release();
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -627,6 +645,8 @@ router.post('/addschedule', function(req, res) {
             var numHours    = req.body.numHours;
             var semester    = req.body.semester;
             var cList       = req.body.classesList;
+            
+            console.log(req.body.studentID);
 
             console.log("Adding schedule of student: ", studentID);
 
