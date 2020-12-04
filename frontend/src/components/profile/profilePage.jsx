@@ -11,6 +11,7 @@ export class ProfilePage extends React.Component {
 
     state = {
         id: this.user.id,
+        type: this.user.type,
         firstName: '',
         lastName: '',
         profilePic: '',
@@ -25,9 +26,10 @@ export class ProfilePage extends React.Component {
     }
 
     componentDidMount(){
-        this.profileRepository.getProfile(this.user.id)
+        this.profileRepository.getProfile(this.user.id, this.user.type)
         .then(profile => {
             let userProfile = profile[0]
+            console.log(userProfile)
             let names = userProfile.name.split()
             userProfile.firstName = names[0]
             userProfile.lastName = names[1]
@@ -44,6 +46,7 @@ export class ProfilePage extends React.Component {
                     </div>
         }
         return <>
+            {console.log("HEREEEEE"+this.user)}
             <Link to={'/editProfile'} className="btn btn-info mt-2 mr-2 float-right"> Edit Profile </Link>
             <br />
             <div id="profileInfo">

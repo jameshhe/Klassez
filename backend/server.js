@@ -10,13 +10,28 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const secretOrKey = "secret"
 
+// MYSQL_DB=dummyData
+// MYSQL_PORT=3306
+// MYSQL_CLOUD_USER=admin
+// MYSQL_CLOUD_PASS=8bNk9XbVZ5o2HrhpJMNF
+// MYSQL_CLOUD_HOST=sampledockercompose.cjckyqum6coy.us-east-1.rds.amazonaws.com
+
+// mysql connection
+// var con = mysql.createPool({
+//     host: process.env.MYSQL_CLOUD_HOST,
+//     user: process.env.MYSQL_CLOUD_USER,
+//     password: process.env.MYSQL_CLOUD_PASS,
+//     port: process.env.MYSQL_PORT,
+//     database: process.env.MYSQL_DB
+// });
+
 // mysql connection
 var con = mysql.createPool({
-    host: process.env.MYSQL_CLOUD_HOST,
-    user: process.env.MYSQL_CLOUD_USER,
-    password: process.env.MYSQL_CLOUD_PASS,
-    port: process.env.MYSQL_PORT,
-    database: process.env.MYSQL_DB
+    host: `sampledockercompose.cjckyqum6coy.us-east-1.rds.amazonaws.com`,
+    user: 'admin',
+    password: `8bNk9XbVZ5o2HrhpJMNF`,
+    port: 3306,
+    database: 'dummyData'
 });
 
 // instantiate app
@@ -734,6 +749,35 @@ router.put('/updateseats', async (req, res) => {
 		res.end(JSON.stringify(result)); // Result in JSON format
 	 });
 });
+
+// @route   PUT api/editprofile
+// @desc    updates the user profile
+router.put('/students/:studentID', async(req, res) => {
+    con.getConnection((err, con) => {
+        if (err) {
+            res.status(400).send('Problem obtaining MySQL connection')
+        } else {
+			var studentID					= req.params.studentID;
+            var name    					= req.body.name;
+            var preferredTimesStart			= req.body.timeStart;
+			var preferredTimesEnd			= req.body.timeEnd;
+			var gradYear					= req.body.year;
+			var major						= req.body.major;
+			var openToNightClasses			= req.body.preferNight;
+			
+            console.log("Updating profile of student: ", studentID);
+
+            con.query("UPDATE Students \
+            SET name = ?, preferredTimesStart = ?, preferredTimesEnd, gradYear = ?, major = ?, openToNightClasses = ?) \
+            WHERE studentID = ?", [name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses, studentID],
+            function (err, result, fields) {
+                if (err) throw err;
+                res.end(JSON.stringify(result)); // Result in JSON format
+            });
+        }
+    })
+});
+
 
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
