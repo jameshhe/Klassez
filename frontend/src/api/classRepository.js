@@ -35,4 +35,15 @@ export class ClassRepository {
                 })
         })
     }
+
+    editClass(classId, body) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/updateclass/${classId}`, body)
+                .then(x => resolve(x.data))
+                .catch(e => {
+                    alert(e)
+                    reject()
+                })
+        })
+    }
 }
