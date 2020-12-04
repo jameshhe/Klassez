@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import {ProfileRepository} from '../../api/profileRepository'
+import store from '../../store'
 
 
 export class ProfileEditor extends React.Component {
 
     profileRepository = new ProfileRepository()
+    user = store.getState().auth.user
 
     profileTypes = [
         'student',
@@ -27,14 +29,22 @@ export class ProfileEditor extends React.Component {
         classification: '',
         timeStart: '',
         timeEnd: '',
-        preferNight: ''
+        preferNight: '',
+        id: 0
     };
+
+    componentDidMount() {
+        const studentId = +this.props.match.params.id;
+        if (studentId) {
+            this.profileRepository.getProfile(studentId)
+                .then(profile => this.setState(profile));
+        }
+    }
 
     onSave = () => {
         const profileData = {
             type: this.state.type,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
+            name: this.state.firstName + this.state.lastName,
             profilePic: this.state.profilePic,
             year: this.state.year,
             major: this.state.major,
@@ -47,7 +57,7 @@ export class ProfileEditor extends React.Component {
         };
 
         
-        this.profileRepository.updateProfile(this.state.id, profileData)
+        this.profileRepository.updateProfile(this.user.id, profileData)
         .then(() => {
             alert('Profile updated!');
             this.setState({
@@ -64,6 +74,7 @@ export class ProfileEditor extends React.Component {
                 timeEnd: "",
                 preferNight: "",
                 redirect: '/profile',
+                id: 0
             })
         })
     }

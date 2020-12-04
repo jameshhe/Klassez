@@ -44,7 +44,6 @@ export class ProfilePage extends React.Component {
                     </div>
         }
         return <>
-        
             <Link to={'/editProfile'} className="btn btn-info mt-2 mr-2 float-right"> Edit Profile </Link>
             <br />
             <div id="profileInfo">
@@ -76,5 +75,4 @@ export class ProfilePage extends React.Component {
         </>;
     }
 }
-
 export default withRouter(ProfilePage);
