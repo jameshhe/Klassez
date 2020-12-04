@@ -52,7 +52,7 @@ export class ClassSelector extends React.Component{
             var body = {
                 studentID: this.user.id,
                 numHours: (3 * this.state.selectedClasses.length),
-                semester: "Spring 2020",
+                semester: "Spring 2021",
                 classesList: this.state.selectedClasses
             }
 
@@ -83,8 +83,13 @@ export class ClassSelector extends React.Component{
             if(this.user.id){
                 this.studentRepository.getSchedule(this.user.id)
                     .then((schedule) => {
-                        this.setState({selectedClasses: schedule.classesList})
+                        if(schedule.classesList){
+                            for(var k = schedule.classesList.length - 1; k >=0; k-- ){
+                                this.add(schedule.classesList[k], k)
+                            }
+                        }
                     })
+
             }
         })
     }
