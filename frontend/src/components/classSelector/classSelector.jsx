@@ -82,10 +82,10 @@ export class ClassSelector extends React.Component{
             
             if(this.user.id){
                 this.studentRepository.getSchedule(this.user.id)
-                    .then((schedule) => {
-                        if(schedule.classesList){
-                            for(var k = schedule.classesList.length - 1; k >=0; k-- ){
-                                this.add(schedule.classesList[k], k)
+                    .then((schedules) => {
+                        if(schedules[schedules.length - 1].classesList){
+                            for(var k = schedules[schedules.length - 1].classesList.length - 1; k >=0; k-- ){
+                                this.add(schedules[schedules.length - 1].classesList[k], k)
                             }
                         }
                     })
