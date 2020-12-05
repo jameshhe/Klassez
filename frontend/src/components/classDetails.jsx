@@ -58,7 +58,14 @@ const ClassDetails = () => {
                     </div>
 
                     <div className="row">
+<<<<<<< HEAD
                         <p className="ml-1">There are <b>{classDetail.seats}</b> seats remaining!</p>
+=======
+                    <div className="m-0">
+                        <h1 className="display-4 my-0">{instructor}</h1>
+                        <p className="ml-1">There are <b>{seats}</b> seats remaining!</p>
+                        </div>
+>>>>>>> 0e9cd27d86760873d09f2a1c728dc56698324917
                     </div>
                     {
                         (shouldShow) ? 

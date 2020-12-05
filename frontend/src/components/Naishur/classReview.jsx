@@ -11,7 +11,6 @@ export class ClassReview extends React.Component{
     classID = +this.props.match.params.classID;
     
     componentDidMount(){
-        console.log(this.user)
         if(this.classID)
         {
             this.reviewClassRepository.getReview(this.classID)
