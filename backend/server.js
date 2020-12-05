@@ -9,10 +9,6 @@ const logger = require('@rama41222/node-logger/src/logger');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const secretOrKey = "secret"
-<<<<<<< HEAD
-
-=======
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
 // mysql connection
 var con = mysql.createPool({
     host: process.env.MYSQL_CLOUD_HOST,
@@ -44,13 +40,8 @@ app.use('/api', router);
 
 // @route   GET api/login
 // @desc    GET user by username, password
-<<<<<<< HEAD
-router.post('/login', function(req, res) { //verify path matches
-    con.getConnection((err, con) => {
-=======
 router.post('/login', function(req, res) {	//verify path matches
     con.getConnection((err, con) =>{
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
@@ -159,17 +150,11 @@ router.get('/classes', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-<<<<<<< HEAD
-            con.query("SELECT c.*,i.name,i.instructorID AS Insturctor FROM Classes c \
-            INNER JOIN Instructors i \
-            ON c.instructorID = i.instructorID", function (err, result, fields) {
-=======
             con.query("SELECT c.*,i.name AS Insturctor, pr.childClassCode AS Prerequesites FROM Classes c \
             INNER JOIN Instructors i \
             ON c.instructorID = i.instructorID \
             LEFT JOIN Prerequesites pr \
             ON c.classID = pr.classID", function (err, result, fields) {
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -225,19 +210,12 @@ router.get('/classes/:id', function(req, res) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
             var classID = req.params.id;
-<<<<<<< HEAD
-            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
-             INNER JOIN Instructors i \
-             ON c.instructorID = i.instructorID \
-             WHERE classID = ? ", classID, function (err, result, fields) {
-=======
             con.query("SELECT c.*,i.name AS Insturctor, pr.childClassCode AS Prerequesites FROM Classes c \
             INNER JOIN Instructors i \
             ON c.instructorID = i.instructorID \
             LEFT JOIN Prerequesites pr \
             ON c.classID = pr.classID \
             WHERE classID = ? ", classID, function (err, result, fields) {
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -281,7 +259,6 @@ router.get('/classes/:instructorID', function(req, res) {
         } else {
             var instructorID = req.params.id;
             con.query("SELECT * FROM Classes WHERE instructorID = ?", instructorID, function(err, result, fields) {
-<<<<<<< HEAD
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -311,79 +288,6 @@ router.get('/classByCode/:classCode', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
-// @route   GET api/classes/:classCode
-// @desc    GET class info by classCode
-router.get('/classes/:classCode', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var classCode = req.params.classCode;
-            con.query("SELECT * FROM Classes WHERE classCode LIKE '%[?]%'", classCode, function(err, result, fields) {
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
-
-/* ---------------------------------------------------------------- */
-
-// @route   GET api/classes/:c=instructorName
-// @desc    GET class info by instructorName
-router.get('/classes/:instructorName', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var instructorName = req.params.instructorName;
-            con.query("SELECT * FROM Classes INNER JOIN Instructors ON Classes.instructorID = Instructors.instructorID WHERE instructorName = ?", instructorName, function(err, result, fields) {
-=======
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
-
-/* ---------------------------------------------------------------- */
-
-<<<<<<< HEAD
-// @route   GET api/classes/:className, instructorName
-// @desc    GET class info by className with a className AND specific instructor
-router.get('/classes/:className,instructorName', function(req, res) {
-=======
-// @route   GET api/classes/:classCode
-// @desc    GET class info by classCode
-router.get('/classByCode/:classCode', function(req, res) {
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
-    mysql.createPool.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-<<<<<<< HEAD
-            var instructorName = req.params.instructorName;
-            var className = req.params.className
-            con.query("SELECT * FROM Classes INNER JOIN Instructors ON instructorID WHERE className = ? && instructorName = ?", instructorName, className, function(err, result, fields) {
-=======
-            var classCode = req.params.classCode;
-            con.query("SELECT * FROM Classes WHERE classCode = ?", classCode, function(err, result, fields) {
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
-
-/* ---------------------------------------------------------------- */
-
-<<<<<<< HEAD
-=======
 // @route   GET api/classes/:classCode
 // @desc    GET class info by classCode
 router.get('/classes/:classCode', function(req, res) {
@@ -442,7 +346,6 @@ router.get('/classes/:className,instructorName', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
 // @route   GET api/students
 // @desc    GET all students' info
 router.get('/students', function(req, res) {
@@ -646,8 +549,6 @@ router.get('/instructors', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
-<<<<<<< HEAD
-=======
 // @route   GET api/instructors
 // @desc    GET all instructors
 router.get('/instructors', function(req, res) {
@@ -666,7 +567,6 @@ router.get('/instructors', function(req, res) {
 
 /* ---------------------------------------------------------------- */
 
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
 // @route   GET api/instructor/:id
 // @desc    GET instructor info by id
 router.get('/instructor/:id', function(req, res) {
@@ -684,11 +584,6 @@ router.get('/instructor/:id', function(req, res) {
     })
 });
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
 /* ---------------------------------------------------------------- */
 
 /* POST */
@@ -774,36 +669,6 @@ router.post('/addclass', function(req, res) {
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
-<<<<<<< HEAD
-        }
-    })
-});
-
-/* ---------------------------------------------------------------- */
-
-// @route   POST api/addPrereqs/::classID,parentClassName, childClassName
-// @desc    POST class info by className with a specific instructor
-router.post('/addPrereqs', function(req, res) {
-    con.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var classID = req.body.classID;
-            var parentClassName = req.body.className;
-            var childClassName = req.body.className
-
-            console.log("Adding class: ", className);
-
-            con.query("INSERT INTO Prerequesites \
-            (classID, parentClassName, childClassName) \
-            VALUES (?, ?, ?)", [classID, parentClassName, childClassName],
-            function (err, result, fields) {
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-=======
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
         }
     })
 });
@@ -1042,7 +907,6 @@ router.put('/updateseats', async (req, res) => {
 		res.end(JSON.stringify(result)); // Result in JSON format
 	 });
 });
-<<<<<<< HEAD
 
 // @route   PUT api/editprofile
 // @desc    updates the user profile
@@ -1058,9 +922,11 @@ router.put('/students/:studentID', async(req, res) => {
 			var gradYear					= req.body.year;
 			var major						= req.body.major;
 			var openToNightClasses			= req.body.preferNight;
+			
+            console.log("Updating profile of student: ", studentID);
 
             con.query("UPDATE Students \
-            SET name = ?, preferredTimesStart = ?, preferredTimesEnd = ?, gradYear = ?, major = ?, openToNightClasses = ? \
+            SET name = ?, preferredTimesStart = ?, preferredTimesEnd, gradYear = ?, major = ?, openToNightClasses = ?) \
             WHERE studentID = ?", [name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses, studentID],
             function (err, result, fields) {
                 if (err) throw err;
@@ -1069,8 +935,6 @@ router.put('/students/:studentID', async(req, res) => {
         }
     })
 });
-=======
->>>>>>> 927da9a4b3e177f92745929d4e007636df120900
 
 // connect
 app.listen(port, () => console.log(`backend running on http://localhost:${port}`)) // port
