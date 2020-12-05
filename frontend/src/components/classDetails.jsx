@@ -71,6 +71,8 @@ const ClassDetails = () => {
                         <Link className='btn btn-primary' to={`/classes/edit/${{classId}.classId}`}>Edit Class</Link> :
                         <></>
                     }
+
+                    <Link className='btn btn-primary' to={`/recommendations/classes/${classId}`}>Class Reviews</Link>
                     
                 </div>
             

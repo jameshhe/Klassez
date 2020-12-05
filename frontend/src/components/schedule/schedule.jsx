@@ -9,7 +9,7 @@ import {
 import ScheduleSelect from "./scheduleSelect";
 import { useSelector } from 'react-redux';
 import axios from 'axios'
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {ClassRepository} from '../../api/classRepository'
 
 const Schedule = () => {
@@ -23,22 +23,7 @@ const Schedule = () => {
     const year = 2020
     const month = 8
     const date = 1
-    const [classes, setClasses] = useState([
-        {
-            startDate: new Date(year, month, date, 9),
-            endDate: new Date(year, month, date, 9, 50),
-            title: 'CS3381',
-            rRule: 'BYDAY=MO,WE,FR',
-            checked: true
-        },
-        {
-            startDate: new Date(year, month, date, 11),
-            endDate: new Date(year, month, date, 12, 15),
-            title: 'CS5324',
-            rRule: 'BYDAY=TU,TH',
-            checked: true
-        }
-    ]);
+    const [classes, setClasses] = useState([]);
 
     // fetch classes from database
     const URL = "http://localhost:8080/api/schedules/"
@@ -48,7 +33,7 @@ const Schedule = () => {
                 .then(res => {
                     let allClasses = []
                     
-                    if(res.data[0].classesList){
+                    if(res.data[0] && res.data[0].classesList){
                         let classList = (res.data[0].classesList).split(', ')
                         for(var k = classList.length - 1; k >=0; k-- ){
                             classRepository.getClass(parseInt(classList[k]))
@@ -56,6 +41,7 @@ const Schedule = () => {
                                 allClasses.push(tClass)
 
                                 const myClasses = []
+
                                 allClasses.map(newClass => {
                                     const starts = newClass.timeStart.split(':')
                                     const ends = newClass.timeEnd.split(':')
@@ -72,8 +58,6 @@ const Schedule = () => {
                             })
                         }
                     }
-
-                    
                 })
         }
         if(!location.state || !location.state.selectedClasses)
@@ -81,6 +65,7 @@ const Schedule = () => {
         else{
             const allClasses = location.state.selectedClasses
             const myClasses = []
+
             allClasses.map(newClass => {
                 console.log(newClass)
                 const starts = newClass.timeStart.split(':')
@@ -112,6 +97,11 @@ const Schedule = () => {
         <div className="row">
             <div className="col-md-6 offset-md-3">
                 <h1 className="display-4 my-2 text-center">My Schedule</h1>
+                <center>
+                    <Link className='btn btn-primary' to='/classSelector'>Change Selected Classes</Link>
+                </center>
+                
+                
                 <hr/>
                 <div className="row">
                     <div className="col-2">
