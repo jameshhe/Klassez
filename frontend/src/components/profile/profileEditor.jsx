@@ -59,7 +59,7 @@ export class ProfileEditor extends React.Component {
     onSave = () => {
         const profileData = {
             type: this.state.type,
-            name: this.state.firstName + this.state.lastName,
+            name: (this.state.firstName || '') + (this.state.lastName || ''),
             profilePic: this.state.profilePic,
             year: this.state.year,
             major: this.state.major,

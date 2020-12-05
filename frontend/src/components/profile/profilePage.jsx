@@ -56,7 +56,7 @@ export class ProfilePage extends React.Component {
                         <div>
                             <br />
                             {/* //take out hard code later */}
-                            <h2 className="font-weight-bold">//{ this.state.name } - Junior{ this.state.year }</h2><br />
+                            <h2 className="font-weight-bold">{ this.state.name } - Junior{ this.state.year }</h2><br />
                             <h4 className="font-weight-light">Major: { this.state.major }</h4>
                             <h4 className="font-weight-light">Minor: { this.state.minor }</h4>
                             <h6 className="font-weight-light">Concentration: { this.state.minor }</h6>
