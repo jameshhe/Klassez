@@ -1,13 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { ReviewClassRepository } from '../api/reviewClassRepository'
 
 export class ClassReviewForm extends React.Component{
+    reviewClassRepository = new ReviewClassRepository();
 
     state ={
-        studentname: '',
-        classid: '',
-        ratingid: '',
-        text: '',
+        studentID: '',
+        classID: '',
+        classCode: '',
+        rating: '',
+        review: '',
     }
 
     onADDClick() {
@@ -21,22 +24,25 @@ export class ClassReviewForm extends React.Component{
          return<>
             <form>
                 <div class="form-group">
-                   <input type="studentName" class="form-control" id="studentName" placeholder="Name" value={ this.state.studentname} onChange={ event =>this.setState({ studentname: event.target.value }) }/>
+                   <input type="txt" class="form-control" id="studentID" placeholder="Student ID" value={ this.state.studentID} onChange={ event =>this.setState({ studentID: event.target.value }) }/>
                 </div>
                 <div class="form-group">
-                    <input type="classid" class="form-control" id="classid" placeholder="class" value={ this.state.classid} onChange={ event =>this.setState({ classid: event.target.value }) }/>
+                    <input type="txt" class="form-control" id="classid" placeholder="Class ID" value={ this.state.classID } onChange={ event =>this.setState({ classID: parseInt(event.target.value) }) }/>
                 </div>
                 <div class="form-group">
-                    <textarea type="txt" class="form-control" value={this.state.text} onChange={ event =>this.setState({ text: event.target.value }) } placeholder="Comment"></textarea>
+                    <input type="txt" class="form-control" id="classCode" placeholder="Class Code" value={ this.state.classCode} onChange={ event =>this.setState({ classCode: event.target.value }) }/>
+                </div>
+                <div class="form-group">
+                    <textarea type="txt" class="form-control" value={this.state.review} onChange={ event =>this.setState({ review: event.target.value }) } placeholder="Comment"></textarea>
                 </div>
                 <div class="form-group">
                     <label class="form-check-label">
-                        <select name="ratingid" id="ratingid" value={this.state.ratingid} onChange={ event =>this.setState({ text: event.target.ratingid }) } >
-                            <option value={this.state.ratingid}>1 star</option>
-                            <option value={this.state.ratingid}>2 star</option>
-                            <option value={this.state.ratingid}>3 star</option>
-                            <option value={this.state.ratingid}>4 star</option>
-                            <option value={this.state.ratingid}>5 star</option>
+                        <select name="ratingid" id="ratingid" value={this.state.rating} onChange={ event =>this.setState({ rating: event.target.value }) } >
+                            <option >1 star</option>
+                            <option >2 star</option>
+                            <option >3 star</option>
+                            <option >4 star</option>
+                            <option >5 star</option>
                         </select> 
                     Rating </label>
                 </div>

@@ -1,34 +1,36 @@
 import React from 'react'
-import { Recomends } from './recomends';
+import {ReviewTeacherRepository} from '../api/reviewTeacherRepository'
 import { Link } from 'react-router-dom';
 
-export class Recommendations extends React.Component{
+export class TeacherRecommendations extends React.Component{
+    reviewTeacherRepository = new ReviewTeacherRepository();
+
+    state ={
+
+    };
+
+    componentDidMount(){
+        const instructorID = +this.props.match.params.instructorID;
+        if(instructorID)
+        {
+            this.reviewTeacherRepository.getReview(instructorID)
+                .then( IntructorReview => this.setState({ IntructorReview }));
+         }
+    }  
     
-    reviewList = [
-        new Recomends("CS1301", "Bob", "Professor", "Could be better"),
-        new Recomends("CS1001", "Jim", "Adjunct Professor ", "Great Class"),
-        new Recomends("CS1001", "George", "Doctor", "Amazing class"),
-
-    ];
-
-
     render(){
         return<>
             <ul className="list-group">
                 {
-                    this.reviewList.map ((x, i) =>
+                    this.state.IntructorReview.map ((x, i) =>
                     <li class="form-inline row list-group-item"  >
                         <div className="card "  >
                             <div class="card-header">
-                                <h3 class="card-title"> { x.classid}  
-                                    <h5 class="card-title">  { x.teacher }</h5>
+                                <h3 class="card-title"> { x.instructorID}  
                                 </h3>
                             </div>
                             <div class="card-body"> 
-                                <h4 class="card-subtitle text-muted text-md-left"> {x.studentname} 
-                                </h4>
-                                <br></br>
-                                <p class="card-text"> { x.text }</p>
+                                <p class="card-text"> { x.review }</p>
                             </div>
                         </div>
                     </li>
@@ -40,6 +42,5 @@ export class Recommendations extends React.Component{
         </>
     }
 
-
-
+       
 }

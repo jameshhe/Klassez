@@ -1,16 +1,17 @@
 import React from 'react'
-import {ReviewClassRepository} from '../api/reviewClassRepository'
+import {ReviewTeacherRepository} from '../api/reviewTeacherRepository'
+
 
 export class TeacherReviewForm extends React.Component{
-    reviewClassRepository = new ReviewClassRepository();
+    reviewTeacherRepository = new ReviewTeacherRepository();
 
-    state ={
-        teacher: '',
-        text: '',
-    }
+    state = {
+        instructorID:'',
+        review:''
+    }; 
     
     onADDClick() {
-        this.reviewClassRepository.addReview(this.state)
+        this.reviewTeacherRepository.addReview(this.state)
             .then(() => {
                 alert('Review added!');
             });
@@ -20,10 +21,10 @@ export class TeacherReviewForm extends React.Component{
          return<>
             <form>
                 <div class="form-group">
-                    <input type="teahcer" class="form-control" id="teacher" placeholder="Professor" value={ this.state.teacher} onChange={ event =>this.setState({ teacher: event.target.value }) } />
+                    <input type="text" class="form-control" id="instructorID" placeholder="Professor ID" value={ this.state.instructorID} onChange={ event =>this.setState({ instructorID: event.target.value }) } />
                 </div>
                 <div class="form-group">
-                    <textarea type="txt" class="form-control" placeholder="Comment" value={this.state.text} onChange={ event =>this.setState({ text: event.target.value }) } ></textarea>
+                    <textarea type="txt" class="form-control" placeholder="Comment" value={this.state.review} onChange={ event =>this.setState({ review: event.target.value }) } ></textarea>
                 </div>
                 <div class="form-group row">
                 <button type="submit" class="btn btn-primary" onClick= { () => this.onADDClick() }>Sumbit</button>
