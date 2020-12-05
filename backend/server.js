@@ -48,6 +48,9 @@ router.post('/login', function(req, res) {	//verify path matches
             const email = req.body.email;
             const password = req.body.password;
 
+            if (email == null || password == null)
+                return res.status(400).send('Please enter all fields!');
+            
             con.query('SELECT * FROM Users WHERE email = ?', email, function(err, result, fields) {
                 con.release()
                 if (err) throw err;
@@ -104,39 +107,50 @@ router.post('/register', function(req, res) {	//verify path matches
             var username = req.body.username;
             var password = req.body.password;
 
-            // Hash password before saving in database
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(password, salt, (err, hash) => {
-                    if (err) throw err;
-                    password = hash;
-
-                    con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
-                        //con.release()
+            if (type == null || email == null 
+                || username == null || password == null)
+                return res.status(400).send('Please enter all fields!');
+            
+            con.query('SELECT * FROM Users WHERE email = ?', email, function (err, result, fields) { 
+                console.log(result)
+                if (result != null)
+                    return res.status(400).send('An account exists with this email');
+            
+            
+                // Hash password before saving in database
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(password, salt, (err, hash) => {
                         if (err) throw err;
-                        //res.end(JSON.stringify(result));
-                                    // Update Students or Instructors
-                        console.log(result.insertId)
+                        password = hash;
 
-                        if (type == 1) {
-                            console.log("Add student");
+                        con.query('INSERT INTO Users (username,password,type,email) VALUES (?,?,?,?)', [username, password, type, email], (err, result, fields) => {
+                            //con.release()
+                            if (err) throw err;
+                            //res.end(JSON.stringify(result));
+                                        // Update Students or Instructors
+                            console.log(result.insertId)
 
-			            	con.query('INSERT INTO Students (studentID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
-			            		con.release()
-			            		if (err) throw err;
-			            		res.end(JSON.stringify(result));
-			            	});
-			            }
-                        else if (type == 2) {
-                            console.log("Add instructor");
+                            if (type == 1) {
+                                console.log("Add student");
 
-			            	con.query('INSERT INTO Instructors (instructorID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
-			            		con.release()
-			            		if (err) throw err;
-			            		res.end(JSON.stringify(result));
-			            	});
-			            }
+			                	con.query('INSERT INTO Students (studentID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			                		con.release()
+			                		if (err) throw err;
+			                		res.end(JSON.stringify(result));
+			                	});
+			                }
+                            else if (type == 2) {
+                                console.log("Add instructor");
+
+			                	con.query('INSERT INTO Instructors (instructorID, name) VALUES (?,?)', [result.insertId, username], (err, result, fields) => {
+			                		con.release()
+			                		if (err) throw err;
+			                		res.end(JSON.stringify(result));
+			                	});
+			                }
+                        });
+
                     });
-
                 });
             });
         }
