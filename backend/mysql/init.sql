@@ -138,4 +138,8 @@ INSERT INTO ClassReviews VALUES
 	(2, 'CS 3330', 'The worst class to take', 1, 6)
 ;
 
+<<<<<<< HEAD
 INSERT INTO Prerequesites values(1, 'CS 3330', 'CS 1342');
+=======
+INSERT INTO Prerequesites values(1, 'CS 3330', 'CS 1342');
+>>>>>>> 927da9a4b3e177f92745929d4e007636df120900
