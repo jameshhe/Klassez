@@ -54,11 +54,11 @@ const ClassDetails = () => {
                     <div className="row">
                         <p className="ml-1">There are <b>{classDetail.seats}</b> seats remaining!</p>
                     </div>
-                    {
+                    {/* {
                         (shouldShow) ? 
                         <Link className='btn btn-primary' to={`/classes/edit/${{classId}.classId}`}>Edit Class</Link> :
                         <></>
-                    }
+                    } */}
                     
                 </div>
             
