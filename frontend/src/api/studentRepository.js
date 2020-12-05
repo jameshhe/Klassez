@@ -41,6 +41,16 @@ export class StudentRepository {
             axios.post(`${this.url}/addschedule`, body)
                 .then(x => resolve(x.data))
                 .catch(e => {
+                    resolve(e)
+                })
+        })
+    }
+
+    updateSchedule(studentId, body){
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/schedule/update/${studentId}`, body)
+                .then(x => resolve(x.data))
+                .catch(e => {
                     alert(e)
                     reject()
                 })
