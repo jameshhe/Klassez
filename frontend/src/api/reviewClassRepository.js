@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export class ReviewClassRepository {
-    url = 'http://localhost:8080/api';
+    url = 'http://3.138.183.180:8080/api';
 
     addReview(review){
         return new Promise((resolve, reject) => {
