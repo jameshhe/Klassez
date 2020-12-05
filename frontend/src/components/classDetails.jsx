@@ -6,6 +6,8 @@ import store from '../store'
 const ClassDetails = () => {
     const [classDetail, setClassDetail] = useState({})
 
+    const user = store.getState().auth.user
+
     var shouldShow = new Boolean(user)
 
     if(shouldShow)
