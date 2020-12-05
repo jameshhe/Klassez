@@ -19,8 +19,6 @@ export class ClassSelector extends React.Component{
         this.generate = this.generate.bind(this)
     }
 
-    
-
     val_changed = false;
 
     add(x, index){

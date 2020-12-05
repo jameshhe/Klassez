@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import {ProfileRepository} from '../../api/profileRepository'
+import { Redirect } from "react-router-dom";
 import store from '../../store'
 
 
@@ -9,48 +10,33 @@ export class ProfileEditor extends React.Component {
 
     profileRepository = new ProfileRepository()
     user = store.getState().auth.user
-        
+    shouldRedirect = false
+
     state = {
-        type: '',
-        firstName: '',
-        lastName: '',
         profilePic: '',
-        biography: '',
-        year: '',
+        gradYear: '',
         major: '',
-        minor: '',
-        concentration: '',
-        classification: '',
         timeStart: '',
         timeEnd: '',
-        preferNight: '',
-        id: 0
+        preferNight: ''
     };
 
     componentDidMount() {
-
-        const studentId = this.user.id;
-
-        if (studentId) {
-            this.profileRepository.getProfile(studentId, this.user.type )
+        if (this.user.id) {
+            this.profileRepository.getProfile(this.user.id, this.user.type )
             .then(profile => {
+                console.log(profile)
 
                 let userProfile = profile[0]
-                let names = userProfile.name.split()
-                userProfile.firstName = names[0]
-                userProfile.lastName = names[1]
 
                 this.setState({
-                    firstName: userProfile.firstName,
-                    lastName: userProfile.lastName,
-                    year: userProfile.year,
+                    name: userProfile.name,
+                    gradYear: userProfile.gradYear,
                     major: userProfile.major,
-                    minor: userProfile.minor,
-                    concentration: userProfile.concentration,
-                    type: userProfile.type,
-                    timeStart: userProfile.timeStart,
-                    timeEnd: userProfile.timeEnd,
-                    preferNight: userProfile.preferNight
+                    type: this.user.type,
+                    timeStart: userProfile.preferredTimesStart,
+                    timeEnd: userProfile.preferredTimesEnd,
+                    preferNight: userProfile.openToNightClasses
                 })
             })
         }
@@ -59,13 +45,10 @@ export class ProfileEditor extends React.Component {
     onSave = () => {
         const profileData = {
             type: this.state.type,
-            name: (this.state.firstName || '') + (this.state.lastName || ''),
+            name: (this.state.name).trim(),
             profilePic: this.state.profilePic,
-            year: this.state.year,
+            year: this.state.gradYear,
             major: this.state.major,
-            minor: this.state.minor,
-            concentration: this.state.concentration,
-            classification: this.state.classification,
             timeStart: this.state.timeStart,
             timeEnd: this.state.timeEnd,
             preferNight: this.state.preferNight
@@ -74,26 +57,15 @@ export class ProfileEditor extends React.Component {
         this.profileRepository.updateProfile(this.user.id, profileData)
         .then(() => {
             alert('Profile updated!');
-            this.setState({
-                type: "",
-                firstName: "",
-                lastName: "",
-                profilePic: "",
-                year: "",
-                major: "",
-                minor: "",
-                concentration: "",
-                classification: "",
-                timeStart: "",
-                timeEnd: "",
-                preferNight: "",
-                redirect: '/profile',
-                id: 0
-            })
+            this.shouldRedirect = true;
+            this.setState({})
         })
     }
     
     render() {
+        if(this.shouldRedirect){
+            return <Redirect to='/profile'/>
+        }
         return <form className="container pt-3">
             <div id="editProfileHeader" className="d-flex justify-content-center flex-column"> <h3>Edit Profile</h3></div>
             <br />
@@ -104,39 +76,29 @@ export class ProfileEditor extends React.Component {
             <br />
             <div className="row">
                 <div className="col">
-                    <label htmlFor="firstName">First Name</label>
+                    <label htmlFor="name">Name</label>
                     <input type="text"
-                        id="firstName"
-                        name="firstName"
+                        id="name"
+                        name="name"
                         className="form-control"
                         placeholder="First name"
-                        value={this.state.firstName}
-                        onChange={event => this.setState({ firstName: event.target.value })} />
-                </div>
-                <div className="col">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text"
-                        id="lastName"
-                        name="lastName"
-                        placeholder="Last name"
-                        className="form-control"
-                        value={this.state.lastName}
-                        onChange={event => this.setState({ lastName: event.target.value })} />
+                        value={this.state.name}
+                        onChange={event => this.setState({ name: event.target.value })} />
                 </div>
             </div>
             <br />
             <div className="form-group">
-                <label htmlFor="yearDropDown">Year/Classification</label>
+                <label htmlFor="yearDropDown">Grad Year</label>
                 <select className="form-control" 
                     id="yearSelect"
-                    value={this.state.year}
+                    value={this.state.gradYear}
                     placeholder="Grad Year"
-                    onChange={event => this.setState({ year: event.target.value })}>
+                    onChange={event => this.setState({ gradYear: event.target.value })}>
                     <option></option>
-                    <option>Freshman</option>
-                    <option>Sophomore</option>
-                    <option>Junior</option>
-                    <option>Senior</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
                 </select>
             </div>
 
@@ -150,117 +112,94 @@ export class ProfileEditor extends React.Component {
                     value={this.state.major}
                     onChange={event => this.setState({ major: event.target.value })} />
             </div>
-            <div className="row">
-                <div className="col">
-                    <label htmlFor="minorSelect">Minor</label>
-                    <input type="text"
-                        id="minorSelect"
-                        name="minorSelect"
-                        placeholder="Minor"
-                        className="form-control"
-                        value={this.state.minor}
-                        onChange={event => this.setState({ minor: event.target.value })} />
-                </div>
-                <div className="col">
-                    <label htmlFor="concentrationSelect">Concentration</label>
-                    <input type="text"
-                        id="concentrationSelect"
-                        name="concentrationSelect"
-                        className="form-control"
-                        placeholder="Concentration"
-                        value={this.state.concentration}
-                        onChange={event => this.setState({ concentration: event.target.value })} />
-                </div>
-            </div>
             <br />
             
             <div className = "row">
                 <div className="col">
                     <div className="form-group">
-                        <label htmlFor="exampleFormControlSelect1">Preferred Start Time</label>
+                        <label htmlFor="timeStart">Preferred Start Time</label>
                         <select className="form-control" 
-                                id="exampleFormControlSelect1"
+                                id="timeStart"
                                 value={this.state.timeStart}
                                 onChange={event => this.setState({ timeStart: event.target.value })}>
                                 <option></option>
-                                <option>9:00AM</option>
-                                <option>9:30AM</option>
-                                <option>10:00AM</option>
-                                <option>10:30AM</option>
-                                <option>11:00AM</option>
-                                <option>11:30AM</option>
-                                <option>12:00PM</option>
-                                <option>12:30PM</option>
-                                <option>1:00PM</option>
-                                <option>1:30PM</option>
-                                <option>2:00PM</option>
-                                <option>2:30PM</option>
-                                <option>3:00PM</option>
-                                <option>3:30PM</option>
-                                <option>4:00PM</option>
-                                <option>4:30PM</option>
-                                <option>5:00PM</option>
-                                <option>5:30PM</option>
-                                <option>6:00PM</option>
-                                <option>6:30PM</option>
-                                <option>7:00PM</option>
-                                <option>7:30PM</option>
-                                <option>8:00PM</option>
-                                <option>8:30PM</option>
-                                <option>9:00PM</option>
-                                <option>9:30PM</option>
+                                <option>09:00:00</option>
+                                <option>09:30:00</option>
+                                <option>10:00:00</option>
+                                <option>10:30:00</option>
+                                <option>11:00:00</option>
+                                <option>11:30:00</option>
+                                <option>12:00:00</option>
+                                <option>12:30:00</option>
+                                <option>13:00:00</option>
+                                <option>13:30:00</option>
+                                <option>14:00:00</option>
+                                <option>14:30:00</option>
+                                <option>15:00:00</option>
+                                <option>15:30:00</option>
+                                <option>16:00:00</option>
+                                <option>16:30:00</option>
+                                <option>17:00:00</option>
+                                <option>17:30:00</option>
+                                <option>18:00:00</option>
+                                <option>18:30:00</option>
+                                <option>19:00:00</option>
+                                <option>19:30:00</option>
+                                <option>20:00:00</option>
+                                <option>20:30:00</option>
+                                <option>21:00:00</option>
+                                <option>21:30:00</option>
                         </select>
                     </div>
                 </div>
                 <div className="col">
                     <div className="form-group">
-                        <label for="exampleFormControlSelect1">Preferred End Time</label>
+                        <label htmlFor="endTime">Preferred End Time</label>
                         <select className="form-control" 
-                                id="exampleFormControlSelect1"
+                                id="endTime"
                                 value={this.state.timeEnd}
                                 onChange={event => this.setState({ timeEnd: event.target.value })}>
                                 <option></option>
-                                <option>9:00AM</option>
-                                <option>9:30AM</option>
-                                <option>10:00AM</option>
-                                <option>10:30AM</option>
-                                <option>11:00AM</option>
-                                <option>11:30AM</option>
-                                <option>12:00PM</option>
-                                <option>12:30PM</option>
-                                <option>1:00PM</option>
-                                <option>1:30PM</option>
-                                <option>2:00PM</option>
-                                <option>2:30PM</option>
-                                <option>3:00PM</option>
-                                <option>3:30PM</option>
-                                <option>4:00PM</option>
-                                <option>4:30PM</option>
-                                <option>5:00PM</option>
-                                <option>5:30PM</option>
-                                <option>6:00PM</option>
-                                <option>6:30PM</option>
-                                <option>7:00PM</option>
-                                <option>7:30PM</option>
-                                <option>8:00PM</option>
-                                <option>8:30PM</option>
-                                <option>9:00PM</option>
-                                <option>9:30PM</option>
+                                <option>09:00:00</option>
+                                <option>09:30:00</option>
+                                <option>10:00:00</option>
+                                <option>10:30:00</option>
+                                <option>11:00:00</option>
+                                <option>11:30:00</option>
+                                <option>12:00:00</option>
+                                <option>12:30:00</option>
+                                <option>13:00:00</option>
+                                <option>13:30:00</option>
+                                <option>14:00:00</option>
+                                <option>14:30:00</option>
+                                <option>15:00:00</option>
+                                <option>15:30:00</option>
+                                <option>16:00:00</option>
+                                <option>16:30:00</option>
+                                <option>17:00:00</option>
+                                <option>17:30:00</option>
+                                <option>18:00:00</option>
+                                <option>18:30:00</option>
+                                <option>19:00:00</option>
+                                <option>19:30:00</option>
+                                <option>20:00:00</option>
+                                <option>20:30:00</option>
+                                <option>21:00:00</option>
+                                <option>21:30:00</option>
                         </select>
                     </div>
                 </div>
             </div>
             <br />
-            Prefer night classes?
             <div className="form-group">
-                        <label for="exampleFormControlSelect1">Preferred End Time</label>
+                        <label htmlFor="exampleFormControlSelect1">Prefer Night Classes?</label>
                         <select className="form-control" 
                                 id="exampleFormControlSelect1"
                                 value={this.state.preferNight}
                                 onChange={event => this.setState({ preferNight: event.target.value })}>
                                 <option></option>
-                                <option value={true}>Yes</option>
-                                <option value={false}>No</option>
+                                <option value={1}>Yes</option>
+                                <option value={0}>No</option>
                         </select>
                     </div>
             <br />

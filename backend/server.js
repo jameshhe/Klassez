@@ -881,11 +881,12 @@ router.put('/students/:studentID', async(req, res) => {
 			var gradYear					= req.body.year;
 			var major						= req.body.major;
 			var openToNightClasses			= req.body.preferNight;
-
+            console.log(studentID, name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses)
             con.query("UPDATE Students \
             SET name = ?, preferredTimesStart = ?, preferredTimesEnd = ?, gradYear = ?, major = ?, openToNightClasses = ? \
             WHERE studentID = ?", [name, preferredTimesStart, preferredTimesEnd, gradYear, major, openToNightClasses, studentID],
             function (err, result, fields) {
+                console.log(err, result)
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
             });
