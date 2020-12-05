@@ -4,7 +4,7 @@ import { ProfileEditor } from "./components/profile/profileEditor";
 
 export const PRIVATE_ROUTES = [
     { path: "/schedule", component: Schedule },
-    { path: "/classes/new", component: ClassForm },
+    { path: "/classes/teacher/new", component: ClassForm },
     { path: "/classes/edit/:classId", component: ClassForm },
     { path: "/editProfile", component: ProfileEditor }
 ]
