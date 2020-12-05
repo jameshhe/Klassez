@@ -25,7 +25,6 @@ export class ProfileRepository {
         })
     }
     
-
     updateProfile(id, profile) {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/students/${id}`, profile, this.config)

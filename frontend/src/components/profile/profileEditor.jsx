@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import {ProfileRepository} from '../../api/profileRepository'
+import { Redirect } from "react-router-dom";
 import store from '../../store'
 
 
@@ -9,18 +10,16 @@ export class ProfileEditor extends React.Component {
 
     profileRepository = new ProfileRepository()
     user = store.getState().auth.user
-        
+    shouldRedirect = false
+
     state = {
         type: '',
         firstName: '',
         lastName: '',
         profilePic: '',
         biography: '',
-        year: '',
+        gradYear: '',
         major: '',
-        minor: '',
-        concentration: '',
-        classification: '',
         timeStart: '',
         timeEnd: '',
         preferNight: '',
@@ -29,14 +28,13 @@ export class ProfileEditor extends React.Component {
 
     componentDidMount() {
 
-        const studentId = +this.props.match.params.studentId;
+        const studentId = this.user.id;
 
         if (studentId) {
-            this.profileRepository.getProfile(studentId, this.state.type )
+            this.profileRepository.getProfile(studentId, this.user.type )
             .then(profile => {
 
                 let userProfile = profile[0]
-                console.log(userProfile)
                 let names = userProfile.name.split()
                 userProfile.firstName = names[0]
                 userProfile.lastName = names[1]
@@ -44,10 +42,8 @@ export class ProfileEditor extends React.Component {
                 this.setState({
                     firstName: userProfile.firstName,
                     lastName: userProfile.lastName,
-                    year: userProfile.year,
+                    gradYear: userProfile.gradYear,
                     major: userProfile.major,
-                    minor: userProfile.minor,
-                    concentration: userProfile.concentration,
                     type: userProfile.type,
                     timeStart: userProfile.timeStart,
                     timeEnd: userProfile.timeEnd,
@@ -60,42 +56,41 @@ export class ProfileEditor extends React.Component {
     onSave = () => {
         const profileData = {
             type: this.state.type,
-            name: this.state.firstName + this.state.lastName,
+            name: this.state.firstName + ' ' + this.state.lastName,
             profilePic: this.state.profilePic,
-            year: this.state.year,
+            gradYear: this.state.gradYear,
             major: this.state.major,
-            minor: this.state.minor,
-            concentration: this.state.concentration,
-            classification: this.state.classification,
             timeStart: this.state.timeStart,
             timeEnd: this.state.timeEnd,
             preferNight: this.state.preferNight
         };
-
         
         this.profileRepository.updateProfile(this.user.id, profileData)
         .then(() => {
             alert('Profile updated!');
+            this.shouldRedirect = true;
             this.setState({
-                type: "",
-                firstName: "",
-                lastName: "",
-                profilePic: "",
-                year: "",
-                major: "",
-                minor: "",
-                concentration: "",
-                classification: "",
-                timeStart: "",
-                timeEnd: "",
-                preferNight: "",
-                redirect: '/profile',
-                id: 0
+                // type: "",
+                // firstName: "",
+                // lastName: "",
+                // profilePic: "",
+                // gradYear: "",
+                // major: "",
+                // minor: "",
+                // concentration: "",
+                // classification: "",
+                // timeStart: "",
+                // timeEnd: "",
+                // preferNight: "",
+                // id: 0
             })
         })
     }
     
     render() {
+        if(this.shouldRedirect){
+            return <Redirect to='/profile'/>
+        }
         return <form className="container pt-3">
             <div id="editProfileHeader" className="d-flex justify-content-center flex-column"> <h3>Edit Profile</h3></div>
             <br />
@@ -128,17 +123,17 @@ export class ProfileEditor extends React.Component {
             </div>
             <br />
             <div className="form-group">
-                <label htmlFor="yearDropDown">Year/Classification</label>
+                <label htmlFor="yearDropDown">Grad Year</label>
                 <select className="form-control" 
                     id="yearSelect"
                     value={this.state.year}
                     placeholder="Grad Year"
-                    onChange={event => this.setState({ year: event.target.value })}>
+                    onChange={event => this.setState({ gradYear: event.target.value })}>
                     <option></option>
-                    <option>Freshman</option>
-                    <option>Sophomore</option>
-                    <option>Junior</option>
-                    <option>Senior</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
                 </select>
             </div>
 
@@ -152,36 +147,14 @@ export class ProfileEditor extends React.Component {
                     value={this.state.major}
                     onChange={event => this.setState({ major: event.target.value })} />
             </div>
-            <div className="row">
-                <div className="col">
-                    <label htmlFor="minorSelect">Minor</label>
-                    <input type="text"
-                        id="minorSelect"
-                        name="minorSelect"
-                        placeholder="Minor"
-                        className="form-control"
-                        value={this.state.minor}
-                        onChange={event => this.setState({ minor: event.target.value })} />
-                </div>
-                <div className="col">
-                    <label htmlFor="concentrationSelect">Concentration</label>
-                    <input type="text"
-                        id="concentrationSelect"
-                        name="concentrationSelect"
-                        className="form-control"
-                        placeholder="Concentration"
-                        value={this.state.concentration}
-                        onChange={event => this.setState({ concentration: event.target.value })} />
-                </div>
-            </div>
             <br />
             
             <div className = "row">
                 <div className="col">
                     <div className="form-group">
-                        <label htmlFor="exampleFormControlSelect1">Preferred Start Time</label>
+                        <label htmlFor="startTime">Preferred Start Time</label>
                         <select className="form-control" 
-                                id="exampleFormControlSelect1"
+                                id="startTime"
                                 value={this.state.timeStart}
                                 onChange={event => this.setState({ timeStart: event.target.value })}>
                                 <option></option>
@@ -216,9 +189,9 @@ export class ProfileEditor extends React.Component {
                 </div>
                 <div className="col">
                     <div className="form-group">
-                        <label for="exampleFormControlSelect1">Preferred End Time</label>
+                        <label htmlFor="endTime">Preferred End Time</label>
                         <select className="form-control" 
-                                id="exampleFormControlSelect1"
+                                id="endTime"
                                 value={this.state.timeEnd}
                                 onChange={event => this.setState({ timeEnd: event.target.value })}>
                                 <option></option>
@@ -253,19 +226,17 @@ export class ProfileEditor extends React.Component {
                 </div>
             </div>
             <br />
-            Prefer night classes?
-            <div className="form-check">
-                <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked/>
-                <label className="form-check-label" for="exampleRadios1">
-                    Yes
-                </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"/>
-                <label className="form-check-label" for="exampleRadios2">
-                    No
-                </label>
-            </div>
+            <div className="form-group">
+                        <label htmlFor="exampleFormControlSelect1">Prefer Night Classes?</label>
+                        <select className="form-control" 
+                                id="exampleFormControlSelect1"
+                                value={this.state.preferNight}
+                                onChange={event => this.setState({ preferNight: event.target.value })}>
+                                <option></option>
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
+                        </select>
+                    </div>
             <br />
             <hr />
             <br />

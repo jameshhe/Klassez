@@ -10,12 +10,12 @@ import ScheduleSelect from "./scheduleSelect";
 import { useSelector } from 'react-redux';
 import axios from 'axios'
 import { useLocation } from 'react-router-dom';
+import {ClassRepository} from '../../api/classRepository'
 
 const Schedule = () => {
     const store = useSelector(state => state.auth)
-    console.log(store.user.id)
     const location = useLocation()
-    console.log(location)
+    const classRepository = new ClassRepository()
 
 
     const currentDate = Date.now()
@@ -41,32 +41,42 @@ const Schedule = () => {
     ]);
 
     // fetch classes from database
-    const URL = "http://localhost:8080/api/classes/"
+    const URL = "http://localhost:8080/api/schedules/"
     useEffect(() => {
         const fetchClasses = async () => {
             await axios.get(URL+store.user.id)
                 .then(res => {
-                    const allClasses = res.data
-                    const myClasses = []
-                    allClasses.map(newClass => {
-                        console.log(newClass)
-                        const starts = newClass.timeStart.split(':')
-                        const ends = newClass.timeEnd.split(':')
-                        console.log(starts, ends)
-                        const myClass = {
-                            startDate: new Date(year, month, date, starts[0], starts[1]),
-                            endDate: new Date(year, month, date, ends[0], ends[1]),
-                            title: newClass.classCode,
-                            rRule: `BYDAY=${newClass.days}`,
-                            checked: true
+                    let allClasses = []
+                    
+                    if(res.data[0].classesList){
+                        let classList = (res.data[0].classesList).split(', ')
+                        for(var k = classList.length - 1; k >=0; k-- ){
+                            classRepository.getClass(parseInt(classList[k]))
+                            .then((tClass) => {
+                                allClasses.push(tClass)
+
+                                const myClasses = []
+                                allClasses.map(newClass => {
+                                    const starts = newClass.timeStart.split(':')
+                                    const ends = newClass.timeEnd.split(':')
+                                    const myClass = {
+                                        startDate: new Date(year, month, date, starts[0], starts[1]),
+                                        endDate: new Date(year, month, date, ends[0], ends[1]),
+                                        title: newClass.classCode,
+                                        rRule: `BYDAY=${newClass.days}`,
+                                        checked: true
+                                    }
+                                    myClasses.push(myClass)
+                                })
+                                setClasses(myClasses)
+                            })
                         }
-                        myClasses.push(myClass)
-                    })
-                    console.log(myClasses)
-                    setClasses(myClasses)
+                    }
+
+                    
                 })
         }
-        if(!location.state.selectedClasses)
+        if(!location.state || !location.state.selectedClasses)
             fetchClasses()
         else{
             const allClasses = location.state.selectedClasses
@@ -75,7 +85,6 @@ const Schedule = () => {
                 console.log(newClass)
                 const starts = newClass.timeStart.split(':')
                 const ends = newClass.timeEnd.split(':')
-                console.log(starts, ends)
                 const myClass = {
                     startDate: new Date(year, month, date, starts[0], starts[1]),
                     endDate: new Date(year, month, date, ends[0], ends[1]),

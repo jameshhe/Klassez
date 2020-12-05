@@ -14,14 +14,11 @@ export class ProfilePage extends React.Component {
         firstName: '',
         lastName: '',
         profilePic: '',
-        year: '',
+        gradYear: '',
         major: '',
-        minor: '',
-        concentration: '',
-        classification: '',
-        preferredStart: '',
-        preferredEnd:'',
-        preferNight:''        
+        timeStart: '',
+        timeEnd:'',
+        openToNightClasses:''        
     }
 
     componentDidMount(){
@@ -51,21 +48,17 @@ export class ProfilePage extends React.Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-3 ml-4">
-                            {/* change this back to {this.state.profilePic} */}
-                            <img className="img-fluid" src= { `https://bloom-obgyn.com/wp-content/uploads/2016/09/dummy-profile-pic.png` } width="200" height="200" alt = "profilePicture"/>
+                            <img className="img-fluid" src= { `https://bloom-obgyn.com/wp-content/uploads/2016/09/dummy-profile-pic.png` } alt = "Profile Picture"/>
                         </div>
-                        <div>
-                            <br />
-                            {/* //take out hard code later */}
-                            <h2 className="font-weight-bold">{ this.state.name } - Junior{ this.state.year }</h2><br />
+                        <div className="ml-3">
+                            <br /><br />
+                            <h2 className="font-weight-bold">{ this.state.name } - c/o { this.state.gradYear }</h2><br />
                             <h4 className="font-weight-light">Major: { this.state.major }</h4>
-                            <h4 className="font-weight-light">Minor: { this.state.minor }</h4>
-                            <h6 className="font-weight-light">Concentration: { this.state.minor }</h6>
                             <br></br><br/>
                         </div>
                         
                     </div>
-                    <br />
+                    <br /><br />
                     <div className="row ml-4">
                         <table className="table table-striped">
                             <thead>
@@ -77,9 +70,9 @@ export class ProfilePage extends React.Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                <td>{ this.state.preferredStart }</td>
-                                <td>{ this.state.preferredEnd }</td>
-                                <td>{ this.state.preferNight }</td>
+                                <td>{ this.state.timeStart }</td>
+                                <td>{ this.state.timeEnd }</td>
+                                <td>{ this.state.openToNightClasses }</td>
                                 </tr>
                             </tbody>
                         </table>

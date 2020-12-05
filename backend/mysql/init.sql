@@ -57,6 +57,8 @@ CREATE TABLE Schedules (
 CREATE TABLE Students (
   studentID int NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
+  preferredTimesStart time NOT NULL,
+  preferredTimesEnd time NOT NULL,
   gradYear varchar(4) DEFAULT NULL,
   major varchar(45) NOT NULL,
   openToNightClasses tinyint(1) DEFAULT NULL,
@@ -118,14 +120,14 @@ insert into Instructors (name) values('Ryan Red');
 insert into Instructors (name) values('Gloria Green');
 
 -- classes have id's that start with 4
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(1, 'MWF', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 30);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(2, 'TuTh', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 20);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(3, 'MWF', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 10);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(4, 'TuTh', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 20);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(5, 'MWF', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(6, 'TuTh', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(1, 'MW', '12:00:00', '13:20:00', 'CS 1342', 'Intro to coding','Computer Science', 5);
-insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(2, 'TuTh','08:30:00', '10:00:00', 'CS 1342', 'Intro to coding', 'Computer Science', 15);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(1, 'MO,WE,FR', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 30);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(2, 'TU,TH', '10:00:00', '11:00:00', 'CS 3330', 'Databases', 'Computer Science', 20);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(3, 'MO,WE,FR', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 10);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(4, 'TU,TH', '12:00:00', '14:00:00', 'MATH 1022', 'Algebra', 'Math', 20);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(5, 'MO,WE,FR', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(6, 'TU,TH', '10:00:00', '12:00:00', 'ART 4230', 'Painting 4', 'Arts', 40);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(1, 'MO,WE', '12:00:00', '13:20:00', 'CS 1342', 'Intro to coding','Computer Science', 5);
+insert into Classes (instructorID, days, timeStart, timeEnd, classCode, className, department, seatsRemaining) values(2, 'TU,TH','08:30:00', '10:00:00', 'CS 1342', 'Intro to coding', 'Computer Science', 15);
 
 INSERT INTO ClassReviews VALUES 
 	(1, 'CS 1342', 'A lot of homework', 3, 1),
