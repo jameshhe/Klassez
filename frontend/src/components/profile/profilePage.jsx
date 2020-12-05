@@ -26,6 +26,7 @@ export class ProfilePage extends React.Component {
     }
 
     componentDidMount(){
+        console.log(this.user.id, this.user.type)
         this.profileRepository.getProfile(this.user.id, this.user.type)
         .then(profile => {
             let userProfile = profile[0]

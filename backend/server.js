@@ -164,20 +164,20 @@ router.get('/classes', function(req, res) {
 
 // @route   GET api/classes/:c=instructorName
 // @desc    GET class info by instructorName
-router.get('/classes/:instructorName', function(req, res) {
-    mysql.createPool.getConnection((err, con) => {
-        if (err) {
-            res.status(400).send('Problem obtaining MySQL connection')
-        } else {
-            var instructorName = req.params.instructorName;
-            con.query("SELECT * FROM Classes INNER JOIN Instructors ON Classes.instructorID = Instructors.instructorID WHERE instructorName = ?", instructorName, function(err, result, fields) {
-                con.release()
-                if (err) throw err;
-                res.end(JSON.stringify(result)); // Result in JSON format
-            });
-        }
-    })
-});
+// router.get('/classes/:instructorName', function(req, res) {
+//     con.getConnection((err, con) => {
+//         if (err) {
+//             res.status(400).send('Problem obtaining MySQL connection')
+//         } else {
+//             var instructorName = req.params.instructorName;
+//             con.query("SELECT * FROM Classes INNER JOIN Instructors ON Classes.instructorID = Instructors.instructorID WHERE instructorName = ?", instructorName, function(err, result, fields) {
+//                 con.release()
+//                 if (err) throw err;
+//                 res.end(JSON.stringify(result)); // Result in JSON format
+//             });
+//         }
+//     })
+// });
 
 /* ---------------------------------------------------------------- */
 // @route   GET api/instructor/:id
