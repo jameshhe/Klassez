@@ -79,5 +79,5 @@ export const logoutUser = () => dispatch => {
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
-    window.location = 'http://localhost:3000/'
+    window.location = 'http://3.138.183.180:3000'
 };
