@@ -6,19 +6,25 @@ export class TeacherRecommendations extends React.Component{
     reviewTeacherRepository = new ReviewTeacherRepository();
 
     state ={
-
+        IntructorReview: null
     };
 
+    instructorID = +this.props.match.params.teacherID;
+
     componentDidMount(){
-        const instructorID = +this.props.match.params.instructorID;
-        if(instructorID)
+        if(this.instructorID)
         {
-            this.reviewTeacherRepository.getReview(instructorID)
-                .then( IntructorReview => this.setState({ IntructorReview }));
+            this.reviewTeacherRepository.getReview(this.instructorID)
+                .then( IntructorReview => {
+                    console.log(IntructorReview)
+                    this.setState({ IntructorReview })
+                });
          }
     }  
     
     render(){
+        if(!this.state.IntructorReview)
+            return <h1>Loading Teacher Review...</h1>
         return<>
             <ul className="list-group">
                 {

@@ -64,7 +64,10 @@ const ClassDetails = () => {
                     </div>
 
                     <div className="row">
+                    <div className="m-0">
+                        <h1 className="display-4 my-0">{instructor}</h1>
                         <p className="ml-1">There are <b>{seats}</b> seats remaining!</p>
+                        </div>
                     </div>
                     {
                         (shouldShow) ? 
