@@ -1,21 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import axios from 'axios'
+import store from '../store'
 
 const ClassDetails = () => {
     const [classDetail, setClassDetail] = useState({})
 
     // get class id from params
     let {classId} = useParams()
-    console.log({classId}.classId)
 
-    const URL = 'http://localhost:8080/api/classes/'
+    const URL = 'http://3.138.183.180:8080/api/classes/'
 
     useEffect(() => {
         const getClassDetails = async () => {
             await axios.get(URL + {classId}.classId)
                 .then(res => {
-                    console.log(res.data)
                     const data = res.data[0]
                     const classData = {
                         class_name: data.className,
@@ -55,6 +54,12 @@ const ClassDetails = () => {
                     <div className="row">
                         <p className="ml-1">There are <b>{classDetail.seats}</b> seats remaining!</p>
                     </div>
+                    {
+                        (shouldShow) ? 
+                        <Link className='btn btn-primary' to={`/classes/edit/${{classId}.classId}`}>Edit Class</Link> :
+                        <></>
+                    }
+                    
                 </div>
             
             </div>

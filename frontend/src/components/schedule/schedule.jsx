@@ -41,7 +41,7 @@ const Schedule = () => {
     ]);
 
     // fetch classes from database
-    const URL = "http://localhost:8080/api/classes/"
+    const URL = "http://3.138.183.180:8080/api/classes/"
     useEffect(() => {
         const fetchClasses = async () => {
             await axios.get(URL+store.user.id)

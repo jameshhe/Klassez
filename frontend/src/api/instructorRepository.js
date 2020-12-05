@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export class StudentRepository {
-    url = 'http://3.138.183.180:8080/api/students';
+export class InstructorRepository {
+    url = 'http://3.138.183.180:8080/api/instructor';
 
-    getStudents() {
+    getInstructors() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}`)
+            axios.get(`${this.url}s`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
@@ -14,9 +14,9 @@ export class StudentRepository {
         })
     }
 
-    getStudent(studentId) {
+    getInstructor(instructorId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/${studentId}`)
+            axios.get(`${this.url}/${instructorId}`)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)

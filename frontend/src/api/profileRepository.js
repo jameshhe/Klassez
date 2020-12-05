@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export class ProfileRepository {
 
-    url = 'http://localhost:8080/api';
+    url = 'http://3.138.183.180:8080/api';
 
     getProfile(userID, userType) {
         return new Promise((resolve, reject) => {

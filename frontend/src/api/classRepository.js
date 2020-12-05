@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export class ClassRepository {
-    url = 'http://localhost:8080/api';
+    url = 'http://3.138.183.180:8080/api';
 
     getClasses() {
         return new Promise((resolve, reject) => {
@@ -28,6 +28,17 @@ export class ClassRepository {
     addClass(body) {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}/addclass`, body)
+                .then(x => resolve(x.data))
+                .catch(e => {
+                    alert(e)
+                    reject()
+                })
+        })
+    }
+
+    editClass(classId, body) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/updateclass/${classId}`, body)
                 .then(x => resolve(x.data))
                 .catch(e => {
                     alert(e)
