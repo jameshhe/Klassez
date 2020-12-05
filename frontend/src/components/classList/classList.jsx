@@ -35,7 +35,7 @@ export class ClassList extends React.Component{
             <ul>
                 {
                     (this.user.type == 2) ? 
-                    <Link className='btn btn-primary' to='/classes/new'>Add Class</Link> :
+                    <Link className='btn btn-primary' to='/classes/teacher/new'>Add Class</Link> :
                     <></>
                 }
             

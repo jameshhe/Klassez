@@ -1,10 +1,13 @@
 import React from 'react'
 import "./classSelector.css"
 import {ClassRepository} from '../../api/classRepository'
-import {Link, Redirect} from 'react-router-dom'
+import {StudentRepository} from '../../api/studentRepository'
+import store from '../../store'
 
 export class ClassSelector extends React.Component{
     classRepository = new ClassRepository()
+    studentRepository = new StudentRepository()
+    user = store.getState().auth.user
     previous = ""
 
     constructor(){
@@ -15,8 +18,6 @@ export class ClassSelector extends React.Component{
         }
         this.generate = this.generate.bind(this)
     }
-
-    
 
     val_changed = false;
 
@@ -34,6 +35,33 @@ export class ClassSelector extends React.Component{
         this.setState({classes: c, selectedClasses: sc})
     }
 
+    addClass(id){
+        this.classRepository.getClass(id)
+            .then((tClass) => {
+                var sc = this.state.selectedClasses
+                var c = this.state.classes;
+
+                if(!sc){
+                    sc = [];
+                }
+
+                sc.push(tClass[0]);
+
+                var index = -1;
+
+                c.map((tempClass, i) => {
+                    if(tempClass.classID == id){
+                        index = i;
+                        return;
+                    }
+                })
+
+                c.splice(index, 1);
+                this.val_changed = true;
+                this.setState({classes: c, selectedClasses: sc})
+            })
+    }
+
     remove(x, index){
         var sc = this.state.selectedClasses
         var c = this.state.classes;
@@ -44,23 +72,93 @@ export class ClassSelector extends React.Component{
         this.setState({classes: c, selectedClasses: sc})
     }
 
+    update(body){
+        this.studentRepository.updateSchedule(this.user.id, body)
+        .then(() => {
+            let newClasses = [];
+            // var classesToSend = this.state.selectedClasses
+
+            this.state.selectedClasses.map(myClass => {
+                console.log(myClass)
+                var dayArr = myClass.days.split(',');
+
+                if(dayArr[dayArr.length - 1] == "FE"){
+                    dayArr[dayArr.length - 1] = "FR"
+                }
+
+                var days = dayArr.join(',')
+                myClass.days = days
+                newClasses.push(myClass)
+            })
+
+            console.log(newClasses)
+
+            this.props.history.push({
+                pathname: '/schedule',
+                state: { selectedClasses: newClasses}
+            })
+        })
+    }
+
     generate = () => {
-        this.props.history.push({
-            pathname: '/schedule',
-            state: { selectedClasses: this.state.selectedClasses }
-          })
-          
-        // return <Redirect to={{pathname: '/schedule', state: {selectedClasses: this.state.selectedClasses}}}></Redirect>
+        if((this.user.id)){
+            var selectClasses = "";
+
+            this.state.selectedClasses.map((tempClass) => {
+                selectClasses += (tempClass.classID+ ", ")
+            })
+
+            if(selectClasses)
+                selectClasses = selectClasses.slice(0, -2)
+
+            var body = {
+                studentID: this.user.id,
+                numHours: (3 * this.state.selectedClasses.length),
+                semester: "Spring 2021",
+                classesList: selectClasses
+            }
+
+            this.studentRepository.addSchedule(body)
+            .then((e) => {
+                if(e.response){
+                    this.update(body)
+                } else{
+                    this.props.history.push({
+                        pathname: '/schedule',
+                        state: { selectedClasses: this.state.selectedClasses }
+                    })
+                }
+            })
+            
+        } else{
+            this.props.history.push({
+                pathname: '/schedule',
+                state: { selectedClasses: this.state.selectedClasses }
+              })
+        }
     }
 
     componentDidMount(){
         this.classRepository.getClasses()
         .then(classes => {
-            console.log(classes)
             classes = classes.sort((x, y) => (
                 x.classCode > y.classCode ? 1 : -1)
             )
             this.setState({classes})
+            
+            if(this.user.id){
+                console.log(this.user.id)
+                this.studentRepository.getSchedule(this.user.id)
+                    .then((schedules) => {
+                        if(schedules[0] && schedules[0].classesList){
+                            classes = (schedules[0].classesList).split(',')
+                            for(var k = classes.length - 1; k >=0; k-- ){
+                                this.addClass(parseInt(classes[k]))
+                            }
+                        }
+                    })
+
+            }
         })
     }
 

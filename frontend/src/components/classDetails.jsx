@@ -6,6 +6,11 @@ import store from '../store'
 const ClassDetails = () => {
     const [classDetail, setClassDetail] = useState({})
 
+    var shouldShow = new Boolean(user)
+
+    if(shouldShow)
+        shouldShow = (user.type == 2)
+
     // get class id from params
     let {classId} = useParams()
 
@@ -33,7 +38,6 @@ const ClassDetails = () => {
         getClassDetails()
     }, []);
 
-
     return (
         <div>
             <nav className="productNav py-2 pl-3 ml-3 mb-3"><a href="#">Class Details</a> / <span className="text-secondary">{classDetail.class_name}</span></nav>
@@ -54,11 +58,12 @@ const ClassDetails = () => {
                     <div className="row">
                         <p className="ml-1">There are <b>{classDetail.seats}</b> seats remaining!</p>
                     </div>
-                    {/* {
+                    {
                         (shouldShow) ? 
                         <Link className='btn btn-primary' to={`/classes/edit/${{classId}.classId}`}>Edit Class</Link> :
                         <></>
-                    } */}
+                    }
+                    <Link className='btn btn-primary' to={`/recommendations/classes/${classId}`}>Class Reviews</Link>
                     
                 </div>
             

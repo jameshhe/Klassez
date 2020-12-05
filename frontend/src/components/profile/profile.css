@@ -13,19 +13,10 @@
   padding: .75em .2em;
 }
 
-/* h1 {
-  margin-left: 21.5em;
-  margin-top: 5em;
-} */
-
 #year {
   left: 4em;
   position: relative;
 }
-
-/* p{
-  margin-left: 14em;
-} */
 
 #major, #minor, #concentration {
   margin-left: 40em;
