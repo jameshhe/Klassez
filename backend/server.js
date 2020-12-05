@@ -152,9 +152,11 @@ router.get('/classes', function(req, res) {
         if (err) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
-            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
+            con.query("SELECT c.*,i.name AS Insturctor, pr.childClassCode AS Prerequesites FROM Classes c \
             INNER JOIN Instructors i \
-            ON c.instructorID = i.instructorID", function (err, result, fields) {
+            ON c.instructorID = i.instructorID \
+            LEFT JOIN Prerequesites pr \
+            ON c.classID = pr.classID", function (err, result, fields) {
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
@@ -173,10 +175,12 @@ router.get('/classes/:id', function(req, res) {
             res.status(400).send('Problem obtaining MySQL connection')
         } else {
             var classID = req.params.id;
-            con.query("SELECT c.*,i.name AS Insturctor FROM Classes c \
-             INNER JOIN Instructors i \
-             ON c.instructorID = i.instructorID \
-             WHERE classID = ? ", classID, function (err, result, fields) {
+            con.query("SELECT c.*,i.name AS Insturctor, pr.childClassCode AS Prerequesites FROM Classes c \
+            INNER JOIN Instructors i \
+            ON c.instructorID = i.instructorID \
+            LEFT JOIN Prerequesites pr \
+            ON c.classID = pr.classID \
+            WHERE classID = ? ", classID, function (err, result, fields) {
                 con.release()
                 if (err) throw err;
                 res.end(JSON.stringify(result)); // Result in JSON format
